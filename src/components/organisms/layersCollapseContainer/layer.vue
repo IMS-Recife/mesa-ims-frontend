@@ -7,9 +7,13 @@ const props = defineProps<{
 }>();
 const mapStore = useMapStore();
 const choseLayer = (value: boolean) => {
+  if (props.layerName) {
+    mapStore.setNameClearLayer(props.layerName);
+  }
   mapStore.setNameClearLayer("");
   mapStore.setLayerCategory(props.layerCategory);
   mapStore.setLayerName(props.layerName);
+
   if (props.layerCategory === "uso do solo" && value) {
     showLayer("soilUsage", {
       soilCategories: [props.layerName],

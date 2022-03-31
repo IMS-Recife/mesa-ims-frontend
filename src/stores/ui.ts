@@ -19,6 +19,7 @@ type State = {
   sidebarVision: boolean;
   preConfigSidebarVision: boolean;
   infoPopupLayer: boolean;
+  resetUi: boolean;
 };
 
 export const useUIStore = defineStore("ui", {
@@ -39,6 +40,7 @@ export const useUIStore = defineStore("ui", {
     sidebarVision: false,
     preConfigSidebarVision: false,
     infoPopupLayer: false,
+    resetUi: false,
   }),
   actions: {
     toggleModal(modal: string) {
@@ -101,6 +103,9 @@ export const useUIStore = defineStore("ui", {
     },
     toggleInfoPopupLayer(payload: boolean) {
       this.infoPopupLayer = payload;
+    },
+    setResetUI(payload: boolean) {
+      this.resetUi = payload;
     },
   },
   getters: {

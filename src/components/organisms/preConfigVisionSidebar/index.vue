@@ -56,29 +56,19 @@ const mapsLayers = reactive([
 
 const sliderValues = [
   {
-    number: 2,
+    number: 1,
     current: true,
+    label: "1km",
+  },
+  {
+    number: 2,
+    current: false,
     label: "2km",
   },
   {
-    number: 4,
+    number: 3,
     current: false,
     label: "3km",
-  },
-  {
-    number: 6,
-    current: false,
-    label: "5km",
-  },
-  {
-    number: 8,
-    current: false,
-    label: "8km",
-  },
-  {
-    number: 10,
-    current: false,
-    label: "10km",
   },
 ];
 </script>
@@ -127,11 +117,11 @@ const sliderValues = [
             class="content-slider"
           >
             <Slider
-              :step="2"
+              :step="1"
               :context="sliderValues"
-              :min="2"
-              :max="sliderValues.length * 2"
-              :selectedValue="2"
+              :min="1"
+              :max="sliderValues.length * 1"
+              :selectedValue="1"
               @update="mapStore.setRadius(Number($event))"
             />
           </div>

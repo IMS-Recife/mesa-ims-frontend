@@ -18,6 +18,7 @@ const zones = ref<any>([]);
 
 onBeforeMount(() => {
   getProjectForName("Parque Capibaribe");
+  mapStore.clearMarkers(mapStore.isClearMap);
 });
 
 watch(

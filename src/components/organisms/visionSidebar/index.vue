@@ -72,14 +72,14 @@ const layersCategories = [
       },
     ],
   },
-  {
-    name: "Edificações",
-    layers: [
-      {
-        name: "Cheios x Vazios",
-      },
-    ],
-  },
+  // {
+  //   name: "Edificações",
+  //   layers: [
+  //     {
+  //       name: "Cheios x Vazios",
+  //     },
+  //   ],
+  // },
 ];
 
 const mapsLayers = reactive([

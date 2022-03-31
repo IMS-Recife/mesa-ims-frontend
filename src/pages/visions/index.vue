@@ -18,6 +18,12 @@ onBeforeMount(() => {
   setTimeout(() => {
     mapStore.setNameClearZone("Zona Parque");
   }, 300);
+  mapStore.setSearchNameLayer("");
+  mapStore.setAreaCurrent(0);
+  mapStore.setNameClearLayer(mapStore.searchNameLayer);
+  mapStore.setResultCountLayerRender([]);
+  mapStore.setResultLayerCurrentVision([]);
+  mapStore.clearMarkers(mapStore.isClearMap);
 });
 </script>
 

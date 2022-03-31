@@ -24,7 +24,11 @@ function fetchSigninSocial(social: string) {
           .then((response: any) => {
             if (response.status === 200) {
               auth.setDataSocialFacebook(response.data.token.accessToken);
-              router.push("/home");
+
+              ui.setResetUI(true);
+              setTimeout(() => {
+                router.push("/home");
+              }, 300);
             }
           })
           .catch((err: any) => {
@@ -51,7 +55,10 @@ function fetchSigninSocial(social: string) {
               .then((response: any) => {
                 if (response.status === 200) {
                   auth.setDataSocialFacebook(response.data.token.accessToken);
-                  router.push("/home");
+                  ui.setResetUI(true);
+                  setTimeout(() => {
+                    router.push("/home");
+                  }, 300);
                 }
               })
               .catch((err: any) => {
@@ -93,7 +100,10 @@ function storeTokenGoogle() {
     .then((response: any) => {
       if (response.status === 200) {
         auth.setDataSocialGoogle(response.data.token.accessToken);
-        router.push("/home");
+        ui.setResetUI(true);
+        setTimeout(() => {
+          router.push("/home");
+        }, 300);
       }
     })
     .catch((err: any) => {
@@ -120,7 +130,10 @@ onBeforeMount(() => {
   gapi.value = window.gapi;
 
   if (auth.token.accessToken) {
-    router.push("/home");
+    ui.setResetUI(true);
+    setTimeout(() => {
+      router.push("/home");
+    }, 300);
   }
 });
 
@@ -171,6 +184,7 @@ function fetchSignin(form: any) {
   signin({ email: formForSend.email, password: formForSend.password })
     .then(({ data }: any) => {
       auth.setData(data);
+      ui.setResetUI(true);
       router.push({
         name: "home",
       });

@@ -56,8 +56,18 @@ const menus = readonly([
 ]);
 
 function logoutSystem() {
-  auth.clearStore();
-  mapStore.setIsDisabledMap(false);
+  mapStore.setAreaCurrent(0);
+  mapStore.setNameClearLayer(mapStore.searchNameLayer);
+  mapStore.setResultCountLayerRender([]);
+  mapStore.setResultLayerCurrentVision([]);
+  mapStore.setNameClearZone("");
+  mapStore.setFilterNameLayer([]);
+  setTimeout(() => {
+    mapStore.setNameClearZone("Zona Parque");
+    auth.clearStore();
+    mapStore.setIsDisabledMap(false);
+    mapStore.clearMarkers(mapStore.isClearMap);
+  }, 300);
 }
 
 const userActions = readonly([

@@ -55,7 +55,11 @@ watch(
   () => auth.expired,
   (value) => {
     if (value) {
-      router.replace("/signin");
+      ui.toggleLoading(true);
+      setTimeout(() => {
+        router.push("/signin");
+        ui.toggleLoading(false);
+      }, 1000);
     }
   },
   { immediate: true }

@@ -28,6 +28,8 @@ onBeforeMount(async () => {
   mapStore.setSearchNameLayer("");
   mapStore.setAreaCurrent(0);
   mapStore.setNameClearLayer(mapStore.searchNameLayer);
+  mapStore.setResultCountLayerRender([]);
+  mapStore.setResultLayerCurrentVision([]);
 
   const VT = app?.appContext.config.globalProperties.$VT;
 
@@ -71,7 +73,7 @@ onBeforeMount(async () => {
           });
           mapStore.setRadius(0);
           setTimeout(() => {
-            mapStore.setRadius(2);
+            mapStore.setRadius(1);
           }, 10);
         });
       } else {
@@ -324,6 +326,8 @@ onBeforeMount(async () => {
               });
 
             featCollectionPointVector.features.push(el);
+
+            contador = responseShowLayer[value].length;
           } else {
             const layer = L.geoJSON(el.geometry as any);
             layer.setStyle({ opacity: 0, fillOpacity: 0, stroke: false });
@@ -451,12 +455,13 @@ onBeforeMount(async () => {
 
           function renderMap() {
             ui.toggleLoading(false);
-            mapStore.setSearchNameLayer(undefined);
+            mapStore.setSearchNameLayer("");
           }
           renderMap();
         });
       }
-    }
+    },
+    { immediate: false, deep: false }
   );
 
   watch(
