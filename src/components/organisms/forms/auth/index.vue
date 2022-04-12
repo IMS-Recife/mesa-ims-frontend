@@ -26,9 +26,8 @@ function fetchSigninSocial(social: string) {
               auth.setDataSocialFacebook(response.data.token.accessToken);
 
               ui.setResetUI(true);
-              setTimeout(() => {
-                router.push("/home");
-              }, 300);
+
+              router.push("/home");
             }
           })
           .catch((err: any) => {
@@ -56,9 +55,7 @@ function fetchSigninSocial(social: string) {
                 if (response.status === 200) {
                   auth.setDataSocialFacebook(response.data.token.accessToken);
                   ui.setResetUI(true);
-                  setTimeout(() => {
-                    router.push("/home");
-                  }, 300);
+                  router.push("/home");
                 }
               })
               .catch((err: any) => {
@@ -101,9 +98,7 @@ function storeTokenGoogle() {
       if (response.status === 200) {
         auth.setDataSocialGoogle(response.data.token.accessToken);
         ui.setResetUI(true);
-        setTimeout(() => {
-          router.push("/home");
-        }, 300);
+        router.push("/home");
       }
     })
     .catch((err: any) => {
@@ -131,9 +126,7 @@ onBeforeMount(() => {
 
   if (auth.token.accessToken) {
     ui.setResetUI(true);
-    setTimeout(() => {
-      router.push("/home");
-    }, 300);
+    router.push("/home");
   }
 });
 

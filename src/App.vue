@@ -43,6 +43,7 @@ function facebookInit(): void {
   });
 }
 router.beforeEach((to) => validateAuth(to));
+
 onMounted(async () => {
   await nextTick();
   auth.setKeepOnline(true);
@@ -50,6 +51,7 @@ onMounted(async () => {
   validateAuth(router.currentRoute.value);
   facebookInit();
   useGoogle();
+  ui.setResetUI(true);
 });
 watch(
   () => auth.expired,

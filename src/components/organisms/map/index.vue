@@ -25,7 +25,7 @@ const tilesPoint = ref<any>();
 
 onBeforeMount(async () => {
   const L = await import("leaflet");
-  mapStore.setSearchNameLayer("");
+  mapStore.setSearchNameLayer(undefined);
   mapStore.setAreaCurrent(0);
   mapStore.setNameClearLayer(mapStore.searchNameLayer);
   mapStore.setResultCountLayerRender([]);
@@ -315,6 +315,11 @@ onBeforeMount(async () => {
               .on("mouseover", (event: any) => {
                 L.marker(event.latlng, {
                   className: "marker-map",
+                  icon: L.icon({
+                    iconUrl: `https://cdn-icons-png.flaticon.com/32/3892/3892652.png`,
+                    iconAnchor: [12, 36],
+                    popupAnchor: [1, -34],
+                  }),
                 } as any).addTo(mapAPI);
               })
               .on("mouseout", (event: any) => {
@@ -455,13 +460,13 @@ onBeforeMount(async () => {
 
           function renderMap() {
             ui.toggleLoading(false);
-            mapStore.setSearchNameLayer("");
+            mapStore.setSearchNameLayer(undefined);
           }
           renderMap();
         });
       }
     },
-    { immediate: false, deep: false }
+    { immediate: false, deep: false, flush: "post" }
   );
 
   watch(

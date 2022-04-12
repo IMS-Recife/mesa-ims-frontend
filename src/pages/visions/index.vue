@@ -12,18 +12,26 @@ const mapStore = useMapStore();
 const ui = useUIStore();
 
 onBeforeMount(() => {
+  ui.toggleLoading(true);
   ui.toggleSidebarVision(true);
   ui.togglePreConfigSidebarVision(true);
   mapStore.setNameClearZone("");
   setTimeout(() => {
     mapStore.setNameClearZone("Zona Parque");
-  }, 300);
+    ui.toggleLoading(false);
+  }, 200);
   mapStore.setSearchNameLayer("");
   mapStore.setAreaCurrent(0);
   mapStore.setNameClearLayer(mapStore.searchNameLayer);
   mapStore.setResultCountLayerRender([]);
   mapStore.setResultLayerCurrentVision([]);
   mapStore.clearMarkers(mapStore.isClearMap);
+  if (ui.resetUi) {
+    ui.setResetUI(false);
+    setTimeout(() => {
+      window.location.reload();
+    }, 300);
+  }
 });
 </script>
 

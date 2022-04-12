@@ -45,8 +45,7 @@ export async function showZona(name: any, projectId: any) {
 
 export async function callLayer(params: LayerParams) {
   const ui = useUIStore();
-
-  return apiPostLayerGeoJson(params)
+  return await apiPostLayerGeoJson(params)
     .then((response) => {
       return response.data;
     })

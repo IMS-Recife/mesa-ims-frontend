@@ -59,11 +59,7 @@ const choseLayer = (value: boolean) => {
 
 <template>
   <Label class="layer-label">
-    <Checkbox
-      :value-model="false"
-      @click:value="choseLayer($event)"
-      @update:value="choseLayer($event)"
-    />
+    <Checkbox @update:value="choseLayer($event)" />
 
     <span
       class="iconify layer-icon"

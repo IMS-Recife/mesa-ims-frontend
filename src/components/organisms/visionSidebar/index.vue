@@ -117,6 +117,27 @@ const mapsLayers = reactive([
     checked: false,
   },
 ]);
+
+function newVision() {
+  setTimeout(() => {
+    window.location.reload();
+  }, 300);
+}
+
+function dicionary(label: string) {
+  switch (label) {
+    case "Corredores":
+      return "Corredores ambientais";
+      break;
+    case "Macrozona":
+      return "Limites legais";
+      break;
+
+    default:
+      return label;
+      break;
+  }
+}
 </script>
 <template>
   <div class="sidebar-vision-layout">
@@ -137,10 +158,12 @@ const mapsLayers = reactive([
         link="http://parquecapibaribe.org/"
       />
       <div v-if="route.path === '/projects'" class="content-zones">
-        <Label class="text-brand-secondary-medium">Visualizar por Zona </Label>
+        <Label class="text-brand-secondary-medium"
+          >Visualizar por Categorias
+        </Label>
         <Toggle
           v-for="item in projectStore.projectZones"
-          :text-label="item.label"
+          :text-label="dicionary(item.label)"
           @update:value="item.function"
         />
       </div>
@@ -161,10 +184,7 @@ const mapsLayers = reactive([
       <Button
         v-if="route.path === '/visions'"
         class="-outlined -block mb-4"
-        @click="
-          ui.togglePreConfigSidebarVision(true),
-            mapStore.clearMarkers(mapStore.isClearMap)
-        "
+        @click="newVision()"
       >
         Nova Visão
         <i class="icon-right">

@@ -46,9 +46,6 @@ type State = {
 };
 
 export const useMapStore = defineStore("map", {
-  persist: {
-    enabled: true,
-  },
   state: (): State => ({
     tileLayer: {
       accessToken: `pk.eyJ1IjoiaXRhbG9iYXJyb3MxIiwiYSI6ImNrd2wxMzA1bDF4b2EycHFpMXFxczcxMGgifQ.26TUCPnafdyBqowYP_kDKA`,
@@ -305,6 +302,7 @@ export const useMapStore = defineStore("map", {
     getPolyline: (state) => state.polyline,
     getPoint: (state) => state.point,
     getRadius: (state) => state.radius,
+    getSearchNameLayer: (state) => state.searchNameLayer,
   },
 });
 

@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useUIStore } from "@/stores/ui";
 import { registerUser } from "@services/register";
+import { useAuthStore } from "@/stores/auth";
+const auth = useAuthStore();
 
 const ui = useUIStore();
 
@@ -70,6 +72,8 @@ function createUser() {
     .then((response) => {
       if (response.status === 201) {
         ui.changeComponent("feedbackCreateUser");
+
+        auth.setData(response.data);
       }
     })
     .catch((err: any) => {

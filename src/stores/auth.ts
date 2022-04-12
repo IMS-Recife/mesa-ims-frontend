@@ -73,22 +73,27 @@ export const useAuthStore = defineStore("auth", {
       const now = new Date().getTime() / 1000;
       if (exp < now && !this.keepOnline) {
         clearInterval(intervalFn);
-        this.clearStore();
         mapStore.setIsDisabledMap(false);
       }
     },
 
-    async clearStore() {
+    clearStore() {
       this.setKeepOnline(false);
       const gapi = window.gapi;
       const fb = window.FB;
 
-      let auth2 = gapi.auth2.getAuthInstance();
-      auth2.signOut().then(function () {});
-      auth2.disconnect();
+      if (gapi) {
+        let auth2 = gapi.auth2.getAuthInstance();
+        if (auth2) {
+          auth2.signOut().then(function () {});
+          auth2.disconnect();
+        }
+      }
 
-      fb.logout();
-      gapi.auth2.getAuthInstance().signOut();
+      if (fb.getUserID()) {
+        fb.logout();
+      }
+
       this.user = {
         _id: "",
         email: "",
@@ -108,7 +113,7 @@ export const useAuthStore = defineStore("auth", {
 
       setTimeout(() => {
         this.setExpired(false);
-      }, 800);
+      }, 400);
     },
   },
 });

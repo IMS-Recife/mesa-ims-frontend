@@ -15,9 +15,13 @@ type FetchParams = {
   method?: AxiosRequestConfig["method"];
 };
 
+let time = 0;
+
 function requestInterceptor(config: any) {
   const auth = useAuthStore();
   const ui = useUIStore();
+
+  time++;
 
   ui.toggleLoading(true);
 

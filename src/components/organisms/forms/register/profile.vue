@@ -70,6 +70,9 @@ function sendForFinish() {
       .then((response) => {
         if (response.status === 201) {
           ui.changeComponent("feedbackCreateUser");
+
+          auth.setDataSocialGoogle(response.data.token.accessToken);
+
           router.push({
             name: "role",
             params: {
@@ -96,6 +99,8 @@ function sendForFinish() {
       .then((response) => {
         if (response.status === 201) {
           ui.changeComponent("feedbackCreateUser");
+
+          auth.setDataSocialFacebook(response.data.token.accessToken);
           router.push({
             name: "role",
             params: {

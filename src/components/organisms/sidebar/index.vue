@@ -2,7 +2,7 @@
 import { useAuthStore } from "@/stores/auth";
 import { useUIStore } from "@/stores/ui";
 import { useMapStore } from "@/stores/map";
-import { ref } from "vue";
+import { ref, onUnmounted } from "vue";
 
 const ui = useUIStore();
 const auth = useAuthStore();
@@ -56,18 +56,11 @@ const menus = readonly([
 ]);
 
 function logoutSystem() {
-  mapStore.setAreaCurrent(0);
-  mapStore.setNameClearLayer(mapStore.searchNameLayer);
-  mapStore.setResultCountLayerRender([]);
-  mapStore.setResultLayerCurrentVision([]);
-  mapStore.setNameClearZone("");
-  mapStore.setFilterNameLayer([]);
-  setTimeout(() => {
-    mapStore.setNameClearZone("Zona Parque");
-    auth.clearStore();
-    mapStore.setIsDisabledMap(false);
-    mapStore.clearMarkers(mapStore.isClearMap);
-  }, 300);
+  console.log("LOGOUT SYSTEM");
+  mapStore.setNameClearZone("Zona Parque");
+  auth.clearStore();
+  mapStore.setIsDisabledMap(false);
+  mapStore.clearMarkers(mapStore.isClearMap);
 }
 
 const userActions = readonly([
