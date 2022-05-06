@@ -18,6 +18,8 @@
     "@vueuse/core": "^7.0.1",
     "@vueuse/head": "^0.7.2",
     "axios": "^0.24.0",
+    "deck.gl": "^8.7.8",
+    "deck.gl-leaflet": "^1.2.1",
     "geojson-vt": "^3.2.1",
     "leaflet": "^1.7.1",
     "leaflet-geojson-vt": "^1.1.0",
