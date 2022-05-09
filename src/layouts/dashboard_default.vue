@@ -6,10 +6,10 @@ onMounted(() => {
 </script>
 <template>
   <div>
-    <div class="w-full overflow-hidden">
+    <div class="w-full h-full overflow-hidden relative">
       <Dashboard />
       <Map v-if="ready" class="map-dashboard" />
-      <router-view />
+      <router-view class="teste"></router-view>
     </div>
   </div>
 </template>

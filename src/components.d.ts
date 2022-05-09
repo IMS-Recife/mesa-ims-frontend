@@ -21,6 +21,7 @@ declare module 'vue' {
     ForgotPassword: typeof import("./components/organisms/forms/forgotPassword/index.vue")["default"];
     'Ic:roundCheckCircleOutline': typeof import("~icons/ic/round-check-circle-outline")["default"];
     Info: typeof import('./components/atoms/texts/info.vue')['default']
+    InfoModal: typeof import('./components/molecules/modals/info-modal/index.vue')['default']
     InfoPopup: typeof import('./components/molecules/info-popup/index.vue')['default']
     Input: typeof import('./components/atoms/input/index.vue')['default']
     Label: typeof import('./components/atoms/texts/support/label.vue')['default']
