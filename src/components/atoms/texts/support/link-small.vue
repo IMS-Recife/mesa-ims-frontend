@@ -1,9 +1,18 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  interface Props {
+    href: string;
+  }
+  const props = withDefaults(defineProps<Props>(), {
+    href: "/"
+  });
+</script>
 
 <template>
-  <p class="link-small">
-    <slot></slot>
-  </p>
+  <router-link :to="props.href">
+    <p class="link-small">
+      <slot></slot>
+    </p>
+  </router-link>
 </template>
 
 <style lang="scss" scoped>
