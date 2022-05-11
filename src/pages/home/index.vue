@@ -12,6 +12,20 @@ meta:
   const mapStore = useMapStore();
   const menuShowing = ref(false);
   const aboutIMSModalShowing = ref(false);
+  const projectListModalShowing = ref(false);
+
+  const projects = [
+      {
+        _id: '1',
+        name: "Parque Capibaribe",
+        created_at: "01/02/2022"
+      },
+      {
+        _id: '2',
+        name: "Parque Capibaribe",
+        created_at: "01/02/2022"
+      }
+    ]
 
   onBeforeMount(async () => {
     mapStore.clearMarkers(mapStore.isClearMap);
@@ -30,6 +44,11 @@ meta:
   const showAboutIMSModal = (): void => {
     menuShowing.value = false;
     aboutIMSModalShowing.value = true;
+  }
+
+  const showProjectListModal = (): void => {
+    menuShowing.value = false;
+    projectListModalShowing.value = true;
   }
 
   const onBurgerButtonClick = (): void => {
@@ -64,20 +83,24 @@ meta:
         v-if="menuShowing"
         @click="showAboutIMSModal"
       >
-          <span 
-            class="iconify"
-            data-icon="mdi:information"
-            data-width="20"
-            data-height="20"
-          />
+        <span 
+          class="iconify"
+          data-icon="mdi:information"
+          data-width="20"
+          data-height="20"
+        />
       </button>
-      <button class="modal-button" v-if="menuShowing">
-          <span 
-            class="iconify"
-            data-icon="ps:label"
-            data-width="20"
-            data-height="20"
-          />
+      <button 
+        class="modal-button" 
+        v-if="menuShowing"
+        @click="showProjectListModal"
+      >
+        <span 
+          class="iconify"
+          data-icon="ps:label"
+          data-width="20"
+          data-height="20"
+        />
       </button>
 
       <InfoModal
@@ -96,6 +119,11 @@ meta:
           </LinkSmall>
         </template>      
       </InfoModal>
+
+      <ProjectListModal
+        v-if="projectListModalShowing"
+        :projects="projects"
+      />
     </div>
   </div>
 </template>
