@@ -9,7 +9,7 @@ onMounted(() => {
     <div class="w-full h-full overflow-hidden relative">
       <Dashboard />
       <Map v-if="ready" class="map-dashboard" />
-      <router-view class="teste"></router-view>
+      <router-view></router-view>
     </div>
   </div>
 </template>

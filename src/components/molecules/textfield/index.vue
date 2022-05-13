@@ -3,6 +3,7 @@ interface Props {
   id?: string;
   class?: string;
   label?: string;
+  placeholder?: string;
   valueModel?: string;
   error?: string;
   success?: string;
@@ -11,15 +12,18 @@ interface Props {
   icon?: string;
   type?: string;
   actionIcon?: Function;
-  required?: string;
+  required?: boolean;
   name?: string;
   index?: number;
   param?: any;
+  minWidth?: string;
+  labelColor?: "primary" | "secondary" | "tertiary";
 }
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   valueModel: "",
   actionIcon: () => console.log("actionIcon"),
   index: 0,
+  minWidth: "272px",
 });
 const emit = defineEmits<{
   (e: "update:value", event: string): void;
@@ -33,31 +37,51 @@ function emitValue(event: any) {
 function showHint(hint?: string, error?: string, success?: string): boolean {
   return !!hint;
 }
+
+const labelColor = computed(() => {
+  switch (props.labelColor) {
+    case "primary":
+      return "text-brand-primary-darkest";
+
+    case "secondary":
+      return "text-brand-secondary-darkest";
+
+    case "tertiary":
+      return "text-brand-tertiary-darkest";
+
+    default:
+      return;
+  }
+});
+
+const textfieldVariance = computed(() => {
+  return `min-w-[${props.minWidth}]`;
+});
 </script>
 
 <template>
-  <div class="textfield-base">
-    <label v-if="label" :for="`input-${id}`" class="label">{{ label }}</label>
+  <div class="textfield-base" :class="textfieldVariance">
+    <Label v-if="label" :for="`input-${id}`" class="label" :class="labelColor">
+      {{ label }}
+    </Label>
     <div class="container-input">
       <Input
-        :required="required"
+        :required="props.required"
         :value="valueModel"
         @update:value="emitValue"
         :class="error ? '-error' : !success ? '' : '-success'"
-        :type="type"
-        :name="name"
+        :type="props.type"
+        :name="props.name"
+        :placeholder="props.placeholder"
       >
-        <template v-if="icon" v-slot:icon>
-          <button
-            @click.prevent="actionIcon(index, param)"
-            class="icon-textfield"
-          >
+        <template v-if="props.icon" v-slot:icon>
+          <button @click.prevent="actionIcon(index, param)" class="icon-textfield">
             <span
               class="iconify"
-              :data-icon="icon"
+              :data-icon="props.icon"
               data-width="16"
               data-height="16"
-            ></span>
+            />
           </button>
         </template>
       </Input>
@@ -73,19 +97,22 @@ function showHint(hint?: string, error?: string, success?: string): boolean {
 <style lang="scss">
 .textfield-base {
   @apply flex flex-col my-6;
+
   @screen <smdt {
     @apply my-2;
   }
-  min-width: 272px;
 
   > .label {
     @apply mb-1 text-left text-sm;
   }
+
   > .container-input {
     @apply relative;
+
     > .input {
       @apply w-full;
     }
+
     > .input ~ * {
       @apply absolute;
       top: calc(50% - 10px);
@@ -100,6 +127,7 @@ function showHint(hint?: string, error?: string, success?: string): boolean {
       top: 9px;
     }
   }
+
   > .hint {
     @apply mt-1 text-[12px] text-left select-none text-neutrals-darkgrey-dark;
     line-height: 24px;
