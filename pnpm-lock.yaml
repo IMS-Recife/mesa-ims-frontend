@@ -39,6 +39,7 @@ specifiers:
   vue: ^3.2.16
   vue-router: ^4.0.11
   vue-tsc: ^0.3.0
+  vue3-table-lite: ^1.2.0
   windicss: ^3.2.1
 
 dependencies:
@@ -59,6 +60,7 @@ dependencies:
   pinia-plugin-persist: 0.0.92_vue@3.2.23
   vue: 3.2.23
   vue-router: 4.0.12_vue@3.2.23
+  vue3-table-lite: 1.2.0
 
 devDependencies:
   '@iconify/json': 1.1.437
@@ -4750,6 +4752,12 @@ packages:
       '@vue/runtime-dom': 3.2.23
       '@vue/server-renderer': 3.2.23_vue@3.2.23
       '@vue/shared': 3.2.23
+    dev: false
+
+  /vue3-table-lite/1.2.0:
+    resolution: {integrity: sha512-3h6qpN+6Of92tb2iZcGmqMdLK0TuwiuN3I6yf3+VsEazFkM12xOIjfFSQokUtkjJMFr1ny6cHz9hYhCxFjhT/w==}
+    dependencies:
+      vue: 3.2.23
     dev: false
 
   /w3c-hr-time/1.0.2:

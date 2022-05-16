@@ -4,7 +4,102 @@ meta:
   layout: dashboard_default
 </route>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import TableLite from "vue3-table-lite/ts";
+
+const tableRows = [
+  {
+    name: "Parque Capibaribe",
+    location: "Recife-PE",
+    completedPercentage: "75%",
+    responsibleOrg: "URB",
+    partners: "SDECTI, INCITI/UFPE",
+    thematicGroups: "Urbanismo, Meio ambiente, Saneamento básico",
+    lastUpdate: "30/08/2021",
+  },
+  {
+    name: "Parque Capibaribe",
+    location: "Recife-PE",
+    completedPercentage: "75%",
+    responsibleOrg: "URB",
+    partners: "SDECTI, INCITI/UFPE",
+    thematicGroups: "Urbanismo, Meio ambiente, Saneamento básico",
+    lastUpdate: "30/08/2021",
+  },
+  {
+    name: "Parque Capibaribe",
+    location: "Recife-PE",
+    completedPercentage: "75%",
+    responsibleOrg: "URB",
+    partners: "SDECTI, INCITI/UFPE",
+    thematicGroups: "Urbanismo, Meio ambiente, Saneamento básico",
+    lastUpdate: "30/08/2021",
+  },
+  {
+    name: "Parque Capibaribe",
+    location: "Recife-PE",
+    completedPercentage: "75%",
+    responsibleOrg: "URB",
+    partners: "SDECTI, INCITI/UFPE",
+    thematicGroups: "Urbanismo, Meio ambiente, Saneamento básico",
+    lastUpdate: "30/08/2021",
+  },
+];
+
+const table = reactive({
+  isLoading: false,
+  columns: [
+    {
+      label: "Projetos",
+      field: "name",
+      width: "10%",
+      sortable: true,
+    },
+    {
+      label: "Local",
+      field: "location",
+      width: "10%",
+      sortable: true,
+    },
+    {
+      label: "%",
+      field: "completedPercentage",
+      width: "1%",
+      sortable: true,
+    },
+    {
+      label: "Responsável",
+      field: "responsibleOrg",
+      width: "10%",
+      sortable: true,
+    },
+    {
+      label: "Parceiro(s)",
+      field: "partners",
+      width: "10%",
+      sortable: true,
+    },
+    {
+      label: "Grupo Temático",
+      field: "thematicGroups",
+      width: "10%",
+      sortable: true,
+    },
+    {
+      label: "Última Atualização",
+      field: "lastUpdate",
+      width: "10%",
+      sortable: true,
+    },
+  ],
+  rows: tableRows,
+  totalRecordCount: 4,
+  sortable: {
+    order: "name",
+    sort: "asc",
+  },
+});
+</script>
 
 <template>
   <div class="interventions-container">
@@ -61,6 +156,14 @@ meta:
         icon="mdi:magnify"
       />
     </div>
+
+    <TableLite
+      :columns="table.columns"
+      :rows="table.rows"
+      :total="table.totalRecordCount"
+      :sortable="table.sortable"
+      :is-loading="table.isLoading"
+    />
   </div>
 </template>
 <style lang="scss" scoped>
@@ -70,6 +173,28 @@ meta:
 
   > .search-fields {
     @apply flex flex-wrap gap-x-2;
+  }
+
+  ::v-deep(.vtl-table .vtl-thead .vtl-thead-th) {
+    @apply bg-brand-secondary-dark border border-brand-secondary-dark text-neutrals-lightgrey-lightest;
+  }
+
+  ::v-deep(.vtl-table td),
+  ::v-deep(.vtl-table tr) {
+    border: none;
+  }
+
+  ::v-deep(.vtl-paging-info) {
+    color: rgb(172, 0, 0);
+  }
+
+  ::v-deep(.vtl-paging-count-label),
+  ::v-deep(.vtl-paging-page-label) {
+    color: rgb(172, 0, 0);
+  }
+
+  ::v-deep(.vtl-paging-pagination-page-link) {
+    border: none;
   }
 }
 </style>
