@@ -20,6 +20,8 @@ meta:
         label="Projeto"
         name="project"
         placeholder="Projeto"
+        minWidth="272px"
+        icon="mdi:magnify"
       />
       <Textfield
         labelColor="secondary"
@@ -28,6 +30,7 @@ meta:
         name="local"
         minWidth="200px"
         placeholder="Local"
+        icon="mdi:magnify"
       />
       <Textfield
         labelColor="secondary"
@@ -36,6 +39,7 @@ meta:
         name="responsible"
         minWidth="200px"
         placeholder="Responsável"
+        icon="mdi:magnify"
       />
 
       <Textfield
@@ -45,6 +49,7 @@ meta:
         name="partner"
         minWidth="200px"
         placeholder="Parceiro"
+        icon="mdi:magnify"
       />
       <Textfield
         labelColor="secondary"
@@ -53,6 +58,7 @@ meta:
         name="thematicGroup"
         minWidth="200px"
         placeholder="Grupo temático"
+        icon="mdi:magnify"
       />
     </div>
   </div>
