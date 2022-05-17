@@ -10,6 +10,9 @@ import {
 import pin from "@/assets/icons/pin.svg";
 import * as turf from "@turf/turf";
 import { getCurrentInstance } from "vue";
+import { MapView } from "@deck.gl/core";
+import { ArcLayer, GeoJsonLayer, PolygonLayer } from "@deck.gl/layers";
+import { LeafletLayer } from "deck.gl-leaflet";
 
 const app = getCurrentInstance();
 import("leaflet/dist/leaflet.css");
@@ -92,7 +95,6 @@ onBeforeMount(async () => {
       } as Marker);
 
       Lmakers.addTo(mapAPI);
-
       return;
     });
   });
@@ -241,10 +243,11 @@ onBeforeMount(async () => {
   watch(mapStore.panTo, () => {
     mapAPI.panTo(mapStore.panTo.latlng);
   });
-
+  let time1 = 0, time2=0, time0= 0;
   watch(
     () => mapStore.searchNameLayer,
     async (value) => {
+      
       if (value) {
         const responseShowLayer = await callLayer({
           layers: [
@@ -255,7 +258,10 @@ onBeforeMount(async () => {
           ],
           buffer: 30,
           searchAreas: mapStore.areaCurrent,
-        });
+        }).finally(() => {
+          time1 = Date.now();
+            console.log('*2 - Recebeu os dados da requisição em', time1)
+          })
 
         let featCollectionPolygonForVector = {
           type: "FeatureCollection",
@@ -279,7 +285,6 @@ onBeforeMount(async () => {
         }
 
         let contador = 0;
-
         responseShowLayer[value].forEach((el: any, index: number) => {
           if (el.geometry.type === "Point") {
             const point = L.geoJSON(el.geometry as any, {
@@ -334,6 +339,27 @@ onBeforeMount(async () => {
 
             contador = responseShowLayer[value].length;
           } else {
+            // if (el.geometry) {
+            //   const layer = new LeafletLayer({
+            //     layers: [
+            //       new PolygonLayer({
+            //         id: `${el._id}`,
+            //         data: el.geometry,
+            //         stroked: true,
+            //         filled: true,
+            //         extruded: false,
+            //         wireframe: true,
+            //         lineWidthMinPixels: 1,
+            //         // getPolygon: (d) => d.coordinates,
+            //         //estilos
+            //         // getLineColor: [80, 80, 80],
+            //         // getFillColor: [80, 80, 80],
+            //       }),
+            //     ],
+            //   });
+            //   mapAPI.addLayer(layer);
+            // }
+            // codigo antigo
             const layer = L.geoJSON(el.geometry as any);
             layer.setStyle({ opacity: 0, fillOpacity: 0, stroke: false });
             layer.setStyle({
@@ -343,6 +369,7 @@ onBeforeMount(async () => {
               .addTo(mapAPI)
               .on("click", (event: any) => {
                 callPropertiesLayerByLocation(value, el._id).then((res) => {
+                  // console.log(value, el._id);
                   L.popup()
                     .setLatLng(event.latlng)
                     .setContent(
@@ -381,7 +408,6 @@ onBeforeMount(async () => {
             contador = responseShowLayer[value].length;
           }
         });
-
         mapStore.layersCurrentVision.filter((element: any, index: any) => {
           if (element.name === mapStore.currentLayerName) {
             color = element.color;
@@ -465,6 +491,10 @@ onBeforeMount(async () => {
           renderMap();
         });
       }
+      time2 = Date.now();
+      console.log("*3 - Terminou de renderizar os dados", time2);
+      console.log("*4 - Renderizou em", time2-time1, "ms");
+      console.log('*=========================================================*');
     },
     { immediate: false, deep: false, flush: "post" }
   );
