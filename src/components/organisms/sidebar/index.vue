@@ -2,7 +2,7 @@
 import { useAuthStore } from "@/stores/auth";
 import { useUIStore } from "@/stores/ui";
 import { useMapStore } from "@/stores/map";
-import { ref, onUnmounted } from "vue";
+import { ref } from "vue";
 
 const ui = useUIStore();
 const auth = useAuthStore();
@@ -44,8 +44,8 @@ const menus = readonly([
     icon: "mdi:eye",
   },
   {
-    name: "Projetos",
-    to: "/projects",
+    name: "Intervenções",
+    to: "/interventions",
     icon: "mdi:layers",
   },
   {
@@ -173,11 +173,7 @@ const userActions = readonly([
         data-height="24"
       ></span>
     </button>
-    <button
-      class="circle hover:outline-none"
-      @click="ui.collapseSidebar()"
-      v-else
-    >
+    <button class="circle hover:outline-none" @click="ui.collapseSidebar()" v-else>
       <span
         class="iconify text-brand-neutrals-darkgrey-dark"
         data-icon="mdi:chevron-left"
@@ -193,6 +189,7 @@ const userActions = readonly([
   @apply fixed h-screen top-0 duration-300 bg-neutrals-lightgrey-lightest z-21;
   box-shadow: 0px 0px 8px rgba(37, 37, 37, 0.16);
   border-radius: 0px 16px 16px 0px;
+
   .divider {
     @apply my-[25px] mx-[12px] border-neutrals-lightgrey-dark;
   }
@@ -201,6 +198,7 @@ const userActions = readonly([
     @apply h-screen;
     width: inherit;
   }
+
   > .list > .logo {
     @apply flex items-center mb-[53px] pt-[16px] text-neutrals-darkgrey-dark;
 
@@ -215,18 +213,22 @@ const userActions = readonly([
 
   > .list > .item {
     @apply flex items-center;
+
     &:hover {
       @apply bg-neutrals-lightgrey-light;
     }
 
     > .button-notification {
       @apply w-full py-4 px-5 flex items-center outline-none text-neutrals-darkgrey-medium;
+
       &:focus {
         @apply outline-none border-none;
       }
+
       &:hover {
         @apply text-brand-secondary-medium bg-neutrals-lightgrey-medium;
       }
+
       > .notification-unread {
         @apply w-[14px] h-[14px] relative self-start mr-2;
 
@@ -238,9 +240,11 @@ const userActions = readonly([
 
     > .button {
       @apply w-full py-4 px-5 flex items-center outline-none text-neutrals-darkgrey-medium;
+
       &:focus {
         @apply outline-none border-none;
       }
+
       &:hover {
         @apply text-brand-secondary-medium bg-neutrals-lightgrey-medium;
       }
@@ -248,9 +252,11 @@ const userActions = readonly([
 
     > .link {
       @apply w-full py-4 px-5 flex items-center text-brand-secondary-medium;
+
       &.router-link-active {
         @apply bg-brand-secondary-medium text-neutrals-lightgrey-lightest;
       }
+
       &:hover {
         @apply cursor-pointer bg-brand-secondary-medium text-neutrals-lightgrey-lightest;
       }
@@ -259,6 +265,7 @@ const userActions = readonly([
 
   > .circle {
     @apply w-[40px] h-[40px] rounded-full flex bg-neutrals-lightgrey-lightest ml-auto relative bottom-20 right-[-1em] flex justify-center items-center;
+
     &:hover {
       @apply cursor-pointer;
     }
