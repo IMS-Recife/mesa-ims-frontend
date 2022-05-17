@@ -1,7 +1,7 @@
 <route lang="yaml">
 name: interventions
 meta:
-  layout: dashboard_default
+  layout: sidebar_layout
 </route>
 
 <script setup lang="ts">
@@ -168,8 +168,8 @@ const table = reactive({
 </template>
 <style lang="scss" scoped>
 .interventions-container {
-  @apply flex flex-col absolute bottom-0;
-  @apply w-full h-4/5 bg-neutrals-lightgrey-lightest z-300 px-40 py-[32px] shadow shadow-lg;
+  @apply flex flex-col;
+  @apply w-full h-4/5 bg-neutrals-lightgrey-lightest z-1000 px-40 py-[32px] shadow shadow-lg;
 
   > .search-fields {
     @apply flex flex-wrap gap-x-2;
