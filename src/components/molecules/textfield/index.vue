@@ -23,7 +23,7 @@ const props = withDefaults(defineProps<Props>(), {
   valueModel: "",
   actionIcon: () => console.log("actionIcon"),
   index: 0,
-  minWidth: "272px",
+  minWidth: "500px",
 });
 const emit = defineEmits<{
   (e: "update:value", event: string): void;
@@ -60,7 +60,7 @@ const textfieldVariance = computed(() => {
 </script>
 
 <template>
-  <div class="textfield-base" :class="textfieldVariance">
+  <div class="textfield-base">
     <Label v-if="label" :for="`input-${id}`" class="label" :class="labelColor">
       {{ label }}
     </Label>
@@ -69,7 +69,13 @@ const textfieldVariance = computed(() => {
         :required="props.required"
         :value="valueModel"
         @update:value="emitValue"
-        :class="error ? '-error' : !success ? '' : '-success'"
+        :class="
+          error
+            ? `-error ${textfieldVariance}`
+            : !success
+            ? textfieldVariance
+            : `-success ${textfieldVariance}`
+        "
         :type="props.type"
         :name="props.name"
         :placeholder="props.placeholder"

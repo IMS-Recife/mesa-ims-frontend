@@ -7,6 +7,20 @@ meta:
 <script setup lang="ts">
 import TableLite from "vue3-table-lite/ts";
 
+const routes = [
+  {
+    path: "/home",
+    icon: "mdi-home",
+    name: "Início",
+    currentPath: false,
+  },
+  {
+    path: "/interventions",
+    name: "Intervenções na cidade",
+    currentPath: true,
+  },
+];
+
 const tableRows = [
   {
     name: "Parque Capibaribe",
@@ -18,31 +32,31 @@ const tableRows = [
     lastUpdate: "30/08/2021",
   },
   {
-    name: "Parque Capibaribe",
+    name: "Cais da aurora",
     location: "Recife-PE",
-    completedPercentage: "75%",
+    completedPercentage: "100%",
     responsibleOrg: "URB",
-    partners: "SDECTI, INCITI/UFPE",
-    thematicGroups: "Urbanismo, Meio ambiente, Saneamento básico",
-    lastUpdate: "30/08/2021",
+    partners: "CTTU,EMLURB",
+    thematicGroups: "SDECTI",
+    lastUpdate: "02/02/2021",
   },
   {
-    name: "Parque Capibaribe",
+    name: "Mais vida nos morros",
     location: "Recife-PE",
-    completedPercentage: "75%",
+    completedPercentage: "40%",
     responsibleOrg: "URB",
-    partners: "SDECTI, INCITI/UFPE",
+    partners: "CTTU, EMLURB",
     thematicGroups: "Urbanismo, Meio ambiente, Saneamento básico",
-    lastUpdate: "30/08/2021",
+    lastUpdate: "05/03/2021",
   },
   {
-    name: "Parque Capibaribe",
+    name: "Calçada legal",
     location: "Recife-PE",
-    completedPercentage: "75%",
+    completedPercentage: "50%",
     responsibleOrg: "URB",
     partners: "SDECTI, INCITI/UFPE",
     thematicGroups: "Urbanismo, Meio ambiente, Saneamento básico",
-    lastUpdate: "30/08/2021",
+    lastUpdate: "27/03/2021",
   },
 ];
 
@@ -102,99 +116,151 @@ const table = reactive({
 </script>
 
 <template>
-  <div class="interventions-container">
-    <TextBodySmall>
-      São projetos da cidade do Recife. Para mais informações detalhadas, confira a página
-      específica do projeto.
-    </TextBodySmall>
+  <div class="page-container">
+    <header class="page-header">
+      <div class="mask"></div>
+      <div class="header-content">
+        <Breadcrumbs class="z-10" :routes="routes" />
+        <div class="page-button-wrapper">
+          <TitleH1 class="page-title">Intervenções na cidade</TitleH1>
+          <Button class="-primary justify-self-end">
+            <span
+              class="iconify mr-2"
+              data-icon="mdi:plus"
+              data-width="24px"
+              data-height="24px"
+            />
+            Adicionar
+          </Button>
+        </div>
+      </div>
+    </header>
+    <main class="interventions-container">
+      <TextBodySmall id="page-description">
+        São projetos da cidade do Recife. Para mais informações detalhadas, confira a
+        página específica do projeto.
+      </TextBodySmall>
 
-    <div class="search-fields">
-      <Textfield
-        labelColor="secondary"
-        id="project"
-        label="Projeto"
-        name="project"
-        placeholder="Projeto"
-        minWidth="272px"
-        icon="mdi:magnify"
-      />
-      <Textfield
-        labelColor="secondary"
-        id="local"
-        label="Local"
-        name="local"
-        minWidth="200px"
-        placeholder="Local"
-        icon="mdi:magnify"
-      />
-      <Textfield
-        labelColor="secondary"
-        id="responsible"
-        label="Responsável"
-        name="responsible"
-        minWidth="200px"
-        placeholder="Responsável"
-        icon="mdi:magnify"
-      />
+      <div class="search-fields">
+        <Textfield
+          labelColor="secondary"
+          id="project"
+          label="Projeto"
+          name="project"
+          placeholder="Projeto"
+          minWidth="300px"
+          icon="mdi:magnify"
+        />
+        <Textfield
+          labelColor="secondary"
+          id="local"
+          label="Local"
+          name="local"
+          minWidth="200px"
+          placeholder="Local"
+          icon="mdi:magnify"
+        />
+        <Textfield
+          labelColor="secondary"
+          id="responsible"
+          label="Responsável"
+          name="responsible"
+          minWidth="200px"
+          placeholder="Responsável"
+          icon="mdi:magnify"
+        />
 
-      <Textfield
-        labelColor="secondary"
-        id="partner"
-        label="Parceiro"
-        name="partner"
-        minWidth="200px"
-        placeholder="Parceiro"
-        icon="mdi:magnify"
-      />
-      <Textfield
-        labelColor="secondary"
-        id="thematicGroup"
-        label="Grupo Temático"
-        name="thematicGroup"
-        minWidth="200px"
-        placeholder="Grupo temático"
-        icon="mdi:magnify"
-      />
-    </div>
+        <Textfield
+          labelColor="secondary"
+          id="partner"
+          label="Parceiro"
+          name="partner"
+          minWidth="200px"
+          placeholder="Parceiro"
+          icon="mdi:magnify"
+        />
+        <Textfield
+          labelColor="secondary"
+          id="thematicGroup"
+          label="Grupo Temático"
+          name="thematicGroup"
+          minWidth="200px"
+          placeholder="Grupo temático"
+          icon="mdi:magnify"
+        />
+      </div>
 
-    <TableLite
-      :columns="table.columns"
-      :rows="table.rows"
-      :total="table.totalRecordCount"
-      :sortable="table.sortable"
-      :is-loading="table.isLoading"
-    />
+      <TableLite
+        :columns="table.columns"
+        :rows="table.rows"
+        :total="table.totalRecordCount"
+        :sortable="table.sortable"
+        :is-loading="table.isLoading"
+      />
+    </main>
   </div>
 </template>
 <style lang="scss" scoped>
-.interventions-container {
-  @apply flex flex-col;
-  @apply w-full h-4/5 bg-neutrals-lightgrey-lightest z-1000 px-40 py-[32px] shadow shadow-lg;
+.page-container {
+  @apply flex flex-col relative;
 
-  > .search-fields {
-    @apply flex flex-wrap gap-x-2;
+  > header {
+    @apply h-[200px] w-full;
+    background-image: url(@/assets/images/notifications-page-map.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    > .header-content {
+      @apply mt-10 ml-40;
+
+      > .page-button-wrapper {
+        @apply flex items-center justify-between mt-[40px];
+
+        > button {
+          @apply mr-10;
+        }
+
+        .page-title {
+          @apply text-brand-secondary-darkest;
+        }
+      }
+    }
   }
 
-  ::v-deep(.vtl-table .vtl-thead .vtl-thead-th) {
-    @apply bg-brand-secondary-dark border border-brand-secondary-dark text-neutrals-lightgrey-lightest;
-  }
+  > .interventions-container {
+    @apply flex flex-col;
+    @apply w-full h-4/5 bg-neutrals-lightgrey-lightest py-10 px-40 shadow shadow-xl;
 
-  ::v-deep(.vtl-table td),
-  ::v-deep(.vtl-table tr) {
-    border: none;
-  }
+    > #page-description {
+      @apply text-neutrals-darkgrey-medium mb-10;
+    }
 
-  ::v-deep(.vtl-paging-info) {
-    color: rgb(172, 0, 0);
-  }
+    > .search-fields {
+      @apply flex flex-wrap gap-x-2 mb-4;
+      @apply p-3 border border-neutrals-lightgrey-medium rounded-lg;
+    }
 
-  ::v-deep(.vtl-paging-count-label),
-  ::v-deep(.vtl-paging-page-label) {
-    color: rgb(172, 0, 0);
-  }
+    ::v-deep(.vtl-table .vtl-thead .vtl-thead-th) {
+      @apply bg-brand-secondary-dark border border-brand-secondary-dark text-neutrals-lightgrey-lightest;
+    }
 
-  ::v-deep(.vtl-paging-pagination-page-link) {
-    border: none;
+    ::v-deep(.vtl-table td),
+    ::v-deep(.vtl-table tr) {
+      border: none;
+    }
+
+    ::v-deep(.vtl-paging-info) {
+      color: rgb(172, 0, 0);
+    }
+
+    ::v-deep(.vtl-paging-count-label),
+    ::v-deep(.vtl-paging-page-label) {
+      color: rgb(172, 0, 0);
+    }
+
+    ::v-deep(.vtl-paging-pagination-page-link) {
+      border: none;
+    }
   }
 }
 </style>
