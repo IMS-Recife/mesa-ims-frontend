@@ -1,17 +1,5 @@
+import { BaseMap, GeoJson, LatLng, Marker, PanTo, Project, SetView, TileLayer, Tools, Zones } from "@/@types";
 import { acceptHMRUpdate, defineStore } from "pinia";
-
-import {
-  PanTo,
-  SetView,
-  BaseMap,
-  Marker,
-  TileLayer,
-  Tools,
-  LatLng,
-  GeoJson,
-  Zones,
-  Project,
-} from "@/@types";
 
 type State = {
   baseMap: BaseMap;
@@ -248,7 +236,11 @@ export const useMapStore = defineStore("map", {
             this.setLayersCurrentVision("Vazios", "#f9f9f9");
             this.setLayersCurrentVision("Cheios", "#242424");
             break;
+          case "População (2010)":
+            this.setLayersCurrentVision(layer, "#4C51A4");
+            break;
           default:
+            console.log(layer);
             break;
         }
       }

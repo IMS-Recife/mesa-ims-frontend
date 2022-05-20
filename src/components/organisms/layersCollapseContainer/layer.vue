@@ -39,6 +39,16 @@ const choseLayer = (value: boolean) => {
       default:
         break;
     }
+  } else if (props.layerCategory === "Indicadores" && value) {
+    switch (props.layerName) {
+      case "População (2010)":
+      // showLayer("tree");
+        break;
+
+      default:
+        break;
+    }
+  } else if (!value) {
   } else if (props.layerCategory === "Edificações" && value) {
     switch (props.layerName) {
       case "Cheios x Vazios":
