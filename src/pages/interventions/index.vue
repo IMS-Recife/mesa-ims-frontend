@@ -7,6 +7,12 @@ meta:
 <script setup lang="ts">
 import TableLite from "vue3-table-lite/ts";
 
+const nameSearch = ref("");
+const locationSearch = ref("");
+const responsibleOrgSearch = ref("");
+const partnersSearch = ref("");
+const thematicGroupsSearch = ref("");
+
 const routes = [
   {
     path: "/home",
@@ -23,6 +29,7 @@ const routes = [
 
 const tableRows = [
   {
+    id: 1,
     name: "Parque Capibaribe",
     location: "Recife-PE",
     completedPercentage: "75%",
@@ -32,6 +39,7 @@ const tableRows = [
     lastUpdate: "30/08/2021",
   },
   {
+    id: 2,
     name: "Cais da aurora",
     location: "Recife-PE",
     completedPercentage: "100%",
@@ -41,6 +49,7 @@ const tableRows = [
     lastUpdate: "02/02/2021",
   },
   {
+    id: 3,
     name: "Mais vida nos morros",
     location: "Recife-PE",
     completedPercentage: "40%",
@@ -50,6 +59,7 @@ const tableRows = [
     lastUpdate: "05/03/2021",
   },
   {
+    id: 4,
     name: "Calçada legal",
     location: "Recife-PE",
     completedPercentage: "50%",
@@ -62,6 +72,7 @@ const tableRows = [
 
 const table = reactive({
   isLoading: false,
+  isReSearch: false,
   columns: [
     {
       label: "Projetos",
@@ -91,13 +102,11 @@ const table = reactive({
       label: "Parceiro(s)",
       field: "partners",
       width: "10%",
-      sortable: true,
     },
     {
       label: "Grupo Temático",
       field: "thematicGroups",
       width: "10%",
-      sortable: true,
     },
     {
       label: "Última Atualização",
@@ -106,13 +115,36 @@ const table = reactive({
       sortable: true,
     },
   ],
-  rows: tableRows,
+  rows: computed(() => {
+    return tableRows.filter((row) => {
+      return (
+        row.name.toLowerCase().includes(nameSearch.value.toLowerCase()) &&
+        row.location.toLowerCase().includes(locationSearch.value.toLowerCase()) &&
+        row.responsibleOrg
+          .toLowerCase()
+          .includes(responsibleOrgSearch.value.toLowerCase()) &&
+        row.partners.toLowerCase().includes(partnersSearch.value.toLowerCase()) &&
+        row.thematicGroups
+          .toLowerCase()
+          .includes(thematicGroupsSearch.value.toLowerCase())
+      );
+    });
+  }),
   totalRecordCount: 4,
   sortable: {
     order: "name",
-    sort: "asc",
+    sort: "desc",
   },
 });
+
+const updateCheckedRows = (rowsKey: any) => {};
+
+watch(
+  () => nameSearch.value,
+  (val) => {
+    console.log("nameSearch", val);
+  }
+);
 </script>
 
 <template>
@@ -151,24 +183,30 @@ const table = reactive({
             placeholder="Projeto"
             minWidth="300px"
             icon="mdi:magnify"
+            :valueModel="nameSearch"
+            @update:value="nameSearch = $event"
           />
           <Textfield
             labelColor="secondary"
             id="local"
             label="Local"
-            name="local"
+            name="location"
             minWidth="200px"
             placeholder="Local"
             icon="mdi:magnify"
+            :valueModel="locationSearch"
+            @update:value="locationSearch = $event"
           />
           <Textfield
             labelColor="secondary"
             id="responsible"
             label="Responsável"
-            name="responsible"
+            name="responsibleOrg"
             minWidth="200px"
             placeholder="Responsável"
             icon="mdi:magnify"
+            :valueModel="responsibleOrgSearch"
+            @update:value="responsibleOrgSearch = $event"
           />
 
           <Textfield
@@ -179,15 +217,19 @@ const table = reactive({
             minWidth="200px"
             placeholder="Parceiro"
             icon="mdi:magnify"
+            :valueModel="partnersSearch"
+            @update:value="partnersSearch = $event"
           />
           <Textfield
             labelColor="secondary"
-            id="thematicGroup"
+            id="thematicGroups"
             label="Grupo Temático"
-            name="thematicGroup"
+            name="thematicGroups"
             minWidth="200px"
             placeholder="Grupo temático"
             icon="mdi:magnify"
+            :valueModel="thematicGroupsSearch"
+            @update:value="thematicGroupsSearch = $event"
           />
         </div>
         <hr />
@@ -204,11 +246,15 @@ const table = reactive({
       </div>
 
       <TableLite
+        :is-static-mode="true"
+        :has-checkbox="true"
+        :is-re-search="table.isReSearch"
         :columns="table.columns"
         :rows="table.rows"
         :total="table.totalRecordCount"
         :sortable="table.sortable"
         :is-loading="table.isLoading"
+        @return-checked-rows="updateCheckedRows"
       />
       <Pagination class="flex justify-center" :currentPage="1" :totalPages="20" />
     </main>
@@ -286,6 +332,28 @@ const table = reactive({
       display: none;
     }
 
+    ::v-deep(.vtl-tbody-checkbox, .vtl-thead-checkbox) {
+      border: 1px solid #000;
+      border-radius: 4px;
+      height: 20px;
+      width: 20px;
+      display: inline-block;
+      position: relative !important;
+      padding: 0 0 0 0px;
+      z-index: 1;
+      opacity: 1;
+
+      &:checked {
+        background-image: url("@assets/icons/tick.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        height: 20px;
+        width: 20px;
+        display: inline-block;
+        padding: 0 0 0 0px;
+      }
+    }
+
     ::v-deep(.vtl-thead-th) {
       @apply bg-brand-secondary-dark border border-neutrals-lightgrey-lightest text-neutrals-lightgrey-lightest;
 
@@ -311,6 +379,18 @@ const table = reactive({
       border: none;
     }
 
+    ::v-deep(.vtl-table tr) {
+      @apply bg-neutrals-lightgrey-lightest;
+
+      &:nth-child(even) {
+        @apply bg-neutrals-lightgrey-light;
+      }
+
+      &:hover {
+        @apply bg-neutrals-lightgrey-medium;
+      }
+    }
+
     ::v-deep(.vtl-table td) {
       @apply text-neutrals-darkgrey-medium;
       border: none;
@@ -324,19 +404,6 @@ const table = reactive({
     }
 
     ::v-deep(.vtl-table tr) {
-      border: none;
-    }
-
-    ::v-deep(.vtl-paging-info) {
-      color: rgb(172, 0, 0);
-    }
-
-    ::v-deep(.vtl-paging-count-label),
-    ::v-deep(.vtl-paging-page-label) {
-      color: rgb(172, 0, 0);
-    }
-
-    ::v-deep(.vtl-paging-pagination-page-link) {
       border: none;
     }
   }

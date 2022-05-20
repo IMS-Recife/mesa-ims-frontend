@@ -39,10 +39,12 @@ const model = computed({
 <style lang="scss">
 .check-box-base {
   @apply flex flex-row items-center;
+
   > label {
     @apply ml-2 flex items-center text-[12px];
   }
 }
+
 .checkbox_wrapper {
   position: relative;
   height: 20px;
@@ -71,6 +73,9 @@ input[type="checkbox"] + label {
   top: 0;
   left: 0;
   z-index: 1;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 input[type="checkbox"]:checked + label {
