@@ -239,9 +239,7 @@ watch(
             <Toggle />
           </div>
 
-          <div class="selected-filters-wrapper">
-            <Caption> Filtrado por </Caption>
-          </div>
+          <div class="selected-filters-wrapper"></div>
         </div>
       </div>
 
@@ -332,8 +330,36 @@ watch(
       display: none;
     }
 
-    ::v-deep(.vtl-tbody-checkbox, .vtl-thead-checkbox) {
-      border: 1px solid #000;
+    ::v-deep(.vtl-tbody-checkbox) {
+      @apply appearance-none;
+      @apply bg-neutrals-lightgrey-lightest border-neutrals-darkgrey-lightest;
+      border: 1px solid;
+      border-radius: 4px;
+      height: 20px;
+      width: 20px;
+      display: inline-block;
+      position: relative !important;
+      padding: 0 0 0 0px;
+      z-index: 1;
+      opacity: 1;
+
+      &:checked {
+        @apply bg-neutrals-lightgrey-lightest;
+
+        background-image: url("@assets/icons/tick.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        height: 20px;
+        width: 20px;
+        display: inline-block;
+        padding: 0 0 0 0px;
+      }
+    }
+
+    ::v-deep(.vtl-thead-checkbox) {
+      @apply appearance-none;
+      @apply bg-neutrals-lightgrey-lightest border-neutrals-darkgrey-lightest;
+      border: 1px solid;
       border-radius: 4px;
       height: 20px;
       width: 20px;
