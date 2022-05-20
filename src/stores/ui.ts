@@ -79,6 +79,7 @@ export const useUIStore = defineStore("ui", {
     },
     collapseSidebar() {
       this.sidebarCollapsed = !this.sidebarCollapsed;
+      console.log("colapse")
     },
     toggleSearchInput() {
       if (this.notificationsTabOpen && !this.searchInputOpen) {

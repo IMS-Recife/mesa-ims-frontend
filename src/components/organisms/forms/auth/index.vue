@@ -214,12 +214,8 @@ function fetchSignin(form: any) {
           Faça o login e tenha acesso à dados exclusivos da cidade para você!
         </p>
         <div class="others-signin">
-          <ButtonIcon
-            :key="index"
-            :path="item.path"
-            v-for="(item, index) in linksForButtonsIcons"
-            @click.prevent="fetchSigninSocial(item.name)"
-          ></ButtonIcon>
+          <ButtonIcon :key="index" :path="item.path" v-for="(item, index) in linksForButtonsIcons"
+            @click.prevent="fetchSigninSocial(item.name)"></ButtonIcon>
         </div>
         <div class="or">
           <span class="bar"></span>
@@ -227,41 +223,18 @@ function fetchSignin(form: any) {
           <span class="bar"></span>
         </div>
       </legend>
-      <Textfield
-        id="email"
-        label="E-mail"
-        name="email"
-        type="email"
-        @update:value="formForSend.email = $event"
-        :value-model="formForSend.email"
-        required="required"
-      ></Textfield>
-      <Textfield
-        id="password"
-        :key="dynamicIconPassword"
-        label="Senha"
-        name="password"
-        :value-model="formForSend.password"
-        @update:value="formForSend.password = $event"
-        :type="flagEyePassword ? 'text' : 'password'"
-        :icon="dynamicIconPassword"
-        :action-icon="changePasswordType"
-        :error="messageError"
-        required="required"
-      >
+      <Textfield id="email" label="E-mail" name="email" type="email" @update:value="formForSend.email = $event"
+        :value-model="formForSend.email" :required="true"></Textfield>
+      <Textfield id="password" :key="dynamicIconPassword" label="Senha" name="password"
+        :value-model="formForSend.password" @update:value="formForSend.password = $event"
+        :type="flagEyePassword ? 'text' : 'password'" :icon="dynamicIconPassword" :action-icon="changePasswordType"
+        :error="messageError" :required="true">
       </Textfield>
 
       <div class="suport-auth">
-        <Checkbox
-          label="Manter conectado"
-          @update:value="checkbox($event)"
-        ></Checkbox>
-        <Button
-          class="-link"
-          @click.prevent="$router.push({ path: '/forgot-password' })"
-        >
-          Esqueceu a senha?</Button
-        >
+        <Checkbox label="Manter conectado" @update:value="checkbox($event)"></Checkbox>
+        <Button class="-link" @click.prevent="$router.push({ path: '/forgot-password' })">
+          Esqueceu a senha?</Button>
       </div>
 
       <Button type="submit" class="-primary -block">Entrar</Button>
@@ -270,14 +243,8 @@ function fetchSignin(form: any) {
         <Button class="-link">Entrar como visitante</Button>
         <div class="signup-acess">
           <p>Não tem uma conta?</p>
-          <span
-            ><Button
-              class="-link"
-              @click.prevent="$router.push({ path: '/signup' })"
-            >
-              Cadastre-se</Button
-            ></span
-          >
+          <span><Button class="-link" @click.prevent="$router.push({ path: '/signup' })">
+              Cadastre-se</Button></span>
         </div>
       </div>
     </fieldset>
@@ -287,47 +254,57 @@ function fetchSignin(form: any) {
 .form-signin {
   @apply flex flex-col justify-center items-center;
   max-width: 548px;
-  > fieldset {
+
+  >fieldset {
     @apply max-w-[288px];
   }
-  > fieldset > legend > h1 {
+
+  >fieldset>legend>h1 {
     @apply text-3xl text-brand-primary-dark font-weight-700 flex flex-col items-center my-2 font-display;
   }
-  > fieldset > legend > h3 {
+
+  >fieldset>legend>h3 {
     @apply text-2xl text-brand-primary-dark font-weight-600 mb-2;
   }
-  > fieldset > legend > .others-signin {
+
+  >fieldset>legend>.others-signin {
     @apply my-4 flex flex-row items-center justify-center gap-x-5.21;
   }
-  > fieldset > legend > .or {
+
+  >fieldset>legend>.or {
     @apply mt-2 flex flex-row items-center justify-center;
-    > .text {
+
+    >.text {
       @apply mx-4;
     }
-    > .bar {
+
+    >.bar {
       @apply w-[116px] h-[1px];
       background-color: #d9d9d9;
     }
   }
 
-  > fieldset > .suport-auth {
+  >fieldset>.suport-auth {
     @apply flex flex-row items-center justify-between mb-4;
   }
-  > fieldset > .signup-acess-guest {
+
+  >fieldset>.signup-acess-guest {
     @apply flex flex-col items-center justify-between my-4;
 
     @screen <smdt {
       @apply my-0;
     }
 
-    > .signup-acess {
+    >.signup-acess {
       @apply flex flex-row items-center justify-center w-full;
-      > p {
+
+      >p {
         @apply text-sm;
         position: relative;
         left: 10px;
       }
-      > span {
+
+      >span {
         @apply text-sm text-brand-primary-dark font-weight-600;
       }
     }

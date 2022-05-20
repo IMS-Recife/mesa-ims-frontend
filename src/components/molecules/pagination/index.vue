@@ -20,7 +20,7 @@ watch(
   }
 );
 
-const firstShownPages = ref([1, 2, 3, 4]);
+const firstShownPages = ref([1, 2, 3]);
 const lastShownPages = ref([props.totalPages]);
 const currentPage = ref(1);
 </script>
@@ -108,20 +108,22 @@ const currentPage = ref(1);
     @apply px-4 py-2 rounded-md;
 
     &:hover {
-      @apply bg-brand-primary-light text-neutrals-lightgrey-lightest;
+      @apply bg-brand-secondary-light text-neutrals-lightgrey-lightest;
     }
+
     &:focus {
       @apply outline-none;
     }
 
     &:active {
-      @apply bg-brand-primary-dark text-neutrals-lightgrey-lightest;
+      @apply bg-brand-secondary-dark text-neutrals-lightgrey-lightest;
     }
   }
-  .active-button {
-    @apply text-brand-primary-medium;
 
-    border: 1px solid #00a14b;
+  .active-button {
+    @apply text-brand-secondary-medium border-brand-secondary-medium;
+
+    border: 1px solid;
   }
 
   .arrow-button {

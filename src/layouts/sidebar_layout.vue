@@ -8,14 +8,9 @@ onMounted(() => {
   <div>
     <div class="w-full h-full overflow-hidden relative">
       <Dashboard />
-      <Map v-if="ready" class="map-dashboard" />
       <router-view></router-view>
     </div>
   </div>
 </template>
 
-<style lang="scss">
-.map-dashboard {
-  @apply w-screen h-screen relative;
-}
-</style>
+<style lang="scss"></style>

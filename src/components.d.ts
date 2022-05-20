@@ -21,6 +21,7 @@ declare module 'vue' {
     ForgotPassword: typeof import("./components/organisms/forms/forgotPassword/index.vue")["default"];
     'Ic:roundCheckCircleOutline': typeof import("~icons/ic/round-check-circle-outline")["default"];
     Info: typeof import('./components/atoms/texts/info.vue')['default']
+    InfoModal: typeof import('./components/molecules/modals/info-modal/index.vue')['default']
     InfoPopup: typeof import('./components/molecules/info-popup/index.vue')['default']
     Input: typeof import('./components/atoms/input/index.vue')['default']
     Label: typeof import('./components/atoms/texts/support/label.vue')['default']
@@ -43,6 +44,8 @@ declare module 'vue' {
     PasswordStrong: typeof import('./components/molecules/password-strong/index.vue')['default']
     PreConfigVisionSidebar: typeof import('./components/organisms/preConfigVisionSidebar/index.vue')['default']
     Profile: typeof import('./components/organisms/forms/register/profile.vue')['default']
+    ProjectList: typeof import('./components/molecules/modals/projects-list-modal/project-list.vue')['default']
+    ProjectsListModal: typeof import('./components/molecules/modals/projects-list-modal/index.vue')['default']
     Recoverypassword: typeof import('./components/organisms/forms/recoverypassword/index.vue')['default']
     Register: typeof import("./components/organisms/forms/register/index.vue")["default"];
     Search: typeof import('./components/molecules/search/index.vue')['default']

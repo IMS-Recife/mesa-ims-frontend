@@ -122,17 +122,36 @@ export type Buffer = number;
 
 export type SearchAreas = GeoJson[];
 
-export type InfoProject = {
-  location: string;
-  responsibleOrg: string;
-  relatedOrg: string[];
-  tematicGroup: string[];
-  lastUpdate: Date;
-};
+// export type InfoProject = {
+//   location: string;
+//   responsibleOrg: string;
+//   relatedOrg: string[];
+//   tematicGroup: string[];
+//   lastUpdate: Date;
+// };
+
+
+// TODO - fix area types
+// export type Location = {
+//   type: string
+//   properties: Record<string, any>
+//   geometry: Geometry
+// }
+
+// export type area = {
+//   name: string;
+//   locations: Location[]; 
+// }
 
 export type Project = {
   _id: string;
   name: string;
-  info: InfoProject;
-  areas: string[];
+  created_at: Date;
+  info?: any;
+  areas?: string[];
+  responsibleOrg?: string;
+  location?: string;
+  partners?: string[];
+  thematicGroups?: string[];
+  lastUpdate?: Date;
 };

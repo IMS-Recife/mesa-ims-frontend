@@ -671,6 +671,7 @@ onBeforeMount(async () => {
 #map-default {
   width: 100%;
   height: 100%;
+  @apply z-200;
 }
 
 .leaflet-popup-content {
