@@ -240,8 +240,21 @@ const table = reactive({
       @apply p-3 border border-neutrals-lightgrey-medium rounded-lg;
     }
 
-    ::v-deep(.vtl-table .vtl-thead .vtl-thead-th) {
-      @apply bg-brand-secondary-dark border border-brand-secondary-dark text-neutrals-lightgrey-lightest;
+    ::v-deep(.vtl-thead-th) {
+      @apply bg-brand-secondary-dark border border-neutrals-lightgrey-lightest text-neutrals-lightgrey-lightest;
+      border: none;
+
+      &:first-child {
+        border-top-left-radius: 15px;
+      }
+
+      &:last-child {
+        border-top-right-radius: 15px;
+      }
+    }
+
+    ::v-deep(.vtl-thead-tr) {
+      border: none;
     }
 
     ::v-deep(.vtl-table td),
