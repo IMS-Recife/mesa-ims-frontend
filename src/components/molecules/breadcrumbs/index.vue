@@ -10,11 +10,11 @@ const props = defineProps<{
   <div class="breadcrumb-container">
     <div v-for="route in props.routes" class="breadcrumb-list">
       <div v-if="route.currentPath" class="breadcrumb-item-current-path">
-        <span v-if="route.icon" class="iconify" :data-icon="route.icon" />
+        <span v-if="route.icon" class="iconify mr-2" :data-icon="route.icon" />
         <p class="path">{{ route.name }}</p>
       </div>
       <div v-else class="breadcrumb-item">
-        <span v-if="route.icon" class="iconify" :data-icon="route.icon" />
+        <span v-if="route.icon" class="iconify mr-2" :data-icon="route.icon" />
         <a class="path" :href="route.path">{{ route.name }}</a>
         <span
           class="iconify arrow-divider"
@@ -29,7 +29,7 @@ const props = defineProps<{
 
 <style lang="scss" scoped>
 .breadcrumb-container {
-  @apply flex items-center justify-center rounded-full w-min border-brand-secondary-medium border-1 p-2;
+  @apply flex items-center justify-center rounded-full w-min bg-neutrals-lightgrey-lightest border-brand-secondary-medium border-1 p-2;
 
   > .breadcrumb-list {
     @apply flex flex-row items-center;
@@ -40,10 +40,12 @@ const props = defineProps<{
       > .path {
         @apply whitespace-nowrap underline;
       }
+
       > .arrow-divider {
         @apply text-neutrals-darkgrey-medium;
       }
     }
+
     > .breadcrumb-item-current-path {
       @apply flex flex-row items-center text-neutrals-darkgrey-dark;
 
