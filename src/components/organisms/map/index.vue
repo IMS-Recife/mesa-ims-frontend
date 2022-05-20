@@ -10,9 +10,9 @@ import {
 import pin from "@/assets/icons/pin.svg";
 import * as turf from "@turf/turf";
 import { getCurrentInstance } from "vue";
-import { MapView } from "@deck.gl/core";
-import { ArcLayer, GeoJsonLayer, PolygonLayer } from "@deck.gl/layers";
-import { LeafletLayer } from "deck.gl-leaflet";
+// import { MapView } from "@deck.gl/core";
+// import { ArcLayer, GeoJsonLayer, PolygonLayer } from "@deck.gl/layers";
+// import { LeafletLayer } from "deck.gl-leaflet";
 
 const app = getCurrentInstance();
 import("leaflet/dist/leaflet.css");
