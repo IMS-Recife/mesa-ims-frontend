@@ -252,8 +252,12 @@ const table = reactive({
     > .projects-filtering-container {
       @apply p-3 border border-neutrals-lightgrey-medium rounded-lg mb-10;
 
+      hr {
+        @apply border-brand-secondary-light;
+      }
+
       > .map-toggle-and-filters-wrapper {
-        @apply flex justify-between items-center text-neutrals-darkgrey-dark;
+        @apply flex justify-between items-center text-neutrals-darkgrey-dark my-[24px] mx-6;
 
         > .map-toggle-wrapper {
           @apply flex items-center;
