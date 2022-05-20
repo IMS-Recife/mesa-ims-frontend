@@ -15,6 +15,11 @@ onMounted(() => {
   mapStore.setIsDisabledMap(true);
 });
 
+onBeforeUnmount(() => {
+  ui.togglePreConfigSidebarVision(false);
+  ui.toggleSidebarVision(false);
+});
+
 const finishConfig = reactive({
   label: "Aplicar visão",
   class: "",
@@ -78,8 +83,7 @@ const sliderValues = [
       <div class="box-header">
         <Title title="Configurando o Mapa" />
         <TextBodyMedium>
-          Para uma melhor experiência, nos diga como você gostaria de ver o
-          mapa.
+          Para uma melhor experiência, nos diga como você gostaria de ver o mapa.
         </TextBodyMedium>
       </div>
 
@@ -98,9 +102,7 @@ const sliderValues = [
         <div class="select-area-tools">
           <ButtonIconCheck
             :path="
-              mapStore.isActiveMarkerMap
-                ? pin_control_option
-                : pin_control_option_off
+              mapStore.isActiveMarkerMap ? pin_control_option : pin_control_option_off
             "
             width="40px"
             height="32px"
@@ -145,8 +147,10 @@ const sliderValues = [
 <style lang="scss" scoped>
 .pre-config-sidebar-vision-layout {
   @apply absolute flex flex-col z-405 top-[0px] right-[0];
+
   > .box {
-    @apply border-transparent  w-[524px] h-[100vh] bg-white flex-col p-6 pb-6 justify-center items-center;
+    @apply border-transparent w-[524px] h-[100vh] bg-white flex-col p-6 pb-6 justify-center items-center;
+
     > button {
       @apply mt-2;
     }
