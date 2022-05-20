@@ -72,6 +72,14 @@ const layersCategories = [
       },
     ],
   },
+  {
+    name: "Indicadores",
+    layers: [
+      {
+        name: "População (2010)",
+      },
+    ],
+  },
   // {
   //   name: "Edificações",
   //   layers: [
