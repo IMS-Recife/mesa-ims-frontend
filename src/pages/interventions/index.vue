@@ -141,53 +141,66 @@ const table = reactive({
         página específica do projeto.
       </TextBodySmall>
 
-      <div class="search-fields">
-        <Textfield
-          labelColor="secondary"
-          id="project"
-          label="Projeto"
-          name="project"
-          placeholder="Projeto"
-          minWidth="300px"
-          icon="mdi:magnify"
-        />
-        <Textfield
-          labelColor="secondary"
-          id="local"
-          label="Local"
-          name="local"
-          minWidth="200px"
-          placeholder="Local"
-          icon="mdi:magnify"
-        />
-        <Textfield
-          labelColor="secondary"
-          id="responsible"
-          label="Responsável"
-          name="responsible"
-          minWidth="200px"
-          placeholder="Responsável"
-          icon="mdi:magnify"
-        />
+      <div class="projects-filtering-container">
+        <div class="search-fields">
+          <Textfield
+            labelColor="secondary"
+            id="project"
+            label="Projeto"
+            name="project"
+            placeholder="Projeto"
+            minWidth="300px"
+            icon="mdi:magnify"
+          />
+          <Textfield
+            labelColor="secondary"
+            id="local"
+            label="Local"
+            name="local"
+            minWidth="200px"
+            placeholder="Local"
+            icon="mdi:magnify"
+          />
+          <Textfield
+            labelColor="secondary"
+            id="responsible"
+            label="Responsável"
+            name="responsible"
+            minWidth="200px"
+            placeholder="Responsável"
+            icon="mdi:magnify"
+          />
 
-        <Textfield
-          labelColor="secondary"
-          id="partner"
-          label="Parceiro"
-          name="partner"
-          minWidth="200px"
-          placeholder="Parceiro"
-          icon="mdi:magnify"
-        />
-        <Textfield
-          labelColor="secondary"
-          id="thematicGroup"
-          label="Grupo Temático"
-          name="thematicGroup"
-          minWidth="200px"
-          placeholder="Grupo temático"
-          icon="mdi:magnify"
-        />
+          <Textfield
+            labelColor="secondary"
+            id="partner"
+            label="Parceiro"
+            name="partner"
+            minWidth="200px"
+            placeholder="Parceiro"
+            icon="mdi:magnify"
+          />
+          <Textfield
+            labelColor="secondary"
+            id="thematicGroup"
+            label="Grupo Temático"
+            name="thematicGroup"
+            minWidth="200px"
+            placeholder="Grupo temático"
+            icon="mdi:magnify"
+          />
+        </div>
+        <hr />
+        <div class="map-toggle-and-filters-wrapper">
+          <div class="map-toggle-wrapper">
+            <Label> Ativar visualização no mapa </Label>
+            <Toggle />
+          </div>
+
+          <div class="selected-filters-wrapper">
+            <Caption> Filtrado por </Caption>
+          </div>
+        </div>
       </div>
 
       <TableLite
@@ -197,6 +210,7 @@ const table = reactive({
         :sortable="table.sortable"
         :is-loading="table.isLoading"
       />
+      <Pagination class="flex justify-center" :currentPage="1" :totalPages="20" />
     </main>
   </div>
 </template>
@@ -235,9 +249,37 @@ const table = reactive({
       @apply text-neutrals-darkgrey-medium mb-10;
     }
 
-    > .search-fields {
-      @apply flex flex-wrap gap-x-2 mb-4;
-      @apply p-3 border border-neutrals-lightgrey-medium rounded-lg;
+    > .projects-filtering-container {
+      @apply p-3 border border-neutrals-lightgrey-medium rounded-lg mb-10;
+
+      > .map-toggle-and-filters-wrapper {
+        @apply flex justify-between items-center text-neutrals-darkgrey-dark;
+
+        > .map-toggle-wrapper {
+          @apply flex items-center;
+
+          > label {
+            @apply mr-2;
+            white-space: nowrap;
+          }
+        }
+      }
+
+      > .search-fields {
+        @apply flex flex-wrap gap-x-2 mb-4;
+      }
+    }
+
+    ::v-deep(.vtl-paging-info) {
+      display: none;
+    }
+
+    ::v-deep(.vtl-paging-change-div) {
+      display: none;
+    }
+
+    ::v-deep(.vtl-paging-pagination-div) {
+      display: none;
     }
 
     ::v-deep(.vtl-thead-th) {

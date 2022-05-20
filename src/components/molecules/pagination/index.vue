@@ -20,7 +20,7 @@ watch(
   }
 );
 
-const firstShownPages = ref([1, 2, 3, 4]);
+const firstShownPages = ref([1, 2, 3]);
 const lastShownPages = ref([props.totalPages]);
 const currentPage = ref(1);
 </script>
@@ -110,6 +110,7 @@ const currentPage = ref(1);
     &:hover {
       @apply bg-brand-primary-light text-neutrals-lightgrey-lightest;
     }
+
     &:focus {
       @apply outline-none;
     }
@@ -118,6 +119,7 @@ const currentPage = ref(1);
       @apply bg-brand-primary-dark text-neutrals-lightgrey-lightest;
     }
   }
+
   .active-button {
     @apply text-brand-primary-medium;
 
