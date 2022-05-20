@@ -41,12 +41,12 @@ const menus = readonly([
   {
     name: "Visões",
     to: "/visions",
-    icon: "mdi:eye",
+    icon: "mdi:layers",
   },
   {
     name: "Intervenções",
     to: "/interventions",
-    icon: "mdi:layers",
+    icon: "mdi:vector-polyline",
   },
   {
     name: "Economia",
