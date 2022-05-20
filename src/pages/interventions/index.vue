@@ -242,6 +242,14 @@ const table = reactive({
 
     ::v-deep(.vtl-thead-th) {
       @apply bg-brand-secondary-dark border border-neutrals-lightgrey-lightest text-neutrals-lightgrey-lightest;
+
+      //styleName: Support / Overline;
+      font-family: Roboto;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 20px;
+      letter-spacing: 0.005em;
+      text-align: left;
       border: none;
 
       &:first-child {
@@ -257,7 +265,18 @@ const table = reactive({
       border: none;
     }
 
-    ::v-deep(.vtl-table td),
+    ::v-deep(.vtl-table td) {
+      @apply text-neutrals-darkgrey-medium;
+      border: none;
+      //styleName: Support/Text Small;
+      font-family: Roboto;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 22px;
+      letter-spacing: 0.02em;
+      text-align: left;
+    }
+
     ::v-deep(.vtl-table tr) {
       border: none;
     }
