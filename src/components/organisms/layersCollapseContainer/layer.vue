@@ -42,15 +42,7 @@ const choseLayer = (value: boolean) => {
   } else if (props.layerCategory === "Indicadores" && value) {
     switch (props.layerName) {
       case "População (2010)":
-        showLayer("nonBuiltArea");
-      //   setTimeout(() => {
-      //     showLayer("builtArea");
-      //   }, 3000);
-      //   break;
-
-      // default:
-      //   break;
-      showLayer("population_2010");
+      showLayer("tree");
         break;
 
       default:
