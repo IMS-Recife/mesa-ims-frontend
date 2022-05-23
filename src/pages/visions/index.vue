@@ -33,6 +33,11 @@ onBeforeMount(() => {
     }, 300);
   }
 });
+
+onBeforeUnmount(() => {
+  ui.togglePreConfigSidebarVision(false);
+  ui.toggleSidebarVision(false);
+});
 </script>
 
 <template>
