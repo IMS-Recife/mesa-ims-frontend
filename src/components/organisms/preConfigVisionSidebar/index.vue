@@ -15,10 +15,10 @@ onMounted(() => {
   mapStore.setIsDisabledMap(true);
 });
 
-onBeforeUnmount(() => {
-  ui.togglePreConfigSidebarVision(false);
-  ui.toggleSidebarVision(false);
-});
+// onBeforeUnmount(() => {
+//   ui.togglePreConfigSidebarVision(false);
+//   ui.toggleSidebarVision(false);
+// });
 
 const finishConfig = reactive({
   label: "Aplicar visão",
