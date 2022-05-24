@@ -126,6 +126,10 @@ function sendForFinish() {
     });
   }
 }
+
+onBeforeMount(() => {
+  router.push({ path: "/signup/CITIZEN" });
+});
 </script>
 
 <template>
@@ -144,10 +148,7 @@ function sendForFinish() {
     <fieldset>
       <Title class="title" title="Cadastre-se" />
       <Steppers class="steppers" :current="1" :options="steppers" />
-      <Info
-        class="info"
-        info="Escolha abaixo o perfil que melhor você se encaixa"
-      />
+      <Info class="info" info="Escolha abaixo o perfil que melhor você se encaixa" />
       <CardTicket
         class="card-ticket"
         :actived="roles[0].flag"
@@ -168,9 +169,7 @@ function sendForFinish() {
         @click="checked(1)"
       />
 
-      <Button class="-primary -block" @click="sendForFinish"
-        >{{ labelButton }}
-      </Button>
+      <Button class="-primary -block" @click="sendForFinish">{{ labelButton }} </Button>
     </fieldset>
   </div>
 </template>
@@ -181,29 +180,38 @@ function sendForFinish() {
   left: 0;
   top: 40px;
 }
+
 .form-register {
-  @apply flex-col justify-center items-center  relative top-20;
+  @apply flex-col justify-center items-center relative top-20;
+
   > fieldset {
     > .title {
       @apply py-6;
+
       @screen <smdt {
         @apply py-2;
       }
     }
+
     > .steppers {
       @apply pb-8;
+
       @screen <smdt {
         @apply pb-4;
       }
     }
+
     > .card-ticket {
       @apply mb-8;
+
       @screen <smdt {
         @apply mb-6;
       }
     }
+
     > .info {
       @apply mb-8;
+
       @screen <smdt {
         @apply mb-4;
       }
