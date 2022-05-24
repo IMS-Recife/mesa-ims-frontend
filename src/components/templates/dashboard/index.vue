@@ -27,7 +27,8 @@ const mapStore = useMapStore();
               :key="index"
             >
               {{
-                itemy.name === itemx.layer ? `(${itemx.count})` : ""
+                // itemy.name === itemx.layer ? `(${itemx.count})` : ""
+                itemy.name === itemx.layer ? `` : ""
               }}</TextSmall
             >
           </TextSmall>
