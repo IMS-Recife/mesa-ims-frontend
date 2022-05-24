@@ -97,8 +97,7 @@ const mapsLayers = reactive([
     imageLayer: map_select_default,
     function: () => {
       mapStore.setNewIdTileLayer("italobarros1/ckzcqqbzb000x15nu88q50nwh");
-      ui.togglePreConfigSidebarVision(true),
-        mapStore.clearMarkers(mapStore.isClearMap);
+      ui.togglePreConfigSidebarVision(true);
     },
     checked: true,
   },
@@ -108,8 +107,7 @@ const mapsLayers = reactive([
     imageLayer: map_select_satelite,
     function: () => {
       mapStore.setNewIdTileLayer("italobarros1/ckzcqu2g2000y15nuqrho493x");
-      ui.togglePreConfigSidebarVision(true),
-        mapStore.clearMarkers(mapStore.isClearMap);
+      ui.togglePreConfigSidebarVision(true);
     },
     checked: false,
   },
@@ -119,8 +117,7 @@ const mapsLayers = reactive([
     imageLayer: map_select_black,
     function: () => {
       mapStore.setNewIdTileLayer("italobarros1/ckzcre1w9002n14p9noyn1r01");
-      ui.togglePreConfigSidebarVision(true),
-        mapStore.clearMarkers(mapStore.isClearMap);
+      ui.togglePreConfigSidebarVision(true);
     },
     checked: false,
   },
@@ -136,14 +133,12 @@ function dicionary(label: string) {
   switch (label) {
     case "Corredores":
       return "Corredores ambientais";
-      break;
+
     case "Macrozona":
       return "Limites legais";
-      break;
 
     default:
       return label;
-      break;
   }
 }
 </script>
@@ -166,9 +161,7 @@ function dicionary(label: string) {
         link="http://parquecapibaribe.org/"
       />
       <div v-if="route.path === '/projects'" class="content-zones">
-        <Label class="text-brand-secondary-medium"
-          >Visualizar por Categorias
-        </Label>
+        <Label class="text-brand-secondary-medium">Visualizar por Categorias </Label>
         <Toggle
           v-for="item in projectStore.projectZones"
           :text-label="dicionary(item.label)"
@@ -211,8 +204,10 @@ function dicionary(label: string) {
 <style lang="scss" scoped>
 .sidebar-vision-layout {
   @apply absolute flex flex-col z-401 top-[0px] right-[0];
+
   > .box {
     @apply pt-5 border-solid border-gray-300 border-r-2 border-t-2 border-b-2 border-l-2 w-[320px] h-[100vh] bg-white flex flex-col gap-2 px-5 overflow-y-auto overflow-x-hidden;
+
     > button {
       @apply mt-2;
     }

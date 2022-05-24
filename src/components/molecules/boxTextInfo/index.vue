@@ -27,7 +27,7 @@ withDefaults(defineProps<Props>(), {
         <ul>
           <li>
             <span>
-              <strong>Área </strong>
+              <strong>T </strong>
             </span>
             <span> {{ dataGeo.area }} m²</span>
           </li>
@@ -51,14 +51,12 @@ withDefaults(defineProps<Props>(), {
     </TextBodySmall>
 
     <div v-if="dataGeo" class="flex gap-1">
-      <LinkSmall @click="$router.push(link)">{{ textLink }} </LinkSmall
-      ><TextSmall>{{ complementLink }}</TextSmall>
+      <LinkSmall @click="$router.push(link)">{{ textLink }} </LinkSmall>
+      <TextSmall>{{ complementLink }}</TextSmall>
     </div>
 
     <LinkMedium v-else>
-      <a :href="link" target="_blank" rel="noopener noreferrer">{{
-        textLink
-      }}</a>
+      <a :href="link" target="_blank" rel="noopener noreferrer">{{ textLink }}</a>
     </LinkMedium>
   </div>
 </template>
@@ -70,6 +68,7 @@ withDefaults(defineProps<Props>(), {
   border-radius: 8px;
   border: 1px solid #f1f1f1;
 }
+
 .btn-link {
   @apply max-w-36 p-0 justify-start;
 }

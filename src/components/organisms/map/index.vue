@@ -243,11 +243,12 @@ onBeforeMount(async () => {
   watch(mapStore.panTo, () => {
     mapAPI.panTo(mapStore.panTo.latlng);
   });
-  let time1 = 0, time2=0, time0= 0;
+  let time1 = 0,
+    time2 = 0,
+    time0 = 0;
   watch(
     () => mapStore.searchNameLayer,
     async (value) => {
-      
       if (value) {
         const responseShowLayer = await callLayer({
           layers: [
@@ -260,8 +261,8 @@ onBeforeMount(async () => {
           searchAreas: mapStore.areaCurrent,
         }).finally(() => {
           time1 = Date.now();
-            console.log('*2 - Recebeu os dados da requisição em', time1)
-          })
+          console.log("*2 - Recebeu os dados da requisição em", time1);
+        });
 
         let featCollectionPolygonForVector = {
           type: "FeatureCollection",
@@ -276,12 +277,7 @@ onBeforeMount(async () => {
         let color = "#7A577A";
 
         if (responseShowLayer[value].length <= 0) {
-          ui.setSnackbar(
-            true,
-            "",
-            "Não há dados catalogados nessa região.",
-            "error"
-          );
+          ui.setSnackbar(true, "", "Não há dados catalogados nessa região.", "error");
         }
 
         let contador = 0;
@@ -493,8 +489,8 @@ onBeforeMount(async () => {
       }
       time2 = Date.now();
       console.log("*3 - Terminou de renderizar os dados", time2);
-      console.log("*4 - Renderizou em", time2-time1, "ms");
-      console.log('*=========================================================*');
+      console.log("*4 - Renderizou em", time2 - time1, "ms");
+      console.log("*=========================================================*");
     },
     { immediate: false, deep: false, flush: "post" }
   );
@@ -651,6 +647,10 @@ onBeforeMount(async () => {
     { immediate: true, deep: true }
   );
 });
+
+onBeforeUnmount(() => {
+  ui.toggleInfoPopupLayer(false);
+});
 </script>
 
 <template>
@@ -678,6 +678,7 @@ onBeforeMount(async () => {
   @apply p-0 flex justify-start items-center h-auto min-w-[255px];
   margin: 10px !important;
 }
+
 .map-popup-container {
   @apply flex p-0;
 }
@@ -687,11 +688,13 @@ onBeforeMount(async () => {
 
   > ul {
     list-style-type: none;
+
     > li {
       > span {
         @apply text-brand-secondary-darkest;
         font-weight: 700;
       }
+
       @apply py-1;
     }
   }

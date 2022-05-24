@@ -12,6 +12,7 @@ declare module 'vue' {
     ButtonIcon: typeof import('./components/molecules/button/ButtonIcon.vue')['default']
     ButtonIconCheck: typeof import('./components/molecules/button/ButtonIconCheck.vue')['default']
     Caption: typeof import('./components/atoms/texts/support/caption.vue')['default']
+    CarbonWarning: typeof import('~icons/carbon/warning')['default']
     CardTicket: typeof import('./components/molecules/card-ticket/index.vue')['default']
     Checkbox: typeof import('./components/molecules/button/Checkbox.vue')['default']
     Dashboard: typeof import('./components/templates/dashboard/index.vue')['default']
