@@ -110,35 +110,30 @@ watch(
 </script>
 
 <template>
-  <ModalTermPolitc
-    modal-name="modal-term-politc"
-    title="Termos e Políticas IMS"
-  >
+  <ModalTermPolitc modal-name="modal-term-politc" title="Termos e Políticas IMS">
     <template #content>
       At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
-      praesentium voluptatum deleniti atque corrupti quos dolores et quas
-      molestias excepturi sint occaecati cupiditate non provident, similique
-      sunt in culpa qui officia deserunt mollitia animi, id est laborum et
-      dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
-      Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil
-      impedit quo minus id quod maxime placeat facere possimus, omnis voluptas
-      assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut
-      officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates
-      repudiandae sint et molestiae non recusandae. Itaque earum rerum hic
+      praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias
+      excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui
+      officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem
+      rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est
+      eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere
+      possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem
+      quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et
+      voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic
       tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias
-      consequatur aut perferendis doloribus asperiores repellat. At vero eos et
-      accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
-      voluptatum deleniti atque corrupti quos dolores et quas molestias
-      excepturi sint occaecati cupiditate non provident, similique sunt in culpa
-      qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et
-      harum quidem rerum facilis est et expedita distinctio. Nam libero tempore,
-      cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod
-      maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor
-      repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum
-      necessitatibus saepe eveniet ut et voluptates repudiandae sint et
-      molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente
-      delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut
-      perferendis doloribus asperiores repellat."
+      consequatur aut perferendis doloribus asperiores repellat. At vero eos et accusamus
+      et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti
+      atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate
+      non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est
+      laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+      Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo
+      minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis
+      dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum
+      necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non
+      recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis
+      voluptatibus maiores alias consequatur aut perferendis doloribus asperiores
+      repellat."
     </template>
 
     <template #footer>
@@ -169,11 +164,8 @@ watch(
   <form class="form-register" @submit.prevent="createUser">
     <legend>
       <Title class="title" title="Cadastre-se" />
-      <Steppers class="steppers" :current="2" :options="steppers" />
-      <Info
-        class="info"
-        info="Preencha os dados abaixo para finalizar o cadastro"
-      />
+      <!-- <Steppers class="steppers" :current="2" :options="steppers" /> -->
+      <Info class="info" info="Preencha os dados abaixo para finalizar o cadastro" />
     </legend>
     <fieldset>
       <Textfield
@@ -258,45 +250,58 @@ watch(
   position: absolute;
   left: 0;
   top: 20px;
+
   @screen <smdt {
     position: absolute;
     left: 0;
     top: 4px;
   }
 }
+
 .form-register {
-  @apply flex-col justify-center items-center top-15  relative overflow-hidden;
+  @apply flex-col justify-center items-center top-15 relative overflow-hidden;
+
   @screen <smdt {
     @apply top-9;
   }
+
   > legend {
     > .title {
       @apply py-2;
+
       @screen <smdt {
         @apply py-0;
       }
     }
+
     > .steppers {
       @apply pb-6;
+
       @screen <smdt {
         @apply pb-4;
       }
     }
+
     > .info {
       @apply mb-3;
+
       @screen <smdt {
         @apply mb-2;
       }
     }
   }
+
   > fieldset {
     > .checkbox-terms {
       @apply mb-4;
+
       @screen <smdt {
         @apply my-4;
       }
+
       > .terms {
         @apply text-[12px] font-sans ml-4;
+
         > a {
           @apply underline;
         }
