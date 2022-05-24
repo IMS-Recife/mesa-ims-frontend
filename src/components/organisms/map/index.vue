@@ -198,10 +198,6 @@ onBeforeMount(async () => {
   watch(
     () => mapStore.tileLayer.id,
     () => {
-      mapAPI.eachLayer((layer: any) => {
-        layer.remove();
-      });
-
       L.tileLayer(
         "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
         {
@@ -244,8 +240,7 @@ onBeforeMount(async () => {
     mapAPI.panTo(mapStore.panTo.latlng);
   });
   let time1 = 0,
-    time2 = 0,
-    time0 = 0;
+    time2 = 0;
   watch(
     () => mapStore.searchNameLayer,
     async (value) => {

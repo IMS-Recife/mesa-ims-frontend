@@ -97,7 +97,6 @@ const mapsLayers = reactive([
     imageLayer: map_select_default,
     function: () => {
       mapStore.setNewIdTileLayer("italobarros1/ckzcqqbzb000x15nu88q50nwh");
-      ui.togglePreConfigSidebarVision(true);
     },
     checked: true,
   },
@@ -107,7 +106,6 @@ const mapsLayers = reactive([
     imageLayer: map_select_satelite,
     function: () => {
       mapStore.setNewIdTileLayer("italobarros1/ckzcqu2g2000y15nuqrho493x");
-      ui.togglePreConfigSidebarVision(true);
     },
     checked: false,
   },
@@ -117,7 +115,6 @@ const mapsLayers = reactive([
     imageLayer: map_select_black,
     function: () => {
       mapStore.setNewIdTileLayer("italobarros1/ckzcre1w9002n14p9noyn1r01");
-      ui.togglePreConfigSidebarVision(true);
     },
     checked: false,
   },
@@ -177,10 +174,7 @@ function dicionary(label: string) {
           :value-model="true"
         />
       </div>
-      <LayersCollapseContainer
-        :layersCategories="layersCategories"
-        title="Camadas"
-      ></LayersCollapseContainer>
+      <LayersCollapseContainer :layersCategories="layersCategories" title="Camadas" />
 
       <Button
         v-if="route.path === '/visions'"
