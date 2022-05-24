@@ -56,15 +56,18 @@ const model = computed({
 .select-map-layer {
   @apply flex flex-row items-center gap-4 justify-between pb-7;
 }
+
 .select-wrap {
   @apply relative h-[46px] w-[46px];
+
   > label {
     @apply ml-2 flex items-center text-[12px];
+
     > img {
-      @apply h-full w-full;
-      border-radius: 8px;
+      @apply h-full w-full rounded-lg;
     }
   }
+
   > span {
     @apply absolute top-15 left-[6px] text-[12px] text-neutrals-darkgrey-medium w-[120px] font-semibold;
   }
@@ -81,11 +84,11 @@ input[type="radio"] {
 }
 
 input[type="radio"] + label {
-  @apply h-[46px] w-[46px];
+  @apply h-[46px] w-[46px] rounded-xl;
+
   margin: auto;
-  border: 2px solid #000 !important;
+  border: 2px solid #a4a4a4 !important;
   padding: 2px;
-  border-radius: 8px;
   display: inline-block;
   position: absolute;
   top: 0;

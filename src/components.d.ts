@@ -12,22 +12,17 @@ declare module 'vue' {
     ButtonIcon: typeof import('./components/molecules/button/ButtonIcon.vue')['default']
     ButtonIconCheck: typeof import('./components/molecules/button/ButtonIconCheck.vue')['default']
     Caption: typeof import('./components/atoms/texts/support/caption.vue')['default']
-    CarbonWarning: typeof import('~icons/carbon/warning')['default']
     CardTicket: typeof import('./components/molecules/card-ticket/index.vue')['default']
     Checkbox: typeof import('./components/molecules/button/Checkbox.vue')['default']
     Dashboard: typeof import('./components/templates/dashboard/index.vue')['default']
     Feedback: typeof import('./components/molecules/feedback/index.vue')['default']
     Forgotpassword: typeof import('./components/organisms/forms/forgotpassword/index.vue')['default']
-    ForgotPassword: typeof import("./components/organisms/forms/forgotPassword/index.vue")["default"];
-    'Ic:roundCheckCircleOutline': typeof import("~icons/ic/round-check-circle-outline")["default"];
     Info: typeof import('./components/atoms/texts/info.vue')['default']
     InfoModal: typeof import('./components/molecules/modals/info-modal/index.vue')['default']
     InfoPopup: typeof import('./components/molecules/info-popup/index.vue')['default']
     Input: typeof import('./components/atoms/input/index.vue')['default']
     Label: typeof import('./components/atoms/texts/support/label.vue')['default']
-    Label1: typeof import('~icons/la/bel1')['default']
     Layer: typeof import('./components/organisms/layersCollapseContainer/layer.vue')['default']
-    LayersCollapse: typeof import("./components/organisms/layers-collapse/index.vue")["default"];
     LayersCollapseContainer: typeof import('./components/organisms/layersCollapseContainer/index.vue')['default']
     LayersPack: typeof import('./components/organisms/layersCollapseContainer/layers-pack.vue')['default']
     LinkMedium: typeof import('./components/atoms/texts/support/link-medium.vue')['default']
@@ -35,7 +30,6 @@ declare module 'vue' {
     Loader: typeof import('./components/atoms/loader/index.vue')['default']
     Map: typeof import('./components/organisms/map/index.vue')['default']
     MapPopup: typeof import('./components/molecules/map-popup/index.vue')['default']
-    ModalInformLayer: typeof import('./components/organisms/modals/modalInformLayer.vue')['default']
     ModalTermPolitc: typeof import('./components/organisms/modals/modalTermPolitc.vue')['default']
     Notification: typeof import('./components/organisms/notificationsTab/notification.vue')['default']
     NotificationsTab: typeof import('./components/organisms/notificationsTab/index.vue')['default']
@@ -47,25 +41,19 @@ declare module 'vue' {
     ProjectList: typeof import('./components/molecules/modals/projects-list-modal/project-list.vue')['default']
     ProjectsListModal: typeof import('./components/molecules/modals/projects-list-modal/index.vue')['default']
     Recoverypassword: typeof import('./components/organisms/forms/recoverypassword/index.vue')['default']
-    Register: typeof import("./components/organisms/forms/register/index.vue")["default"];
     Search: typeof import('./components/molecules/search/index.vue')['default']
     SearchInput: typeof import('./components/organisms/searchInput/index.vue')['default']
-    'SearchInput.vue': typeof import("./components/organisms/searchInput.vue/index.vue")["default"];
-    SelectMap: typeof import("./components/molecules/select-map/index.vue")["default"];
     SelectMapLayer: typeof import('./components/molecules/selectMapLayer/index.vue')['default']
     Sidebar: typeof import('./components/organisms/sidebar/index.vue')['default']
-    Signin: typeof import("./components/organisms/forms/signin/index.vue")["default"];
     Slider: typeof import('./components/molecules/slider/index.vue')['default']
     Snackbars: typeof import('./components/molecules/snackbars/index.vue')['default']
     StatusCircle: typeof import('./components/atoms/status-circle/index.vue')['default']
     StatusLayers: typeof import('./components/molecules/status-layers/index.vue')['default']
     Steppers: typeof import('./components/molecules/steppers/index.vue')['default']
-    Subtitle: typeof import("./components/atoms/texts/subtitle.vue")["default"];
     TextBodyLarge: typeof import('./components/atoms/texts/body/text-body-large.vue')['default']
     TextBodyMedium: typeof import('./components/atoms/texts/body/text-body-medium.vue')['default']
     TextBodySmall: typeof import('./components/atoms/texts/body/text-body-small.vue')['default']
     Textfield: typeof import('./components/molecules/textfield/index.vue')['default']
-    Texts: typeof import("./components/atoms/texts/index.vue")["default"];
     TextSmall: typeof import('./components/atoms/texts/support/text-small.vue')['default']
     Title: typeof import('./components/atoms/texts/title.vue')['default']
     TitleH1: typeof import('./components/atoms/texts/headings/title-h1.vue')['default']
