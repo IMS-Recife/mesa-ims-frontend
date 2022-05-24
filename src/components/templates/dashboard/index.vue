@@ -29,6 +29,7 @@ const mapStore = useMapStore();
               {{
                 // itemy.name === itemx.layer ? `(${itemx.count})` : ""
                 itemy.name === itemx.layer ? `` : ""
+                
               }}</TextSmall
             >
           </TextSmall>
