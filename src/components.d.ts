@@ -22,6 +22,7 @@ declare module 'vue' {
     InfoModal: typeof import('./components/molecules/modals/info-modal/index.vue')['default']
     InfoPopup: typeof import('./components/molecules/info-popup/index.vue')['default']
     Input: typeof import('./components/atoms/input/index.vue')['default']
+    IntervessionsIcon: typeof import('./components/atoms/icons/IntervessionsIcon/index.vue')['default']
     Label: typeof import('./components/atoms/texts/support/label.vue')['default']
     Layer: typeof import('./components/organisms/layersCollapseContainer/layer.vue')['default']
     LayersCollapseContainer: typeof import('./components/organisms/layersCollapseContainer/index.vue')['default']
