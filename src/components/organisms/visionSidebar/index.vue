@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import { useMapStore } from "@/stores/map";
 import { useProjects } from "@/stores/projects";
-import { useUIStore } from "@/stores/ui";
 
 import map_select_default from "@/assets/icons/map_select_default.svg";
 import map_select_satelite from "@/assets/icons/map_select_satelite.svg";
 import map_select_black from "@/assets/icons/map_select_black.svg";
 
-const ui = useUIStore();
 const projectStore = useProjects();
 const mapStore = useMapStore();
 

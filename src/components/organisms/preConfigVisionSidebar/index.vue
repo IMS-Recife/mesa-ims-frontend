@@ -144,7 +144,7 @@ const sliderValues = [
   @apply absolute flex flex-col z-405 top-[0px] right-[0];
 
   > .box {
-    @apply border-transparent w-[524px] h-[100vh] bg-white flex-col p-6 pb-6 justify-center items-center;
+    @apply border-transparent w-[524px] h-[100vh] bg-white flex-col p-6 pb-6 justify-center items-center overflow-y-auto overflow-x-hidden;
 
     > button {
       @apply mt-2;
