@@ -10,7 +10,7 @@ const mapStore = useMapStore();
 
 const isSidebarCollapsed = ref(true);
 const unreadNotifications = ref();
-
+const color = ref("#00A19C")
 watch(
   () => ui.isSidebarCollapsed,
   (val) => {
@@ -31,6 +31,45 @@ watch(
   },
   { immediate: true }
 );
+let path = ref('');
+const route = useRoute();
+onMounted( ()=>{
+   path.value = route.path;
+  // console.log(path.value)
+  if(path.value == '/interventions'){
+      color.value = '#FFFFFF';
+  }
+})
+
+watch(
+  ()=> route.path,
+  ()=>{
+    if(route.path == '/interventions'){
+      color.value = '#FFFFFF';
+    }
+  },
+
+)
+
+const onMouseHover = (name: string) => {
+  if(name === 'Intervenções' && route.path != '/interventions') {
+   color.value = '#FFFFFF' 
+  }
+  if(route.path == '/interventions') {
+   color.value = '#FFFFFF' 
+  }
+}
+const onMouseOut = (name: string) => {
+  //  color = '#00A19C'
+  if(name === 'Intervenções' && route.path != '/interventions') {
+   color.value = '#00A19C' 
+  }
+  if(route.path == '/interventions') {
+   color.value = '#FFFFFF' 
+  }
+}
+
+
 
 const menus = readonly([
   {
@@ -46,7 +85,7 @@ const menus = readonly([
   {
     name: "Intervenções",
     to: "/interventions",
-    icon: "mdi:vector-polyline",
+    icon: "Intervenções",
   },
   {
     name: "Economia",
@@ -103,15 +142,17 @@ const userActions = readonly([
         </router-link>
       </li>
 
-      <li v-for="menu in menus" :key="menu.name" class="item">
-        <router-link :to="menu.to" class="link">
+      <li v-for="menu in menus" :key="menu.name" class="item" >
+        <router-link :to="menu.to" class="link" @mouseover="onMouseHover(menu.name) " @mouseout="onMouseOut(menu.name)">
           <span
+            v-if="menu.icon !== 'Intervenções'"
             class="iconify text-current"
             :data-icon="menu.icon"
             data-width="24"
             data-height="24"
           >
           </span>
+          <IntervessionsIcon :color="color" v-if=" menu.icon === 'Intervenções' " />
           <p v-if="!isSidebarCollapsed" class="pl-3">{{ menu.name }}</p>
         </router-link>
       </li>
