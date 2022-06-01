@@ -144,20 +144,20 @@ const linksForButtonsIcons = reactive([
     height: "24",
     name: "google",
   },
-  {
-    path: facebook,
-    alt: "Hide password",
-    width: "24",
-    height: "24",
-    name: "facebook",
-  },
-  {
-    path: conectarecife,
-    alt: "Hide password",
-    width: "24",
-    height: "24",
-    name: "conectarecife",
-  },
+  // {
+  //   path: facebook,
+  //   alt: "Hide password",
+  //   width: "24",
+  //   height: "24",
+  //   name: "facebook",
+  // },
+  // {
+  //   path: conectarecife,
+  //   alt: "Hide password",
+  //   width: "24",
+  //   height: "24",
+  //   name: "conectarecife",
+  // },
 ]);
 
 const formForSend = reactive({
