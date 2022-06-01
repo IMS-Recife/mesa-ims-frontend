@@ -72,7 +72,6 @@ function sendForFinish() {
           ui.changeComponent("feedbackCreateUser");
 
           auth.setDataSocialGoogle(response.data.token.accessToken);
-
           router.push({
             name: "role",
             params: {
@@ -86,7 +85,7 @@ function sendForFinish() {
         if (typeof err.response.data.message === "string") {
           ui.setSnackbar(true, "", message, "error");
         } else {
-          ui.setSnackbar(true, "", message[0], "error");
+          ui.setSnackbar(true, "", message, "error");
         }
       });
   }

@@ -29,10 +29,11 @@ function googleInit(): void {
   gapi.client.init({
     clientId: import.meta.env.VITE_APP_GOOGLE_CLIENT_ID,
     scope: "email",
+    plugin_name: "chat"
   });
 }
 function useGoogle(): void {
-  gapi.load("client", googleInit);
+  gapi.load("client:auth2", googleInit);
 }
 function facebookInit(): void {
   fb.init({
