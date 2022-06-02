@@ -69,10 +69,13 @@ watch(
 </script>
 
 <template>
-  <Snackbars />
-  <router-view class="transition" />
-  <div id="modals"></div>
-  <Loader v-show="ui.isLoading" />
+  <div class="relative">
+    <Snackbars />
+    <router-view class="transition" />
+    <div id="modals"></div>
+    <div id="center-modal"></div>
+    <Loader v-show="ui.isLoading" />
+  </div>
 </template>
 
 <style lang="scss">
@@ -82,6 +85,7 @@ watch(
   --color-scroll-track: #fbfbfb;
   --border: 8px;
 }
+
 body {
   ::-webkit-scrollbar {
     width: var(--width-scroll);
@@ -103,5 +107,9 @@ body {
 .leaflet-tile-container img {
   width: 514.5px !important;
   height: 514.5px !important;
+}
+
+#center-modal {
+  @apply z-1000 absolute left-[50%] top-[50%];
 }
 </style>

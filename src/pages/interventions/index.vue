@@ -13,6 +13,18 @@ const responsibleOrgSearch = ref("");
 const partnersSearch = ref("");
 const thematicGroupsSearch = ref("");
 
+const isCreateProjectModalOpen = ref(false);
+
+const isReady = ref(false);
+onMounted(() => (isReady.value = true));
+
+watch(
+  () => isCreateProjectModalOpen.value,
+  (value) => {
+    console.log(value);
+  }
+);
+
 const routes = [
   {
     path: "/home",
@@ -155,7 +167,10 @@ watch(
         <Breadcrumbs class="z-10" :routes="routes" />
         <div class="page-button-wrapper">
           <TitleH1 class="page-title">Intervenções na cidade</TitleH1>
-          <Button class="-primary justify-self-end">
+          <Button
+            class="-primary justify-self-end"
+            @click="isCreateProjectModalOpen = true"
+          >
             <span
               class="iconify mr-2"
               data-icon="mdi:plus"
@@ -256,11 +271,44 @@ watch(
       />
       <Pagination class="flex justify-center" :currentPage="1" :totalPages="20" />
     </main>
+
+    <div v-if="isCreateProjectModalOpen" class="create-project-modal">
+      <button class="close-button" @click="isCreateProjectModalOpen = false">
+        <span
+          class="iconify"
+          data-icon="mdi:close"
+          data-width="24px"
+          data-height="24px"
+        />
+      </button>
+      <CreateProjectForm />
+    </div>
+    <div v-if="isCreateProjectModalOpen" class="modal-background"></div>
   </div>
 </template>
 <style lang="scss" scoped>
 .page-container {
-  @apply flex flex-col relative;
+  @apply flex flex-col relative w-full;
+
+  .create-project-modal {
+    @apply absolute z-1000;
+    @apply w-2/4 p-10 bg-neutrals-lightgrey-lightest;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    overflow-y: auto;
+    max-height: calc(100vh - 150px);
+
+    > .close-button {
+      @apply absolute top-4 right-4;
+      @apply text-neutrals-darkgrey-medium;
+    }
+  }
+
+  .modal-background {
+    @apply absolute z-999 w-full h-full;
+    background: rgba(196, 196, 196, 0.25);
+  }
 
   > header {
     @apply h-[200px] w-full;

@@ -14,5 +14,6 @@
   font-weight: 700;
   letter-spacing: 0, 5%;
   font-style: normal;
+  text-decoration: none;
 }
 </style>

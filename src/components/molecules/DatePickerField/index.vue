@@ -10,18 +10,16 @@ interface Props {
   hint?: string;
   validationMessages?: string;
   icon?: string;
-  type?: string;
   actionIcon?: Function;
   required?: boolean;
   name?: string;
   index?: number;
   param?: any;
   minWidth?: string;
-  labelColor?: "primary" | "secondary" | "tertiary" | "neutral";
+  labelColor: "primary" | "secondary" | "tertiary" | "neutral";
 }
 const props = withDefaults(defineProps<Props>(), {
   valueModel: "",
-  actionIcon: () => console.log("actionIcon"),
   index: 0,
   minWidth: "500px",
   labelColor: "neutral",
@@ -62,7 +60,12 @@ const textfieldVariance = computed(() => {
 
 <template>
   <div class="textfield-base">
-    <Label v-if="label" :for="`input-${id}`" class="label" :class="labelColor">
+    <Label
+      v-if="props.label"
+      :for="`input-${id}`"
+      class="label"
+      :class="props.labelColor"
+    >
       {{ label }}
     </Label>
     <div class="container-input">
@@ -77,20 +80,10 @@ const textfieldVariance = computed(() => {
             ? textfieldVariance
             : `-success ${textfieldVariance}`
         "
-        :type="props.type"
+        type="date"
         :name="props.name"
         :placeholder="props.placeholder"
       >
-        <template v-if="props.icon" v-slot:icon>
-          <button @click.prevent="actionIcon(index, param)" class="icon-textfield">
-            <span
-              class="iconify"
-              :data-icon="props.icon"
-              data-width="16"
-              data-height="16"
-            />
-          </button>
-        </template>
       </Input>
     </div>
     <slot name="password-strong"></slot>

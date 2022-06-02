@@ -35,14 +35,14 @@ const model = computed({
     :required="required"
     :name="name"
     :placeholder="placeholder"
+    lang="pt-BR"
   />
   <slot name="icon"> </slot>
 </template>
 
 <style lang="scss">
 .input-base {
-  @apply max-h-9 px-4 py-4
-    box-border cursor-pointer;
+  @apply max-h-9 px-4 py-4 box-border cursor-pointer;
   border-width: 1px;
   border-color: #d4d4d4;
   border-style: solid;
@@ -68,5 +68,9 @@ const model = computed({
     box-shadow: 0px 0px 0px 1px #7ac8c5;
     outline: transparent;
   }
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  @apply text-brand-primary-dark;
 }
 </style>
