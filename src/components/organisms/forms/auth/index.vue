@@ -101,19 +101,25 @@ function storeTokenGoogle() {
     })
     .catch((err: any) => {
       console.log(err, "err");
+      console.log(err.response.data, "err");
+      console.log(token, "token");
       if (err.response.status === 412) {
         auth.setCredentialGoogleToken(token);
+        auth.setData({
+          user: {name: err.response.data.name, email: err.response.data.email, role: ['CITIZEN'],},
+          token: token
+        })
         router.push("/signup");
       }
       const message =
         err.response.data.message === "Invalid credentials"
           ? "Credenciais inválidas"
-          : err.response.data.message;
+          : err.response.data.error;
 
       if (typeof err.response.data.message === "string") {
         ui.setSnackbar(true, "", message, "error");
       } else {
-        ui.setSnackbar(true, "", message[0], "error");
+        ui.setSnackbar(true, "", message, "error");
       }
     });
 }
@@ -138,20 +144,20 @@ const linksForButtonsIcons = reactive([
     height: "24",
     name: "google",
   },
-  {
-    path: facebook,
-    alt: "Hide password",
-    width: "24",
-    height: "24",
-    name: "facebook",
-  },
-  {
-    path: conectarecife,
-    alt: "Hide password",
-    width: "24",
-    height: "24",
-    name: "conectarecife",
-  },
+  // {
+  //   path: facebook,
+  //   alt: "Hide password",
+  //   width: "24",
+  //   height: "24",
+  //   name: "facebook",
+  // },
+  // {
+  //   path: conectarecife,
+  //   alt: "Hide password",
+  //   width: "24",
+  //   height: "24",
+  //   name: "conectarecife",
+  // },
 ]);
 
 const formForSend = reactive({

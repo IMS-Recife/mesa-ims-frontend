@@ -5,6 +5,8 @@ meta:
 </route>
 
 <script setup lang="ts">
+import moment from "moment";
+import { apiGetListProjects } from "@/services/projects";
 import TableLite from "vue3-table-lite/ts";
 
 const nameSearch = ref("");
@@ -13,17 +15,27 @@ const responsibleOrgSearch = ref("");
 const partnersSearch = ref("");
 const thematicGroupsSearch = ref("");
 
+const projects = ref<any[]>([]);
+
 const isCreateProjectModalOpen = ref(false);
 
 const isReady = ref(false);
-onMounted(() => (isReady.value = true));
+onMounted(() => {
+  isReady.value = true;
 
-watch(
-  () => isCreateProjectModalOpen.value,
-  (value) => {
-    console.log(value);
-  }
-);
+  apiGetListProjects().then((data) => {
+    console.log("projectsData", data);
+    projects.value = data.data;
+
+    const formatedProject = projects.value.map((project) => {
+      return {
+        ...project,
+        lastUpdate: moment(project.lastUpdate).format("DD/MM/YYYY"),
+      };
+    });
+    table.rows = formatedProject;
+  });
+});
 
 const routes = [
   {
@@ -36,49 +48,6 @@ const routes = [
     path: "/interventions",
     name: "Intervenções na cidade",
     currentPath: true,
-  },
-];
-
-const tableRows = [
-  {
-    id: 1,
-    name: "Parque Capibaribe",
-    location: "Recife-PE",
-    completedPercentage: "75%",
-    responsibleOrg: "URB",
-    partners: "SDECTI, INCITI/UFPE",
-    thematicGroups: "Urbanismo, Meio ambiente, Saneamento básico",
-    lastUpdate: "30/08/2021",
-  },
-  {
-    id: 2,
-    name: "Cais da aurora",
-    location: "Recife-PE",
-    completedPercentage: "100%",
-    responsibleOrg: "URB",
-    partners: "CTTU,EMLURB",
-    thematicGroups: "SDECTI",
-    lastUpdate: "02/02/2021",
-  },
-  {
-    id: 3,
-    name: "Mais vida nos morros",
-    location: "Recife-PE",
-    completedPercentage: "40%",
-    responsibleOrg: "URB",
-    partners: "CTTU, EMLURB",
-    thematicGroups: "Urbanismo, Meio ambiente, Saneamento básico",
-    lastUpdate: "05/03/2021",
-  },
-  {
-    id: 4,
-    name: "Calçada legal",
-    location: "Recife-PE",
-    completedPercentage: "50%",
-    responsibleOrg: "URB",
-    partners: "SDECTI, INCITI/UFPE",
-    thematicGroups: "Urbanismo, Meio ambiente, Saneamento básico",
-    lastUpdate: "27/03/2021",
   },
 ];
 
@@ -127,22 +96,8 @@ const table = reactive({
       sortable: true,
     },
   ],
-  rows: computed(() => {
-    return tableRows.filter((row) => {
-      return (
-        row.name.toLowerCase().includes(nameSearch.value.toLowerCase()) &&
-        row.location.toLowerCase().includes(locationSearch.value.toLowerCase()) &&
-        row.responsibleOrg
-          .toLowerCase()
-          .includes(responsibleOrgSearch.value.toLowerCase()) &&
-        row.partners.toLowerCase().includes(partnersSearch.value.toLowerCase()) &&
-        row.thematicGroups
-          .toLowerCase()
-          .includes(thematicGroupsSearch.value.toLowerCase())
-      );
-    });
-  }),
-  totalRecordCount: 4,
+  rows: projects.value,
+  totalRecordCount: 20,
   sortable: {
     order: "name",
     sort: "desc",
@@ -269,7 +224,6 @@ watch(
         :is-loading="table.isLoading"
         @return-checked-rows="updateCheckedRows"
       />
-      <Pagination class="flex justify-center" :currentPage="1" :totalPages="20" />
     </main>
 
     <div v-if="isCreateProjectModalOpen" class="create-project-modal">
@@ -366,7 +320,7 @@ watch(
       }
     }
 
-    ::v-deep(.vtl-paging-info) {
+    /* ::v-deep(.vtl-paging-info) {
       display: none;
     }
 
@@ -376,7 +330,7 @@ watch(
 
     ::v-deep(.vtl-paging-pagination-div) {
       display: none;
-    }
+    } */
 
     ::v-deep(.vtl-tbody-checkbox) {
       @apply appearance-none;

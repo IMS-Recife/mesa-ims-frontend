@@ -11,7 +11,7 @@ const formForSend = reactive({
   areas: [],
   startDate: "",
   location: "",
-  thematicGroups: [],
+  thematicGroups: "",
   referenceLink: "",
   phase: "",
   measurementUnit: "",
@@ -20,9 +20,10 @@ const formForSend = reactive({
   projectValue: 1,
   infiltrationsSize: 1,
   constructionWorkValue: 1,
-  partners: [],
+  partners: "",
   completedPercentage: 1,
   relations: [],
+  plans: "",
 });
 
 watch(formForSend, (value) => {
@@ -76,6 +77,7 @@ const registerProject = () => {
     .then((response) => {
       if (response.status === 201) {
         ui.setSnackbar(true, "", "Projeto criado com sucesso!", "success");
+        // window.location = window.location;
       }
     })
     .catch((err: any) => {
@@ -139,7 +141,7 @@ const registerProject = () => {
         />
         <Textfield
           label="Quantidade prevista*"
-          placeho2der="Exemplo: 2000"
+          placeholder="Exemplo: 2000"
           minWidth="250px"
           type="number"
           @update:value="formForSend.expectedQuantity = Number($event)"
@@ -187,11 +189,18 @@ const registerProject = () => {
     <div class="project-field-section">
       <Overline class="section-title">RELAÇÕES</Overline>
       <fieldset>
-        <Textfield label="ODS*" placeholder="Objt. Desen. Sust." minWidth="400px" />
+        <Textfield label="ODS*" placeholder="Objt. Desen. Sust." minWidth="350px" />
         <Textfield
-          label="Porcentagem concluída"
-          placeholder="Porcentagem concluída"
-          minWidth="400px"
+          label="Planos"
+          placeholder="Planos"
+          minWidth="350px"
+          @update:value="formForSend.plans = $event"
+        />
+        <Textfield
+          label="Grupos temáticos"
+          placeholder="Grupos temáticos"
+          minWidth="350px"
+          @update:value="formForSend.thematicGroups = $event"
         />
       </fieldset>
     </div>
@@ -199,7 +208,13 @@ const registerProject = () => {
     <div class="partners-field-section">
       <Overline class="section-title">PARCEIROS</Overline>
       <fieldset class="partners-fields">
-        <Textfield label="Responsável" placeholder="Responsável" minWidth="350px" />
+        <Textfield
+          label="Parceiros"
+          placeholder="Parceiros"
+          minWidth="350px"
+          @update:value="formForSend.partners = $event"
+        />
+        <!-- <Textfield label="Responsável" placeholder="Responsável" minWidth="350px" />
         <Textfield
           label="Tipo do projeto"
           placeholder="Tipo do projeto"
@@ -212,7 +227,7 @@ const registerProject = () => {
             data-height="24"
             data-width="24"
           ></span>
-        </button>
+        </button> -->
       </fieldset>
     </div>
 

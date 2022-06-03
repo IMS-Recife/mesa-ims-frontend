@@ -8,7 +8,7 @@ type CreateProjectDTO = {
   areas?: string[];
   startDate: string;
   location?: string;
-  thematicGroups?: string[];
+  thematicGroups?: string;
   referenceLink?: string;
   phase: string;
   measurementUnit?: string;
@@ -17,9 +17,10 @@ type CreateProjectDTO = {
   projectValue?: number;
   infiltrationsSize?: number;
   constructionWorkValue?: number;
-  partners?: string[];
+  partners?: string;
   completedPercentage?: number;
   relations?: string[];
+  plans?: string;
 }
 
 export function apiGetListProjects(): Promise<AxiosResponse> {

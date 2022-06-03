@@ -5,7 +5,7 @@ import { useAuthStore } from "@/stores/auth";
 const auth = useAuthStore();
 
 const ui = useUIStore();
-
+const changeVisibleInput = ref(true);
 const route = useRoute();
 const steppers = reactive([
   {
@@ -28,10 +28,10 @@ const passwords = reactive({
 });
 
 const formForSend = reactive({
-  name: "",
-  email: "",
+  name: auth.$state.user.name ||"",
+  email:auth.$state.user.email ||"",
   password: "",
-  roles: [""],
+  roles:auth.$state.user.role|| [""],
 });
 
 const flagEyePassword1 = ref(false);
@@ -107,6 +107,16 @@ watch(
     deep: true,
   }
 );
+
+onBeforeMount(()=>{
+  if(auth.$state.user.name && auth.$state.user.email, auth.$state.user.role && auth.credentialGoogleToken) {
+    changeVisibleInput.value = false;
+  }
+  else{
+    changeVisibleInput.value = true;
+  }
+})
+
 </script>
 
 <template>
@@ -169,6 +179,7 @@ watch(
     </legend>
     <fieldset>
       <Textfield
+      v-if="changeVisibleInput"
         id="name"
         label="Nome"
         name="Nome"
@@ -178,6 +189,7 @@ watch(
         required="required"
       ></Textfield>
       <Textfield
+      v-if="changeVisibleInput"
         id="email"
         label="E-mail"
         name="email"
