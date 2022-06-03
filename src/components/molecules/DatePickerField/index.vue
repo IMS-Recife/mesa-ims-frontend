@@ -21,7 +21,7 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   valueModel: "",
   index: 0,
-  minWidth: "500px",
+  minWidth: "300px",
   labelColor: "neutral",
 });
 const emit = defineEmits<{

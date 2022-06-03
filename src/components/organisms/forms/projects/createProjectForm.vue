@@ -1,48 +1,185 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { apiPostProject } from "@/services/projects";
+import { useUIStore } from "@/stores/ui";
+
+const ui = useUIStore();
+
+const formForSend = reactive({
+  name: "",
+  responsibleOrg: "",
+  currentState: "",
+  areas: [],
+  startDate: "",
+  location: "",
+  thematicGroups: [],
+  referenceLink: "",
+  phase: "",
+  measurementUnit: "",
+  expectedQuantity: 1,
+  executedQuantity: 1,
+  projectValue: 1,
+  infiltrationsSize: 1,
+  constructionWorkValue: 1,
+  partners: [],
+  completedPercentage: 1,
+  relations: [],
+});
+
+watch(formForSend, (value) => {
+  console.log(value);
+});
+
+const registerProject = () => {
+  const {
+    name,
+    responsibleOrg,
+    currentState,
+    areas,
+    startDate,
+    location,
+    thematicGroups,
+    referenceLink,
+    phase,
+    measurementUnit,
+    expectedQuantity,
+    executedQuantity,
+    projectValue,
+    infiltrationsSize,
+    constructionWorkValue,
+    partners,
+    completedPercentage,
+    relations,
+  } = formForSend;
+
+  const project = {
+    name,
+    responsibleOrg,
+    currentState,
+    areas,
+    startDate,
+    location,
+    thematicGroups,
+    referenceLink,
+    phase,
+    measurementUnit,
+    expectedQuantity,
+    executedQuantity,
+    projectValue,
+    infiltrationsSize,
+    constructionWorkValue,
+    partners,
+    completedPercentage,
+    relations,
+  };
+
+  apiPostProject(project)
+    .then((response) => {
+      if (response.status === 201) {
+        ui.setSnackbar(true, "", "Projeto criado com sucesso!", "success");
+      }
+    })
+    .catch((err: any) => {
+      const message = err.response.data.message;
+
+      if (typeof err.response.data.message === "string") {
+        ui.setSnackbar(true, "", message, "error");
+      } else {
+        ui.setSnackbar(true, "", message[0], "error");
+      }
+    });
+};
+</script>
 
 <template>
-  <form>
+  <form id="create-project" @submit.prevent="registerProject">
     <TitleH4 class="form-title">Novo projeto</TitleH4>
     <div class="project-field-section">
       <Overline class="section-title">SOBRE</Overline>
       <fieldset>
-        <Textfield label="Nome" placeholder="Nome do projeto" minWidth="400px" />
+        <Textfield
+          label="Nome"
+          placeholder="Nome do projeto"
+          minWidth="250px"
+          @update:value="formForSend.name = $event"
+        />
         <Textfield
           label="Orgão responsável"
           placeholder="Orgão responsável"
-          minWidth="400px"
+          minWidth="250px"
+          @update:value="formForSend.responsibleOrg = $event"
         />
         <Textfield
           label="Link de referência"
           placeholder="Link de referência"
-          minWidth="400px"
+          minWidth="250px"
+          @update:value="formForSend.referenceLink = $event"
         />
-        <DatePickerField label="Data de início" />
+        <DatePickerField
+          label="Data de início"
+          minWidth="250px"
+          @update:value="formForSend.startDate = $event"
+        />
         <Textfield
-          label="Quantidade prevista"
-          placeholder="Quantidade prevista"
-          minWidth="400px"
+          label="Fase"
+          placeholder="Fase"
+          minWidth="250px"
+          @update:value="formForSend.phase = $event"
+        />
+        <Textfield
+          label="Situação"
+          placeholder="Situação"
+          minWidth="250px"
+          @update:value="formForSend.currentState = $event"
+        />
+        <Textfield
+          label="Unidade de medida"
+          placeholder="Exemplo: metro linear"
+          minWidth="250px"
+          @update:value="formForSend.measurementUnit = $event"
+        />
+        <Textfield
+          label="Quantidade prevista*"
+          placeho2der="Exemplo: 2000"
+          minWidth="250px"
+          type="number"
+          @update:value="formForSend.expectedQuantity = Number($event)"
         />
         <Textfield
           label="Quantidade executada"
           placeholder="Quantidade executada"
-          minWidth="400px"
+          minWidth="250px"
+          type="number"
+          @update:value="formForSend.executedQuantity = Number($event)"
         />
         <Textfield
           label="Valor do projeto"
           placeholder="Valor do projeto"
-          minWidth="400px"
+          minWidth="250px"
+          type="number"
+          @update:value="formForSend.projectValue = Number($event)"
         />
-        <Textfield label="Valor da obra" placeholder="Valor da obra" minWidth="400px" />
+        <Textfield
+          label="Valor da obra"
+          placeholder="Valor da obra"
+          minWidth="250px"
+          type="number"
+          @update:value="formForSend.constructionWorkValue = Number($event)"
+        />
         <Textfield
           label="Tamanho das infiltrações"
           placeholder="Tamanho das infiltrações"
-          minWidth="400px"
+          minWidth="250px"
+          type="number"
+          @update:value="formForSend.infiltrationsSize = Number($event)"
         />
         <Textfield
           label="Porcentagem concluída"
           placeholder="Porcentagem concluída"
-          minWidth="400px"
+          minWidth="250px"
+          type="number"
+          maxNumber="100"
+          minNumber="1"
+          @update:value="formForSend.completedPercentage = Number($event)"
         />
       </fieldset>
     </div>
@@ -87,9 +224,8 @@
         <Button class="-tertiary" disabled>Adicionar shapefile</Button>
       </fieldset>
     </div>
+    <Button class="-primary mt-20 ml-auto" type="submit">ENVIAR</Button>
   </form>
-
-  <Button class="-primary mt-20 ml-auto" disabled>ENVIAR</Button>
 </template>
 
 <style lang="scss" scoped>

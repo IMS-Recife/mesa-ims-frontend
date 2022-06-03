@@ -6,12 +6,15 @@ type Props = {
   required?: boolean;
   name?: string;
   placeholder?: string;
+  maxNumber?: string;
+  minNumber?: string;
 };
 
 const props = withDefaults(defineProps<Props>(), {
   required: false,
   placeholder: "",
   value: "",
+  maxNumber: "100",
 });
 
 const emit = defineEmits<{
@@ -31,11 +34,13 @@ const model = computed({
   <input
     v-model="model"
     :class="`input-base ${$props.class}`"
-    :type="type"
+    :type="props.type"
     :required="required"
     :name="name"
     :placeholder="placeholder"
     lang="pt-BR"
+    :max="props.maxNumber"
+    min="0"
   />
   <slot name="icon"> </slot>
 </template>
