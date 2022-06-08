@@ -235,7 +235,7 @@ watch(
           data-height="24px"
         />
       </button>
-      <CreateProjectForm />
+      <CreateEditProjectForm />
     </div>
     <div v-if="isCreateProjectModalOpen" class="modal-background"></div>
   </div>

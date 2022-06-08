@@ -14,7 +14,7 @@ declare module 'vue' {
     Caption: typeof import('./components/atoms/texts/support/caption.vue')['default']
     CardTicket: typeof import('./components/molecules/card-ticket/index.vue')['default']
     Checkbox: typeof import('./components/molecules/button/Checkbox.vue')['default']
-    CreateProjectForm: typeof import('./components/organisms/forms/projects/createProjectForm.vue')['default']
+    CreateEditProjectForm: typeof import('./components/organisms/forms/projects/createEditProjectForm.vue')['default']
     Dashboard: typeof import('./components/templates/dashboard/index.vue')['default']
     DatePickerField: typeof import('./components/molecules/DatePickerField/index.vue')['default']
     Feedback: typeof import('./components/molecules/feedback/index.vue')['default']

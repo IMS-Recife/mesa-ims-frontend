@@ -1,8 +1,14 @@
 <script setup lang="ts">
 import { apiPostProject } from "@/services/projects";
 import { useUIStore } from "@/stores/ui";
+import { apiGetProjectById } from "@/services/projects";
 
 const ui = useUIStore();
+
+interface Props {
+  projectId?: string;
+}
+const props = defineProps<Props>();
 
 const formForSend = reactive({
   name: "",
@@ -28,6 +34,32 @@ const formForSend = reactive({
 
 watch(formForSend, (value) => {
   console.log(value);
+});
+
+onBeforeMount(() => {
+  if (props.projectId) {
+    apiGetProjectById(props.projectId).then((response) => {
+      formForSend.name = response.data.name;
+      formForSend.responsibleOrg = response.data.responsibleOrg;
+      formForSend.currentState = response.data.currentState;
+      formForSend.areas = response.data.areas;
+      formForSend.startDate = response.data.startDate;
+      formForSend.location = response.data.location;
+      formForSend.thematicGroups = response.data.thematicGroups;
+      formForSend.referenceLink = response.data.referenceLink;
+      formForSend.phase = response.data.phase;
+      formForSend.measurementUnit = response.data.measurementUnit;
+      formForSend.expectedQuantity = response.data.expectedQuantity;
+      formForSend.executedQuantity = response.data.executedQuantity;
+      formForSend.projectValue = response.data.projectValue;
+      formForSend.infiltrationsSize = response.data.infiltrationsSize;
+      formForSend.constructionWorkValue = response.data.constructionWorkValue;
+      formForSend.partners = response.data.partners;
+      formForSend.completedPercentage = response.data.completedPercentage;
+      formForSend.relations = response.data.relations;
+      formForSend.plans = response.data.plans;
+    });
+  }
 });
 
 const registerProject = () => {

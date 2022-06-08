@@ -48,3 +48,10 @@ export function apiPostProject(payload : CreateProjectDTO): Promise<AxiosRespons
   });
 }
 
+export function apiGetProjectById(id: string): Promise<AxiosResponse> {
+  return fetch({
+    method: "GET",
+    path: `projects/${id}`,
+  });
+}
+

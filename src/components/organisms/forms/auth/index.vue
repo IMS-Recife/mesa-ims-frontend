@@ -4,8 +4,6 @@ import { useUIStore } from "@/stores/ui";
 import { useAuthStore } from "@/stores/auth";
 
 import google from "@/assets/icons/google-1.svg";
-import facebook from "@/assets/icons/facebook-1.svg";
-import conectarecife from "@/assets/icons/logo-conecta-recife-1.svg";
 
 const router = useRouter();
 const auth = useAuthStore();
@@ -106,9 +104,13 @@ function storeTokenGoogle() {
       if (err.response.status === 412) {
         auth.setCredentialGoogleToken(token);
         auth.setData({
-          user: {name: err.response.data.name, email: err.response.data.email, role: ['CITIZEN'],},
-          token: token
-        })
+          user: {
+            name: err.response.data.name,
+            email: err.response.data.email,
+            role: ["CITIZEN"],
+          },
+          token: token,
+        });
         router.push("/signup");
       }
       const message =
