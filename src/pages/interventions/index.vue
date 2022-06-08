@@ -18,8 +18,12 @@ const thematicGroupsSearch = ref("");
 const projects = ref<any[]>([]);
 
 const isCreateProjectModalOpen = ref(false);
+const isEditProjectModalOpen = ref(false);
+const isDeleteProjectModalOpen = ref(false);
+const projectId = ref("");
 
 const isReady = ref(false);
+
 onMounted(() => {
   isReady.value = true;
 
@@ -95,6 +99,11 @@ const table = reactive({
       width: "10%",
       sortable: true,
     },
+    {
+      label: "Ações",
+      field: "actions",
+      width: "10%",
+    },
   ],
   rows: projects.value,
   totalRecordCount: 20,
@@ -112,6 +121,17 @@ watch(
     console.log("nameSearch", val);
   }
 );
+
+const openDeleteProjectModal = (projectID: string): void => {
+  projectId.value = projectID;
+  isDeleteProjectModalOpen.value = true;
+};
+
+const openEditProjectModal = (projectID: string): void => {
+  console.log("projectID", projectID);
+  projectId.value = projectID;
+  isEditProjectModalOpen.value = true;
+};
 </script>
 
 <template>
@@ -212,9 +232,8 @@ watch(
           <div class="selected-filters-wrapper"></div>
         </div>
       </div>
-
       <TableLite
-        :is-static-mode="true"
+        :is-slot-mode="true"
         :has-checkbox="true"
         :is-re-search="table.isReSearch"
         :columns="table.columns"
@@ -223,7 +242,29 @@ watch(
         :sortable="table.sortable"
         :is-loading="table.isLoading"
         @return-checked-rows="updateCheckedRows"
-      />
+      >
+        <template v-for="col in table.columns.slice(0, -1)" v-slot:[col.field]="data">
+          <TextBodySmall>{{ data.value[col.field] }}</TextBodySmall>
+        </template>
+        <template v-slot:actions="data">
+          <button @click="openDeleteProjectModal(data.value._id)">
+            <span
+              class="iconify mr-2"
+              data-icon="mdi:trash-can"
+              data-width="24px"
+              data-height="24px"
+            />
+          </button>
+          <button @click="openEditProjectModal(data.value._id)">
+            <span
+              class="iconify mr-2"
+              data-icon="mdi:pencil"
+              data-width="24px"
+              data-height="24px"
+            />
+          </button>
+        </template>
+      </TableLite>
     </main>
 
     <div v-if="isCreateProjectModalOpen" class="create-project-modal">
@@ -237,7 +278,21 @@ watch(
       </button>
       <CreateEditProjectForm />
     </div>
-    <div v-if="isCreateProjectModalOpen" class="modal-background"></div>
+    <div v-if="isEditProjectModalOpen" class="create-project-modal">
+      <button class="close-button" @click="isEditProjectModalOpen = false">
+        <span
+          class="iconify"
+          data-icon="mdi:close"
+          data-width="24px"
+          data-height="24px"
+        />
+      </button>
+      <CreateEditProjectForm :projectId="projectId" />
+    </div>
+    <div
+      v-if="isCreateProjectModalOpen || isEditProjectModalOpen"
+      class="modal-background"
+    ></div>
   </div>
 </template>
 <style lang="scss" scoped>
@@ -423,12 +478,12 @@ watch(
       @apply text-neutrals-darkgrey-medium;
       border: none;
       //styleName: Support/Text Small;
-      font-family: Roboto;
+      /* font-family: Roboto;
       font-size: 12px;
       font-weight: 400;
       line-height: 22px;
       letter-spacing: 0.02em;
-      text-align: left;
+      text-align: left; */
     }
 
     ::v-deep(.vtl-table tr) {
