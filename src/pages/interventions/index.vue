@@ -6,8 +6,11 @@ meta:
 
 <script setup lang="ts">
 import moment from "moment";
-import { apiGetListProjects } from "@/services/projects";
+import { apiGetListProjects, apiDeleteProject } from "@/services/projects";
 import TableLite from "vue3-table-lite/ts";
+import { useUIStore } from "@/stores/ui";
+
+const ui = useUIStore();
 
 const nameSearch = ref("");
 const locationSearch = ref("");
@@ -122,11 +125,6 @@ watch(
   }
 );
 
-const openDeleteProjectModal = (projectID: string): void => {
-  projectId.value = projectID;
-  isDeleteProjectModalOpen.value = true;
-};
-
 const openEditProjectModal = (projectID: string): void => {
   console.log("projectID", projectID);
   projectId.value = projectID;
@@ -139,8 +137,24 @@ const closeCreateEditProjectModal = (): void => {
   isEditProjectModalOpen.value = false;
 };
 
-const deleteProject = (): void => {
-  console.log("projectId", projectId.value);
+const deleteProject = (projectId: string): void => {
+  isDeleteProjectModalOpen.value = false;
+  apiDeleteProject(projectId).then((data) => {
+    if (data.status === 200) {
+      ui.setSnackbar(true, "", "Projeto excluído com sucesso!", "success");
+      window.location.reload();
+    }
+  });
+};
+
+const openDeleteProjectModal = (projectID: string): void => {
+  projectId.value = projectID;
+  isDeleteProjectModalOpen.value = true;
+};
+
+const closeDeleteProjectModal = (): void => {
+  projectId.value = "";
+  isDeleteProjectModalOpen.value = false;
 };
 </script>
 
@@ -284,10 +298,7 @@ const deleteProject = (): void => {
       <CreateEditProjectForm :projectId="projectId" />
     </BigModal>
 
-    <SmallModal
-      :isOpen="isDeleteProjectModalOpen"
-      @close="isDeleteProjectModalOpen = false"
-    >
+    <SmallModal :isOpen="isDeleteProjectModalOpen" @close="closeDeleteProjectModal()">
       <TitleH4 class="form-title">Excluir projeto</TitleH4>
       <TextBodySmall class="mt-4 mb-8">
         Tem certeza que deseja excluir o projeto?
@@ -295,12 +306,16 @@ const deleteProject = (): void => {
       <div class="flex">
         <Button
           class="-tertiary"
-          @click="isDeleteProjectModalOpen = false"
+          @click="closeDeleteProjectModal()"
           style="margin-right: 10px"
         >
           Cancelar
         </Button>
-        <Button class="-primary" @click="deleteProject()" style="margin-left: 10px">
+        <Button
+          class="-primary"
+          @click="deleteProject(projectId)"
+          style="margin-left: 10px"
+        >
           Excluir
         </Button>
       </div>

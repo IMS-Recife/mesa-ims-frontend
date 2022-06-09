@@ -116,7 +116,7 @@ const registerProject = () => {
     .then((response) => {
       if (response.status === 201) {
         ui.setSnackbar(true, "", "Projeto criado com sucesso!", "success");
-        // window.location = window.location;
+        window.location.reload();
       }
     })
     .catch((err: any) => {

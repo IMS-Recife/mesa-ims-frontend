@@ -55,3 +55,10 @@ export function apiGetProjectById(id: string): Promise<AxiosResponse> {
   });
 }
 
+export function apiDeleteProject(id: string): Promise<AxiosResponse> {
+  return fetch({
+    method: "DELETE",
+    path: `projects/${id}`,
+  });
+}
+
