@@ -132,6 +132,12 @@ const openEditProjectModal = (projectID: string): void => {
   projectId.value = projectID;
   isEditProjectModalOpen.value = true;
 };
+
+const closeCreateEditProjectModal = (): void => {
+  projectId.value = "";
+  isCreateProjectModalOpen.value = false;
+  isEditProjectModalOpen.value = false;
+};
 </script>
 
 <template>
@@ -267,57 +273,17 @@ const openEditProjectModal = (projectID: string): void => {
       </TableLite>
     </main>
 
-    <div v-if="isCreateProjectModalOpen" class="create-project-modal">
-      <button class="close-button" @click="isCreateProjectModalOpen = false">
-        <span
-          class="iconify"
-          data-icon="mdi:close"
-          data-width="24px"
-          data-height="24px"
-        />
-      </button>
-      <CreateEditProjectForm />
-    </div>
-    <div v-if="isEditProjectModalOpen" class="create-project-modal">
-      <button class="close-button" @click="isEditProjectModalOpen = false">
-        <span
-          class="iconify"
-          data-icon="mdi:close"
-          data-width="24px"
-          data-height="24px"
-        />
-      </button>
+    <BigModal
+      :isOpen="isCreateProjectModalOpen || isEditProjectModalOpen"
+      @close="closeCreateEditProjectModal()"
+    >
       <CreateEditProjectForm :projectId="projectId" />
-    </div>
-    <div
-      v-if="isCreateProjectModalOpen || isEditProjectModalOpen"
-      class="modal-background"
-    ></div>
+    </BigModal>
   </div>
 </template>
 <style lang="scss" scoped>
 .page-container {
   @apply flex flex-col relative w-full;
-
-  .create-project-modal {
-    @apply absolute z-1000;
-    @apply w-2/4 p-10 bg-neutrals-lightgrey-lightest;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    overflow-y: auto;
-    max-height: calc(100vh - 150px);
-
-    > .close-button {
-      @apply absolute top-4 right-4;
-      @apply text-neutrals-darkgrey-medium;
-    }
-  }
-
-  .modal-background {
-    @apply absolute z-999 w-full h-full;
-    background: rgba(196, 196, 196, 0.25);
-  }
 
   > header {
     @apply h-[200px] w-full;
