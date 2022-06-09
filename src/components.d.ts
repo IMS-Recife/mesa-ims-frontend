@@ -52,6 +52,7 @@ declare module 'vue' {
     SelectMapLayer: typeof import('./components/molecules/selectMapLayer/index.vue')['default']
     Sidebar: typeof import('./components/organisms/sidebar/index.vue')['default']
     Slider: typeof import('./components/molecules/slider/index.vue')['default']
+    SmallModal: typeof import('./components/atoms/modals/smallModal.vue')['default']
     Snackbars: typeof import('./components/molecules/snackbars/index.vue')['default']
     StatusCircle: typeof import('./components/atoms/status-circle/index.vue')['default']
     StatusLayers: typeof import('./components/molecules/status-layers/index.vue')['default']

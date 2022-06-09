@@ -138,6 +138,10 @@ const closeCreateEditProjectModal = (): void => {
   isCreateProjectModalOpen.value = false;
   isEditProjectModalOpen.value = false;
 };
+
+const deleteProject = (): void => {
+  console.log("projectId", projectId.value);
+};
 </script>
 
 <template>
@@ -253,18 +257,18 @@ const closeCreateEditProjectModal = (): void => {
           <TextBodySmall>{{ data.value[col.field] }}</TextBodySmall>
         </template>
         <template v-slot:actions="data">
-          <button @click="openDeleteProjectModal(data.value._id)">
-            <span
-              class="iconify mr-2"
-              data-icon="mdi:trash-can"
-              data-width="24px"
-              data-height="24px"
-            />
-          </button>
           <button @click="openEditProjectModal(data.value._id)">
             <span
               class="iconify mr-2"
               data-icon="mdi:pencil"
+              data-width="24px"
+              data-height="24px"
+            />
+          </button>
+          <button @click="openDeleteProjectModal(data.value._id)">
+            <span
+              class="iconify mr-2"
+              data-icon="mdi:trash-can"
               data-width="24px"
               data-height="24px"
             />
@@ -279,6 +283,28 @@ const closeCreateEditProjectModal = (): void => {
     >
       <CreateEditProjectForm :projectId="projectId" />
     </BigModal>
+
+    <SmallModal
+      :isOpen="isDeleteProjectModalOpen"
+      @close="isDeleteProjectModalOpen = false"
+    >
+      <TitleH4 class="form-title">Excluir projeto</TitleH4>
+      <TextBodySmall class="mt-4 mb-8">
+        Tem certeza que deseja excluir o projeto?
+      </TextBodySmall>
+      <div class="flex">
+        <Button
+          class="-tertiary"
+          @click="isDeleteProjectModalOpen = false"
+          style="margin-right: 10px"
+        >
+          Cancelar
+        </Button>
+        <Button class="-primary" @click="deleteProject()" style="margin-left: 10px">
+          Excluir
+        </Button>
+      </div>
+    </SmallModal>
   </div>
 </template>
 <style lang="scss" scoped>
