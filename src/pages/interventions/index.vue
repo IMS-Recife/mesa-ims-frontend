@@ -137,9 +137,10 @@ const closeCreateEditProjectModal = (): void => {
   isEditProjectModalOpen.value = false;
 };
 
-const deleteProject = (projectId: string): void => {
+const deleteProject = (projectID: string): void => {
   isDeleteProjectModalOpen.value = false;
-  apiDeleteProject(projectId).then((data) => {
+  apiDeleteProject(projectID).then((data) => {
+    projectId.value = "";
     if (data.status === 200) {
       ui.setSnackbar(true, "", "Projeto excluído com sucesso!", "success");
       window.location.reload();
