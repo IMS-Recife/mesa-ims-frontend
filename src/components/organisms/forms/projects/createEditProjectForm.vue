@@ -1,8 +1,28 @@
 <script setup lang="ts">
-import { apiPostProject } from "@/services/projects";
+import { apiPostProject, apiEditProject, apiGetProjectById } from "@/services/projects";
 import { useUIStore } from "@/stores/ui";
 
 const ui = useUIStore();
+
+interface Props {
+  projectId?: string;
+}
+const props = defineProps<Props>();
+
+const contentIsLoading = ref(false);
+
+// fileInput!.addEventListener("change", function (event) {
+//   var file = fileInput.files[0],
+//     fr = new FileReader();
+//   fileInput.value = ""; // Clear the input.
+//   extention = file.name.split(".")[1];
+//   if (extention === "geojson") {
+//     fr.onload = function () {
+//       console.log(fr.result);
+//     };
+//     fr.readAsDataURL(file);
+//   }
+// });
 
 const formForSend = reactive({
   name: "",
@@ -28,6 +48,37 @@ const formForSend = reactive({
 
 watch(formForSend, (value) => {
   console.log(value);
+});
+
+onBeforeMount(() => {
+  if (props.projectId) {
+    contentIsLoading.value = true;
+    apiGetProjectById(props.projectId)
+      .then((response) => {
+        formForSend.name = response.data.name;
+        formForSend.responsibleOrg = response.data.responsibleOrg;
+        formForSend.currentState = response.data.currentState;
+        formForSend.areas = response.data.areas;
+        formForSend.startDate = response.data.startDate;
+        formForSend.location = response.data.location;
+        formForSend.thematicGroups = response.data.thematicGroups;
+        formForSend.referenceLink = response.data.referenceLink;
+        formForSend.phase = response.data.phase;
+        formForSend.measurementUnit = response.data.measurementUnit;
+        formForSend.expectedQuantity = response.data.expectedQuantity;
+        formForSend.executedQuantity = response.data.executedQuantity;
+        formForSend.projectValue = response.data.projectValue;
+        formForSend.infiltrationsSize = response.data.infiltrationsSize;
+        formForSend.constructionWorkValue = response.data.constructionWorkValue;
+        formForSend.partners = response.data.partners;
+        formForSend.completedPercentage = response.data.completedPercentage;
+        formForSend.relations = response.data.relations;
+        formForSend.plans = response.data.plans;
+      })
+      .then(() => {
+        contentIsLoading.value = false;
+      });
+  }
 });
 
 const registerProject = () => {
@@ -77,7 +128,7 @@ const registerProject = () => {
     .then((response) => {
       if (response.status === 201) {
         ui.setSnackbar(true, "", "Projeto criado com sucesso!", "success");
-        // window.location = window.location;
+        window.location.reload();
       }
     })
     .catch((err: any) => {
@@ -90,12 +141,83 @@ const registerProject = () => {
       }
     });
 };
+
+const editProject = (projectID: string): void => {
+  const {
+    name,
+    responsibleOrg,
+    currentState,
+    areas,
+    startDate,
+    location,
+    thematicGroups,
+    referenceLink,
+    phase,
+    measurementUnit,
+    expectedQuantity,
+    executedQuantity,
+    projectValue,
+    infiltrationsSize,
+    constructionWorkValue,
+    partners,
+    completedPercentage,
+    relations,
+  } = formForSend;
+
+  const project = {
+    name,
+    responsibleOrg,
+    currentState,
+    areas,
+    startDate,
+    location,
+    thematicGroups,
+    referenceLink,
+    phase,
+    measurementUnit,
+    expectedQuantity,
+    executedQuantity,
+    projectValue,
+    infiltrationsSize,
+    constructionWorkValue,
+    partners,
+    completedPercentage,
+    relations,
+  };
+
+  apiEditProject(projectID, project)
+    .then((response) => {
+      if (response.status === 200) {
+        ui.setSnackbar(true, "", "Projeto editado com sucesso!", "success");
+        window.location.reload();
+      }
+    })
+    .catch((err: any) => {
+      const message = err.response.data.message;
+
+      if (typeof err.response.data.message === "string") {
+        ui.setSnackbar(true, "", message, "error");
+      } else {
+        ui.setSnackbar(true, "", message[0], "error");
+      }
+    });
+};
+
+const submitForm = (): void => {
+  if (props.projectId !== undefined) {
+    editProject(props.projectId);
+
+    return;
+  }
+
+  registerProject();
+};
 </script>
 
 <template>
-  <form id="create-project" @submit.prevent="registerProject">
+  <form id="create-project" @submit.prevent="submitForm">
     <TitleH4 class="form-title">Novo projeto</TitleH4>
-    <div class="project-field-section">
+    <div class="project-field-section" v-if="!contentIsLoading">
       <Overline class="section-title">SOBRE</Overline>
       <fieldset>
         <Textfield
@@ -103,41 +225,48 @@ const registerProject = () => {
           placeholder="Nome do projeto"
           minWidth="250px"
           @update:value="formForSend.name = $event"
+          :valueModel="formForSend.name"
         />
         <Textfield
           label="Orgão responsável"
           placeholder="Orgão responsável"
           minWidth="250px"
           @update:value="formForSend.responsibleOrg = $event"
+          :valueModel="formForSend.responsibleOrg"
         />
         <Textfield
           label="Link de referência"
           placeholder="Link de referência"
           minWidth="250px"
           @update:value="formForSend.referenceLink = $event"
+          :valueModel="formForSend.referenceLink"
         />
         <DatePickerField
           label="Data de início"
           minWidth="250px"
           @update:value="formForSend.startDate = $event"
+          :valueModel="formForSend.startDate"
         />
         <Textfield
           label="Fase"
           placeholder="Fase"
           minWidth="250px"
           @update:value="formForSend.phase = $event"
+          :valueModel="formForSend.phase"
         />
         <Textfield
           label="Situação"
           placeholder="Situação"
           minWidth="250px"
           @update:value="formForSend.currentState = $event"
+          :valueModel="formForSend.currentState"
         />
         <Textfield
           label="Unidade de medida"
           placeholder="Exemplo: metro linear"
           minWidth="250px"
           @update:value="formForSend.measurementUnit = $event"
+          :valueModel="formForSend.measurementUnit"
         />
         <Textfield
           label="Quantidade prevista*"
@@ -145,6 +274,7 @@ const registerProject = () => {
           minWidth="250px"
           type="number"
           @update:value="formForSend.expectedQuantity = Number($event)"
+          :valueModel="formForSend.expectedQuantity"
         />
         <Textfield
           label="Quantidade executada"
@@ -152,6 +282,7 @@ const registerProject = () => {
           minWidth="250px"
           type="number"
           @update:value="formForSend.executedQuantity = Number($event)"
+          :valueModel="formForSend.executedQuantity"
         />
         <Textfield
           label="Valor do projeto"
@@ -159,6 +290,7 @@ const registerProject = () => {
           minWidth="250px"
           type="number"
           @update:value="formForSend.projectValue = Number($event)"
+          :valueModel="formForSend.projectValue"
         />
         <Textfield
           label="Valor da obra"
@@ -166,6 +298,7 @@ const registerProject = () => {
           minWidth="250px"
           type="number"
           @update:value="formForSend.constructionWorkValue = Number($event)"
+          :valueModel="formForSend.constructionWorkValue"
         />
         <Textfield
           label="Tamanho das infiltrações"
@@ -173,6 +306,7 @@ const registerProject = () => {
           minWidth="250px"
           type="number"
           @update:value="formForSend.infiltrationsSize = Number($event)"
+          :valueModel="formForSend.infiltrationsSize"
         />
         <Textfield
           label="Porcentagem concluída"
@@ -182,11 +316,12 @@ const registerProject = () => {
           maxNumber="100"
           minNumber="1"
           @update:value="formForSend.completedPercentage = Number($event)"
+          :valueModel="formForSend.completedPercentage"
         />
       </fieldset>
     </div>
 
-    <div class="project-field-section">
+    <div class="project-field-section" v-if="!contentIsLoading">
       <Overline class="section-title">RELAÇÕES</Overline>
       <fieldset>
         <Textfield label="ODS*" placeholder="Objt. Desen. Sust." minWidth="350px" />
@@ -195,17 +330,19 @@ const registerProject = () => {
           placeholder="Planos"
           minWidth="350px"
           @update:value="formForSend.plans = $event"
+          :valueModel="formForSend.plans"
         />
         <Textfield
           label="Grupos temáticos"
           placeholder="Grupos temáticos"
           minWidth="350px"
           @update:value="formForSend.thematicGroups = $event"
+          :valueModel="formForSend.thematicGroups"
         />
       </fieldset>
     </div>
 
-    <div class="partners-field-section">
+    <div class="partners-field-section" v-if="!contentIsLoading">
       <Overline class="section-title">PARCEIROS</Overline>
       <fieldset class="partners-fields">
         <Textfield
@@ -213,6 +350,7 @@ const registerProject = () => {
           placeholder="Parceiros"
           minWidth="350px"
           @update:value="formForSend.partners = $event"
+          :valueModel="formForSend.partners"
         />
         <!-- <Textfield label="Responsável" placeholder="Responsável" minWidth="350px" />
         <Textfield
@@ -231,20 +369,38 @@ const registerProject = () => {
       </fieldset>
     </div>
 
-    <div class="project-field-section">
+    <div class="project-field-section" v-if="!contentIsLoading">
       <Overline class="section-title">GEOMETRIA E LOCALIZAÇÃO</Overline>
       <fieldset class="partners-fields">
         <Button class="-tertiary">Marcar no mapa</Button>
-        <Button class="-primary">Selecionar lote existente</Button>
-        <Button class="-tertiary" disabled>Adicionar shapefile</Button>
+        <Button class="-tertiary">Selecionar lote existente</Button>
+        <Label for="geojson" class="upload-geojson-button">Adicionar GEOJSON</Label>
+        <input type="file" accept=".geojson, .json" name="geojson" id="geojson" />
       </fieldset>
     </div>
-    <Button class="-primary mt-20 ml-auto" type="submit">ENVIAR</Button>
+    <Button class="-primary mt-20 ml-auto" type="submit" v-if="!contentIsLoading"
+      >ENVIAR</Button
+    >
   </form>
 </template>
 
 <style lang="scss" scoped>
+#geojson {
+  @apply hidden;
+}
+
+.upload-geojson-button {
+  @apply flex items-center justify-center h-12 px-4 py-4;
+  @apply bg-brand-primary-medium text-neutrals-lightgrey-lightest text-[12px] hover: brightness-110 hover:filter uppercase;
+  min-width: 100px;
+  min-height: 40px;
+  max-height: 40px;
+  border-radius: 12px;
+}
+
 form {
+  @apply min-h-100;
+
   > .form-title {
     @apply text-brand-primary-dark;
   }

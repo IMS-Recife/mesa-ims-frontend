@@ -6,8 +6,11 @@ meta:
 
 <script setup lang="ts">
 import moment from "moment";
-import { apiGetListProjects } from "@/services/projects";
+import { apiGetListProjects, apiDeleteProject } from "@/services/projects";
 import TableLite from "vue3-table-lite/ts";
+import { useUIStore } from "@/stores/ui";
+
+const ui = useUIStore();
 
 const nameSearch = ref("");
 const locationSearch = ref("");
@@ -18,22 +21,29 @@ const thematicGroupsSearch = ref("");
 const projects = ref<any[]>([]);
 
 const isCreateProjectModalOpen = ref(false);
+const isEditProjectModalOpen = ref(false);
+const isDeleteProjectModalOpen = ref(false);
+const projectId = ref("");
 
 const isReady = ref(false);
+
 onMounted(() => {
   isReady.value = true;
 
   apiGetListProjects().then((data) => {
-    console.log("projectsData", data);
     projects.value = data.data;
 
-    const formatedProject = projects.value.map((project) => {
+    const formatedProjects = projects.value.map((project) => {
       return {
         ...project,
         lastUpdate: moment(project.lastUpdate).format("DD/MM/YYYY"),
+        completedPercentage: project.completedPercentage
+          ? `${project.completedPercentage} %`
+          : "-",
       };
     });
-    table.rows = formatedProject;
+    table.totalRecordCount = formatedProjects.length;
+    table.rows = formatedProjects;
   });
 });
 
@@ -95,9 +105,14 @@ const table = reactive({
       width: "10%",
       sortable: true,
     },
+    {
+      label: "Ações",
+      field: "actions",
+      width: "10%",
+    },
   ],
   rows: projects.value,
-  totalRecordCount: 20,
+  totalRecordCount: 0,
   sortable: {
     order: "name",
     sort: "desc",
@@ -112,6 +127,39 @@ watch(
     console.log("nameSearch", val);
   }
 );
+
+const openEditProjectModal = (projectID: string): void => {
+  console.log("projectID", projectID);
+  projectId.value = projectID;
+  isEditProjectModalOpen.value = true;
+};
+
+const closeCreateEditProjectModal = (): void => {
+  projectId.value = "";
+  isCreateProjectModalOpen.value = false;
+  isEditProjectModalOpen.value = false;
+};
+
+const deleteProject = (projectID: string): void => {
+  isDeleteProjectModalOpen.value = false;
+  apiDeleteProject(projectID).then((data) => {
+    projectId.value = "";
+    if (data.status === 200) {
+      ui.setSnackbar(true, "", "Projeto excluído com sucesso!", "success");
+      window.location.reload();
+    }
+  });
+};
+
+const openDeleteProjectModal = (projectID: string): void => {
+  projectId.value = projectID;
+  isDeleteProjectModalOpen.value = true;
+};
+
+const closeDeleteProjectModal = (): void => {
+  projectId.value = "";
+  isDeleteProjectModalOpen.value = false;
+};
 </script>
 
 <template>
@@ -212,9 +260,8 @@ watch(
           <div class="selected-filters-wrapper"></div>
         </div>
       </div>
-
       <TableLite
-        :is-static-mode="true"
+        :is-slot-mode="true"
         :has-checkbox="true"
         :is-re-search="table.isReSearch"
         :columns="table.columns"
@@ -223,46 +270,65 @@ watch(
         :sortable="table.sortable"
         :is-loading="table.isLoading"
         @return-checked-rows="updateCheckedRows"
-      />
+      >
+        <template v-for="col in table.columns.slice(0, -1)" v-slot:[col.field]="data">
+          <TextBodySmall>{{ data.value[col.field] }}</TextBodySmall>
+        </template>
+        <template v-slot:actions="data">
+          <button @click="openEditProjectModal(data.value._id)">
+            <span
+              class="iconify mr-2"
+              data-icon="mdi:pencil"
+              data-width="24px"
+              data-height="24px"
+            />
+          </button>
+          <button @click="openDeleteProjectModal(data.value._id)">
+            <span
+              class="iconify mr-2"
+              data-icon="mdi:trash-can"
+              data-width="24px"
+              data-height="24px"
+            />
+          </button>
+        </template>
+      </TableLite>
     </main>
 
-    <div v-if="isCreateProjectModalOpen" class="create-project-modal">
-      <button class="close-button" @click="isCreateProjectModalOpen = false">
-        <span
-          class="iconify"
-          data-icon="mdi:close"
-          data-width="24px"
-          data-height="24px"
-        />
-      </button>
-      <CreateProjectForm />
-    </div>
-    <div v-if="isCreateProjectModalOpen" class="modal-background"></div>
+    <BigModal
+      :isOpen="isCreateProjectModalOpen || isEditProjectModalOpen"
+      @close="closeCreateEditProjectModal()"
+    >
+      <CreateEditProjectForm :projectId="projectId" />
+    </BigModal>
+
+    <SmallModal :isOpen="isDeleteProjectModalOpen" @close="closeDeleteProjectModal()">
+      <TitleH4 class="form-title">Excluir projeto</TitleH4>
+      <TextBodySmall class="mt-4 mb-8">
+        Tem certeza que deseja excluir o projeto?
+      </TextBodySmall>
+      <div class="flex">
+        <Button
+          class="-tertiary"
+          @click="closeDeleteProjectModal()"
+          style="margin-right: 10px"
+        >
+          Cancelar
+        </Button>
+        <Button
+          class="-primary"
+          @click="deleteProject(projectId)"
+          style="margin-left: 10px"
+        >
+          Excluir
+        </Button>
+      </div>
+    </SmallModal>
   </div>
 </template>
 <style lang="scss" scoped>
 .page-container {
   @apply flex flex-col relative w-full;
-
-  .create-project-modal {
-    @apply absolute z-1000;
-    @apply w-2/4 p-10 bg-neutrals-lightgrey-lightest;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    overflow-y: auto;
-    max-height: calc(100vh - 150px);
-
-    > .close-button {
-      @apply absolute top-4 right-4;
-      @apply text-neutrals-darkgrey-medium;
-    }
-  }
-
-  .modal-background {
-    @apply absolute z-999 w-full h-full;
-    background: rgba(196, 196, 196, 0.25);
-  }
 
   > header {
     @apply h-[200px] w-full;
@@ -423,12 +489,12 @@ watch(
       @apply text-neutrals-darkgrey-medium;
       border: none;
       //styleName: Support/Text Small;
-      font-family: Roboto;
+      /* font-family: Roboto;
       font-size: 12px;
       font-weight: 400;
       line-height: 22px;
       letter-spacing: 0.02em;
-      text-align: left;
+      text-align: left; */
     }
 
     ::v-deep(.vtl-table tr) {
