@@ -34,13 +34,17 @@ onMounted(() => {
     console.log("projectsData", data);
     projects.value = data.data;
 
-    const formatedProject = projects.value.map((project) => {
+    const formatedProjects = projects.value.map((project) => {
       return {
         ...project,
         lastUpdate: moment(project.lastUpdate).format("DD/MM/YYYY"),
+        completedPercentage: project.completedPercentage
+          ? `${project.completedPercentage} %`
+          : "-",
       };
     });
-    table.rows = formatedProject;
+    table.totalRecordCount = formatedProjects.length;
+    table.rows = formatedProjects;
   });
 });
 
@@ -109,7 +113,7 @@ const table = reactive({
     },
   ],
   rows: projects.value,
-  totalRecordCount: 20,
+  totalRecordCount: 0,
   sortable: {
     order: "name",
     sort: "desc",

@@ -22,6 +22,27 @@ type CreateProjectDTO = {
   relations?: string[];
   plans?: string;
 }
+type EditProjectDTO = {
+  name?: string;
+  responsibleOrg?: string;
+  currentState?: string;
+  areas?: string[];
+  startDate?: string;
+  location?: string;
+  thematicGroups?: string;
+  referenceLink?: string;
+  phase?: string;
+  measurementUnit?: string;
+  expectedQuantity?: number;
+  executedQuantity?: number;
+  projectValue?: number;
+  infiltrationsSize?: number;
+  constructionWorkValue?: number;
+  partners?: string;
+  completedPercentage?: number;
+  relations?: string[];
+  plans?: string;
+}
 
 export function apiGetListProjects(): Promise<AxiosResponse> {
   return fetch({
@@ -59,6 +80,14 @@ export function apiDeleteProject(id: string): Promise<AxiosResponse> {
   return fetch({
     method: "DELETE",
     path: `projects/${id}`,
+  });
+}
+
+export function apiEditProject(id: string, payload: EditProjectDTO ): Promise<AxiosResponse> {
+  return fetch({
+    method: "PATCH",
+    path: `projects/${id}`,
+    data: payload,
   });
 }
 

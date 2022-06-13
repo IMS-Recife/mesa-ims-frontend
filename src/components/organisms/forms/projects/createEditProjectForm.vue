@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { apiPostProject } from "@/services/projects";
+import { apiPostProject, apiEditProject, apiGetProjectById } from "@/services/projects";
 import { useUIStore } from "@/stores/ui";
-import { apiGetProjectById } from "@/services/projects";
 
 const ui = useUIStore();
 
@@ -11,6 +10,19 @@ interface Props {
 const props = defineProps<Props>();
 
 const contentIsLoading = ref(false);
+
+// fileInput!.addEventListener("change", function (event) {
+//   var file = fileInput.files[0],
+//     fr = new FileReader();
+//   fileInput.value = ""; // Clear the input.
+//   extention = file.name.split(".")[1];
+//   if (extention === "geojson") {
+//     fr.onload = function () {
+//       console.log(fr.result);
+//     };
+//     fr.readAsDataURL(file);
+//   }
+// });
 
 const formForSend = reactive({
   name: "",
@@ -129,10 +141,81 @@ const registerProject = () => {
       }
     });
 };
+
+const editProject = (projectID: string): void => {
+  const {
+    name,
+    responsibleOrg,
+    currentState,
+    areas,
+    startDate,
+    location,
+    thematicGroups,
+    referenceLink,
+    phase,
+    measurementUnit,
+    expectedQuantity,
+    executedQuantity,
+    projectValue,
+    infiltrationsSize,
+    constructionWorkValue,
+    partners,
+    completedPercentage,
+    relations,
+  } = formForSend;
+
+  const project = {
+    name,
+    responsibleOrg,
+    currentState,
+    areas,
+    startDate,
+    location,
+    thematicGroups,
+    referenceLink,
+    phase,
+    measurementUnit,
+    expectedQuantity,
+    executedQuantity,
+    projectValue,
+    infiltrationsSize,
+    constructionWorkValue,
+    partners,
+    completedPercentage,
+    relations,
+  };
+
+  apiEditProject(projectID, project)
+    .then((response) => {
+      if (response.status === 200) {
+        ui.setSnackbar(true, "", "Projeto editado com sucesso!", "success");
+        window.location.reload();
+      }
+    })
+    .catch((err: any) => {
+      const message = err.response.data.message;
+
+      if (typeof err.response.data.message === "string") {
+        ui.setSnackbar(true, "", message, "error");
+      } else {
+        ui.setSnackbar(true, "", message[0], "error");
+      }
+    });
+};
+
+const submitForm = (): void => {
+  if (props.projectId !== undefined) {
+    editProject(props.projectId);
+
+    return;
+  }
+
+  registerProject();
+};
 </script>
 
 <template>
-  <form id="create-project" @submit.prevent="registerProject">
+  <form id="create-project" @submit.prevent="submitForm">
     <TitleH4 class="form-title">Novo projeto</TitleH4>
     <div class="project-field-section" v-if="!contentIsLoading">
       <Overline class="section-title">SOBRE</Overline>
@@ -290,8 +373,9 @@ const registerProject = () => {
       <Overline class="section-title">GEOMETRIA E LOCALIZAÇÃO</Overline>
       <fieldset class="partners-fields">
         <Button class="-tertiary">Marcar no mapa</Button>
-        <Button class="-primary">Selecionar lote existente</Button>
-        <Button class="-tertiary" disabled>Adicionar shapefile</Button>
+        <Button class="-tertiary">Selecionar lote existente</Button>
+        <Label for="geojson" class="upload-geojson-button">Adicionar GEOJSON</Label>
+        <input type="file" accept=".geojson, .json" name="geojson" id="geojson" />
       </fieldset>
     </div>
     <Button class="-primary mt-20 ml-auto" type="submit" v-if="!contentIsLoading"
@@ -301,6 +385,19 @@ const registerProject = () => {
 </template>
 
 <style lang="scss" scoped>
+#geojson {
+  @apply hidden;
+}
+
+.upload-geojson-button {
+  @apply flex items-center justify-center h-12 px-4 py-4;
+  @apply bg-brand-primary-medium text-neutrals-lightgrey-lightest text-[12px] hover: brightness-110 hover:filter uppercase;
+  min-width: 100px;
+  min-height: 40px;
+  max-height: 40px;
+  border-radius: 12px;
+}
+
 form {
   @apply min-h-100;
 
