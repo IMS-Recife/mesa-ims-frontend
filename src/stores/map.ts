@@ -1,4 +1,15 @@
-import { BaseMap, GeoJson, LatLng, Marker, PanTo, Project, SetView, TileLayer, Tools, Zones } from "@/@types";
+import {
+  BaseMap,
+  GeoJson,
+  LatLng,
+  Marker,
+  PanTo,
+  Project,
+  SetView,
+  TileLayer,
+  Tools,
+  Zones,
+} from "@/@types";
 import { acceptHMRUpdate, defineStore } from "pinia";
 
 type State = {
@@ -238,6 +249,9 @@ export const useMapStore = defineStore("map", {
             break;
           case "População (2010)":
             this.setLayersCurrentVision(layer, "#4C51A4");
+            break;
+          case "Percentual Domicilios Arborizacao 2010":
+            this.setLayersCurrentVision(layer, "#4C5312");
             break;
           default:
             console.log(layer);

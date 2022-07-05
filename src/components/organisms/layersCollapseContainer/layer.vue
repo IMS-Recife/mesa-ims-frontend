@@ -42,7 +42,10 @@ const choseLayer = (value: boolean) => {
   } else if (props.layerCategory === "Indicadores" && value) {
     switch (props.layerName) {
       case "População (2010)":
-      // showLayer("tree");
+        showLayer("population2010");
+        break;
+      case "Percentual Domicilios Arborizacao 2010":
+        showLayer("PercentageHouseholdsTrees");
         break;
 
       default:
