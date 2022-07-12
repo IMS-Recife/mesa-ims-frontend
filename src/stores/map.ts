@@ -137,6 +137,7 @@ export const useMapStore = defineStore("map", {
     },
     clearMap() {
       this.tools.mapShouldClearLayers = true;
+      this.layersCurrentVision = [];
     },
     changeTileLayerStyle(id: string) {
       this.tileLayer.id = id;
