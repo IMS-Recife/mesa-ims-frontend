@@ -287,8 +287,8 @@ export const useMapStore = defineStore("map", {
         layer: layer,
       });
     },
-    unsetLayersCurrentVision(payload: any) {
-      const valuesToRemove = payload.name;
+    unsetLayersCurrentVision(layerName: string) {
+      const valuesToRemove = layerName;
       const result = this.layersCurrentVision.filter((item: any) => {
         return item.name !== valuesToRemove;
       });
