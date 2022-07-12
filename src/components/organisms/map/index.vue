@@ -114,7 +114,6 @@ onBeforeMount(async () => {
   watch(
     () => mapStore.tools.mapShouldClearLayers,
     (shouldClear) => {
-      console.log("teste2");
       if (shouldClear) {
         mapAPI.eachLayer((layer: any) => {
           if (layer.options.className) {

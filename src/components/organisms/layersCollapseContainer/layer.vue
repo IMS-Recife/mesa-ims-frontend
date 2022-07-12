@@ -69,16 +69,6 @@ const choseLayer = (value: boolean) => {
     mapStore.unsetLayersCurrentVision(props.layerName);
   }
 };
-
-watch(
-  () => mapStore.tools.mapShouldClearLayers,
-  (uncheck) => {
-    console.log("Teste");
-    if (uncheck) {
-      unCheck.value = true;
-    }
-  }
-);
 </script>
 
 <template>
