@@ -4,7 +4,6 @@ import {
   LatLng,
   Marker,
   PanTo,
-  Project,
   SetView,
   TileLayer,
   Tools,
@@ -85,6 +84,7 @@ export const useMapStore = defineStore("map", {
     tools: {
       isActiveMarkerMap: false,
       isClearMap: false,
+      mapShouldClearLayers: false,
     },
     currentRadiusLatLng: null,
     searchNameLayer: "",
@@ -134,6 +134,9 @@ export const useMapStore = defineStore("map", {
       this.tools.isClearMap = !isClearMap;
       this.setCurrentRadiusLatLng(null);
       this.markers.length = 0;
+    },
+    clearMap() {
+      this.tools.mapShouldClearLayers = true;
     },
     changeTileLayerStyle(id: string) {
       this.tileLayer.id = id;
@@ -190,11 +193,11 @@ export const useMapStore = defineStore("map", {
     },
     setNameClearLayer(payload: string) {
       this.nameClearLayer = payload;
-      this.layersCurrentVision.filter((layer: any) => {
-        if (layer.name === payload) {
-          this.unsetLayersCurrentVision(layer);
-        }
-      });
+      // this.layersCurrentVision.filter((layer: any) => {
+      //   if (layer.name === payload) {
+      //     this.unsetLayersCurrentVision(layer);
+      //   }
+      // });
     },
     setLayerCategory(payload: any) {
       this.currentLayerCategory = payload;

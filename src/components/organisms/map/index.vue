@@ -112,6 +112,26 @@ onBeforeMount(async () => {
     }
   );
   watch(
+    () => mapStore.tools.mapShouldClearLayers,
+    (shouldClear) => {
+      console.log("teste2");
+      if (shouldClear) {
+        mapAPI.eachLayer((layer: any) => {
+          if (layer.options.className) {
+            if (
+              layer.options.className?.slice(0, 14) === "layer-polygon-" ||
+              layer.options.className?.slice(0, 12) === "layer-point-"
+            ) {
+              layer.remove();
+            }
+          }
+        });
+      }
+
+      mapStore.tools.mapShouldClearLayers = false;
+    }
+  );
+  watch(
     () => mapStore.isClearMap,
     () => {
       mapAPI.eachLayer((layers: any) => {
@@ -180,16 +200,14 @@ onBeforeMount(async () => {
       mapAPI.eachLayer((layers: any) => {
         if (layers.options.className === `polygon-map-${newValue}`) {
           layers.remove();
-        }
-        if (layers.options.className === `point-map-${newValue}`) {
+        } else if (layers.options.className === `point-map-${newValue}`) {
+          layers.remove();
+        } else if (layers.options.className === `layer-polygon-${newValue}`) {
+          layers.remove();
+        } else if (layers.options.className === `layer-point-${newValue}`) {
           layers.remove();
         }
-        if (layers.options.className === `layer-polygon-${newValue}`) {
-          layers.remove();
-        }
-        if (layers.options.className === `layer-point-${newValue}`) {
-          layers.remove();
-        }
+        mapStore.setNameClearLayer("");
       });
     },
     { immediate: true, deep: true }
@@ -239,8 +257,6 @@ onBeforeMount(async () => {
   watch(mapStore.panTo, () => {
     mapAPI.panTo(mapStore.panTo.latlng);
   });
-  let time1 = 0,
-    time2 = 0;
   watch(
     () => mapStore.searchNameLayer,
     async (value) => {
@@ -254,9 +270,6 @@ onBeforeMount(async () => {
           ],
           buffer: 30,
           searchAreas: mapStore.areaCurrent,
-        }).finally(() => {
-          time1 = Date.now();
-          console.log("*2 - Recebeu os dados da requisição em", time1);
         });
 
         let featCollectionPolygonForVector = {
@@ -482,10 +495,6 @@ onBeforeMount(async () => {
           renderMap();
         });
       }
-      time2 = Date.now();
-      console.log("*3 - Terminou de renderizar os dados", time2);
-      console.log("*4 - Renderizou em", time2 - time1, "ms");
-      console.log("*=========================================================*");
     },
     { immediate: false, deep: false, flush: "post" }
   );

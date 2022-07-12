@@ -6,11 +6,10 @@ const props = defineProps<{
   layerCategory: string;
 }>();
 const mapStore = useMapStore();
+const unCheck = ref(false);
+
 const choseLayer = (value: boolean) => {
-  if (props.layerName) {
-    mapStore.setNameClearLayer(props.layerName);
-  }
-  mapStore.setNameClearLayer("");
+  // mapStore.setNameClearLayer("");
   mapStore.setLayerCategory(props.layerCategory);
   mapStore.setLayerName(props.layerName);
 
@@ -51,7 +50,6 @@ const choseLayer = (value: boolean) => {
       default:
         break;
     }
-  } else if (!value) {
   } else if (props.layerCategory === "Edificações" && value) {
     switch (props.layerName) {
       case "Cheios x Vazios":
@@ -64,21 +62,30 @@ const choseLayer = (value: boolean) => {
       default:
         break;
     }
-  } else if (!value) {
+  }
+  if (!value) {
+    console.log("Uncheck");
+    console.log(props.layerName);
     mapStore.setNameClearLayer(props.layerName);
   }
 };
+
+watch(
+  () => mapStore.tools.mapShouldClearLayers,
+  (uncheck) => {
+    console.log("Teste");
+    if (uncheck) {
+      unCheck.value = true;
+    }
+  }
+);
 </script>
 
 <template>
   <Label class="layer-label">
-    <Checkbox @update:value="choseLayer($event)" />
+    <Checkbox :uncheck="unCheck" @update:value="choseLayer($event)" />
 
-    <span
-      class="iconify layer-icon"
-      data-icon="mdi:arrow-right"
-      data-width="16"
-    />
+    <span class="iconify layer-icon" data-icon="mdi:arrow-right" data-width="16" />
     {{ props.layerName }}
   </Label>
 </template>

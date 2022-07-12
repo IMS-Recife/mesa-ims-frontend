@@ -4,6 +4,7 @@ interface Props {
   label?: string;
   valueModel?: boolean;
   required?: boolean;
+  uncheck?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -24,11 +25,21 @@ const model = computed({
     emit("update:value", value);
   },
 });
+
+watch(
+  () => props.uncheck,
+  (unCheck) => {
+    console.log("unCheck", unCheck);
+    if (unCheck) {
+      document.getElementById("checkbox").checked = "false";
+    }
+  }
+);
 </script>
 <template>
   <div class="check-box-base">
     <div class="checkbox_wrapper">
-      <input v-model="model" type="checkbox" :required="required" />
+      <input id="checkbox" v-model="model" type="checkbox" :required="required" />
       <label></label>
     </div>
     <label v-if="label" name="label"> {{ label }}</label>

@@ -139,6 +139,11 @@ function dicionary(label: string) {
       return label;
   }
 }
+
+function removeAllMapLayers() {
+  mapStore.clearMap();
+  console.log("isClearMap", mapStore.tools.isClearMap);
+}
 </script>
 <template>
   <div class="sidebar-vision-layout">
@@ -159,9 +164,7 @@ function dicionary(label: string) {
         link="http://parquecapibaribe.org/"
       />
       <div v-if="route.path === '/projects'" class="content-zones">
-        <Label class="text-brand-secondary-medium"
-          >Visualizar por Categorias
-        </Label>
+        <Label class="text-brand-secondary-medium">Visualizar por Categorias </Label>
         <Toggle
           v-for="item in projectStore.projectZones"
           :text-label="dicionary(item.label)"
@@ -177,10 +180,10 @@ function dicionary(label: string) {
           :value-model="true"
         />
       </div>
-      <LayersCollapseContainer
-        :layersCategories="layersCategories"
-        title="Camadas"
-      />
+      <Button class="-primary" @click="removeAllMapLayers()"
+        >Remover todas as camadas</Button
+      >
+      <LayersCollapseContainer :layersCategories="layersCategories" title="Camadas" />
 
       <Button
         v-if="route.path === '/visions'"

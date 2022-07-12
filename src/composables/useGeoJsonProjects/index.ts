@@ -44,16 +44,9 @@ export async function showZona(name: any, projectId: any) {
 }
 
 export async function callLayer(params: LayerParams) {
-  let time1= 0, time2 = 0;
   const ui = useUIStore();
-  console.log('*=========================================================*');
-  time1 = Date.now();
-  console.log("*0 - Requisição começou em", time1);
   return await apiPostLayerGeoJson(params)
     .then((response) => {
-      time2 = Date.now();
-      console.log("*1 - Requisição terminou em", time2);
-      console.log("*Durou" , time2-time1, "ms")
       return response.data;
     })
     .catch((err: any) => {

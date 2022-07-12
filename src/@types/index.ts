@@ -59,6 +59,7 @@ export type Marker = {
 export type Tools = {
   isActiveMarkerMap: boolean;
   isClearMap: boolean;
+  mapShouldClearLayers: boolean;
 };
 
 export type Geometry = {
