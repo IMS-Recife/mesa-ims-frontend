@@ -252,10 +252,34 @@ export const useMapStore = defineStore("map", {
             this.setLayersCurrentVision("Cheios", "#242424");
             break;
           case "População (2010)":
-            this.setLayersCurrentVision(layer, "#4C51A4");
+            this.setLayersCurrentVision(layer, "#23192d");
             break;
           case "Percentual Domicilios Arborizacao 2010":
             this.setLayersCurrentVision(layer, "#4C5312");
+            break;
+          case "Percentual Domicilios Com Rampa Cadeirante no Entorno 2010":
+            this.setLayersCurrentVision(layer, "#1c2130");
+            break;
+          case "Percentual Populacao Com Agua Encanada 2010":
+            this.setLayersCurrentVision(layer, "#493736");
+            break;
+          case "Percentual Populacao Com Coleta de Lixo 2010":
+            this.setLayersCurrentVision(layer, "#300030");
+            break;
+          case "Percentual Populacao Com Esgotamento Sanitario 2010":
+            this.setLayersCurrentVision(layer, "#eb9c4d");
+            break;
+          case "Renda Media 2010":
+            this.setLayersCurrentVision(layer, "#92a68a");
+            break;
+          case "Numero de Domicilios 2010":
+            this.setLayersCurrentVision(layer, "#2a2829");
+            break;
+          case "Densidade Demografica 2010":
+            this.setLayersCurrentVision(layer, "#2e1437");
+            break;
+          case "Crescimento Populacional 2000 2010":
+            this.setLayersCurrentVision(layer, "#7d1a0c");
             break;
           default:
             console.log(layer);

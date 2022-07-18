@@ -79,6 +79,30 @@ const layersCategories = [
       {
         name: "Percentual Domicilios Arborizacao 2010",
       },
+      {
+        name: "Percentual Domicilios Com Rampa Cadeirante no Entorno 2010",
+      },
+      {
+        name: "Percentual Populacao Com Agua Encanada 2010",
+      },
+      {
+        name: "Percentual Populacao Com Coleta de Lixo 2010",
+      },
+      {
+        name: "Percentual Populacao Com Esgotamento Sanitario 2010",
+      },
+      {
+        name: "Renda Media 2010",
+      },
+      {
+        name: "Numero de Domicilios 2010",
+      },
+      {
+        name: "Densidade Demografica 2010",
+      },
+      {
+        name: "Crescimento Populacional 2000 2010",
+      },
     ],
   },
   // {
@@ -169,7 +193,9 @@ function removeAllMapLayers() {
         link="http://parquecapibaribe.org/"
       />
       <div v-if="route.path === '/projects'" class="content-zones">
-        <Label class="text-brand-secondary-medium">Visualizar por Categorias </Label>
+        <Label class="text-brand-secondary-medium"
+          >Visualizar por Categorias
+        </Label>
         <Toggle
           v-for="item in projectStore.projectZones"
           :text-label="dicionary(item.label)"
@@ -188,7 +214,10 @@ function removeAllMapLayers() {
       <Button class="-primary" @click="removeAllMapLayers()"
         >Remover todas as camadas</Button
       >
-      <LayersCollapseContainer :layersCategories="layersCategories" title="Camadas" />
+      <LayersCollapseContainer
+        :layersCategories="layersCategories"
+        title="Camadas"
+      />
 
       <Button
         v-if="route.path === '/visions'"
