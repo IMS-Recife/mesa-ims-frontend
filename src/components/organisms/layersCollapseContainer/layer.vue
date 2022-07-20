@@ -47,6 +47,30 @@ const choseLayer = (value: boolean) => {
         case "Percentual Domicilios Arborizacao 2010":
           showLayer("PercentageHouseholdsTrees");
           break;
+        case "Percentual Domicilios Com Rampa Cadeirante no Entorno 2010":
+          showLayer("PercentageHouseholdsWheelchairRampSurroundings2010");
+          break;
+        case "Percentual Populacao Com Agua Encanada 2010":
+          showLayer("PercentagePopulationPiped2010");
+          break;
+        case "Percentual Populacao Com Coleta de Lixo 2010":
+          showLayer("PercentagePopulationGarbageCollection2010");
+          break;
+        case "Percentual Populacao Com Esgotamento Sanitario 2010":
+          showLayer("PercentagePopulationSanitarySewage2010");
+          break;
+        case "Renda Media 2010":
+          showLayer("AverageIncome2010");
+          break;
+        case "Numero de Domicilios 2010":
+          showLayer("NumberHouseholds2010");
+          break;
+        case "Densidade Demografica 2010":
+          showLayer("DemographicDensity2010");
+          break;
+        case "Crescimento Populacional 2000 2010":
+          showLayer("PopulationGrowth20002010");
+          break;
 
         default:
           break;
@@ -75,7 +99,11 @@ const choseLayer = (value: boolean) => {
   <Label class="layer-label">
     <Checkbox :uncheck="unCheck" @update:value="choseLayer($event)" />
 
-    <span class="iconify layer-icon" data-icon="mdi:arrow-right" data-width="16" />
+    <span
+      class="iconify layer-icon"
+      data-icon="mdi:arrow-right"
+      data-width="16"
+    />
     {{ props.layerName }}
   </Label>
 </template>
