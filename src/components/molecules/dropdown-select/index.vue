@@ -12,11 +12,23 @@ type Props = {
 
 const props = defineProps<Props>();
 
+const emit = defineEmits<{
+  (e: "update:selected", event: string): void;
+}>();
+
 const showOptions = ref(false);
-const selectedOption = ref("teste");
+const selectedOption = ref({
+  label: "Situação",
+  value: "",
+});
 
 const showDropdownOptions = () => {
   showOptions.value = !showOptions.value;
+};
+
+const selectOption = (option: any) => {
+  selectedOption.value = option;
+  emit("update:selected", option.value);
 };
 </script>
 
@@ -24,11 +36,15 @@ const showDropdownOptions = () => {
   <div class="dropdown-container">
     <div class="dropdown-content">
       <div class="selected-option">
-        <TextBodySmall class="label-text">{{ selectedOption }}</TextBodySmall>
+        <TextBodySmall class="label-text">{{ selectedOption.label }}</TextBodySmall>
       </div>
 
       <div class="dropdown-options" v-if="showOptions">
-        <button class="dropdown-option" v-for="option in props.options">
+        <button
+          class="dropdown-option"
+          v-for="option in props.options"
+          @click="selectOption(option)"
+        >
           <TextBodySmall class="label-text">{{ option.label }}</TextBodySmall>
         </button>
       </div>
