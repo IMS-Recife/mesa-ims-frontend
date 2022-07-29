@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Marker } from "@/@types";
+import { GeoJson, Geometry, Marker } from "@/@types";
 import { useMapStore } from "@stores/map";
 import { useUIStore } from "@/stores/ui";
 import {
@@ -25,6 +25,55 @@ const tilePolygonCheios = ref<any>();
 const tilePolygonVazios = ref<any>();
 
 const tilesPoint = ref<any>();
+const coordnitates: Geometry = {
+  "type": "Polygon",
+    "coordinates": [
+          [
+          [
+              -39.19921875,
+              -7.493196470122275
+            ],
+            [
+              -35.2001953125,
+              -10.293301000109102
+            ],
+            [
+              -32.34375,
+              -3.9957805129630253
+            ],
+            [
+              -39.19921875,
+              -7.493196470122275
+            ] 
+        ]
+        ]
+}
+const searchAreaItem: GeoJson = {
+  "properties": {},
+  ...coordnitates,
+  geometry:{
+    ...coordnitates,
+  }
+}
+const searchAreasIndicators:GeoJson[] = [
+  searchAreaItem
+]
+
+const isIndicators = (layerName: string)=>{
+  let LayersIndicators = [
+    "population2010",
+    "PercentageHouseholdsTrees",
+    "PercentageHouseholdsWheelchairRampSurroundings2010",
+    "PercentagePopulationPiped2010",
+    "PercentagePopulationGarbageCollection2010",
+    "PercentagePopulationSanitarySewage2010",
+    "AverageIncome2010",
+    "NumberHouseholds2010",
+    "DemographicDensity2010",
+    "PopulationGrowth20002010",
+  ]
+  return LayersIndicators.includes(layerName);
+}
 
 onBeforeMount(async () => {
   const L = await import("leaflet");
@@ -268,7 +317,7 @@ onBeforeMount(async () => {
             },
           ],
           buffer: 30,
-          searchAreas: mapStore.areaCurrent,
+          searchAreas: isIndicators(mapStore.searchNameLayer) ? searchAreasIndicators : mapStore.areaCurrent,
         });
 
         let featCollectionPolygonForVector = {
