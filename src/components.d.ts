@@ -19,6 +19,7 @@ declare module 'vue' {
     CreateEditProjectForm: typeof import('./components/organisms/forms/projects/createEditProjectForm.vue')['default']
     Dashboard: typeof import('./components/templates/dashboard/index.vue')['default']
     DatePickerField: typeof import('./components/molecules/DatePickerField/index.vue')['default']
+    DropdownSelect: typeof import('./components/molecules/dropdown-select/index.vue')['default']
     Feedback: typeof import('./components/molecules/feedback/index.vue')['default']
     Forgotpassword: typeof import('./components/organisms/forms/forgotpassword/index.vue')['default']
     Info: typeof import('./components/atoms/texts/info.vue')['default']

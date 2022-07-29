@@ -1,12 +1,23 @@
 <script setup lang="ts">
-import {
-  apiPostProject,
-  apiEditProject,
-  apiGetProjectById,
-} from "@/services/projects";
+import { apiPostProject, apiEditProject, apiGetProjectById } from "@/services/projects";
 import { useUIStore } from "@/stores/ui";
 
 const fileName = ref("");
+
+const options = [
+  {
+    label: "Option 1",
+    value: "option-1",
+  },
+  {
+    label: "Option 2",
+    value: "option-2",
+  },
+  {
+    label: "Option 3",
+    value: "option-3",
+  },
+];
 
 function readUploadFile(event: any) {
   let files = event.target.files;
@@ -281,6 +292,7 @@ const submitForm = (): void => {
           @update:value="formForSend.currentState = $event"
           :valueModel="formForSend.currentState"
         />
+        <DropdownSelect :options="options" />
         <Textfield
           label="Unidade de medida"
           placeholder="Exemplo: metro linear"
@@ -344,11 +356,7 @@ const submitForm = (): void => {
     <div class="project-field-section" v-if="!contentIsLoading">
       <Overline class="section-title">RELAÇÕES</Overline>
       <fieldset>
-        <Textfield
-          label="ODS*"
-          placeholder="Objt. Desen. Sust."
-          minWidth="350px"
-        />
+        <Textfield label="ODS*" placeholder="Objt. Desen. Sust." minWidth="350px" />
         <Textfield
           label="Planos"
           placeholder="Planos"
@@ -398,9 +406,7 @@ const submitForm = (): void => {
       <fieldset class="partners-fields">
         <Button class="-tertiary">Marcar no mapa</Button>
         <Button class="-tertiary">Selecionar lote existente</Button>
-        <Label for="geojson" class="upload-geojson-button"
-          >Adicionar GEOJSON</Label
-        >
+        <Label for="geojson" class="upload-geojson-button">Adicionar GEOJSON</Label>
         <span>{{ fileName }}</span>
         <input
           type="file"
@@ -411,10 +417,7 @@ const submitForm = (): void => {
         />
       </fieldset>
     </div>
-    <Button
-      class="-primary mt-20 ml-auto"
-      type="submit"
-      v-if="!contentIsLoading"
+    <Button class="-primary mt-20 ml-auto" type="submit" v-if="!contentIsLoading"
       >ENVIAR</Button
     >
   </form>
