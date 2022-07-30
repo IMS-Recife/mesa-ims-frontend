@@ -285,14 +285,7 @@ const submitForm = (): void => {
           @update:value="formForSend.phase = $event"
           :valueModel="formForSend.phase"
         />
-        <Textfield
-          label="Situação"
-          placeholder="Situação"
-          minWidth="250px"
-          @update:value="formForSend.currentState = $event"
-          :valueModel="formForSend.currentState"
-        />
-        <DropdownSelect :options="options" />
+        <SelectField label="Situação" :options="options" />
         <Textfield
           label="Unidade de medida"
           placeholder="Exemplo: metro linear"

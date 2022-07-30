@@ -50,6 +50,7 @@ declare module 'vue' {
     Search: typeof import('./components/molecules/search/index.vue')['default']
     SearchInput: typeof import('./components/organisms/searchInput/index.vue')['default']
     Select: typeof import('./components/atoms/select/index.vue')['default']
+    SelectField: typeof import('./components/molecules/select-field/index.vue')['default']
     SelectMapLayer: typeof import('./components/molecules/selectMapLayer/index.vue')['default']
     Sidebar: typeof import('./components/organisms/sidebar/index.vue')['default']
     Slider: typeof import('./components/molecules/slider/index.vue')['default']
