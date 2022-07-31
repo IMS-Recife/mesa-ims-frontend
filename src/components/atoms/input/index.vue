@@ -30,17 +30,12 @@ const model = computed({
     emit("update:value", value);
   },
 });
-
-const border = computed(() => {
-  const borderStyle = "border-1 border-neutrals-lightgrey-dark rounded-lg";
-  return props.border === true ? borderStyle : "";
-});
 </script>
 
 <template>
   <input
     v-model="model"
-    :class="`input-base ${$props.class} ${border}`"
+    :class="`input-base ${$props.class}`"
     :type="props.type"
     :required="required"
     :name="name"
@@ -55,6 +50,7 @@ const border = computed(() => {
 <style lang="scss">
 .input-base {
   @apply max-h-9 px-4 py-4 box-border cursor-pointer;
+  @apply border-1 border-neutrals-lightgrey-dark rounded-lg;
   font-size: 14px;
 
   width: 100%;
