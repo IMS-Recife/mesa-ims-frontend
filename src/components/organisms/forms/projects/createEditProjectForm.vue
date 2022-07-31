@@ -285,7 +285,11 @@ const submitForm = (): void => {
           @update:value="formForSend.phase = $event"
           :valueModel="formForSend.phase"
         />
-        <SelectField label="Situação" :options="options" />
+        <SelectField
+          label="Situação"
+          :options="options"
+          :valueModel="formForSend.currentState"
+        />
         <Textfield
           label="Unidade de medida"
           placeholder="Exemplo: metro linear"
