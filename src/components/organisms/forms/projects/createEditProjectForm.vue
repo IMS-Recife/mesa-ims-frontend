@@ -4,6 +4,175 @@ import { useUIStore } from "@/stores/ui";
 
 const fileName = ref("");
 
+const currentStateOptions = [
+  {
+    value: "aIniciar",
+    label: "A iniciar",
+  },
+  {
+    value: "concluido",
+    label: "Concluído",
+  },
+];
+
+const phaseOptions = [
+  {
+    value: "estudoPreliminar",
+    label: "Estudo preliminar",
+  },
+  {
+    value: "anteprojeto",
+    label: "Anteprojeto",
+  },
+  {
+    value: "projetoBasicoLegal",
+    label: "Projeto básico/legal",
+  },
+  {
+    value: "projetoExecutivo",
+    label: "Projeto executivo",
+  },
+  {
+    value: "obra",
+    label: "Obra",
+  },
+  {
+    value: "entregue",
+    label: "Entregue",
+  },
+];
+
+const plansOptions = [
+  {
+    value: "PAS",
+    label: "PAS",
+  },
+  {
+    value: "EVTEA",
+    label: "EVTEA",
+  },
+  {
+    value: "planoDiretor",
+    label: "Plano Diretor",
+  },
+  {
+    value: "recife500Anos",
+    label: "Recife 500 anos",
+  },
+  {
+    value: "planoLocalAcaoClimatica",
+    label: "Plano Local de Ação Climática",
+  },
+  {
+    value: "planoSaneamento",
+    label: "Plano de Saneamento",
+  },
+  {
+    value: "projetoReestruturacaoUrbana",
+    label:
+      "Projeto de Reestruturação Urbana e Dinamização Econômica de Centralidades do Recife (Projeto Centralidades)",
+  },
+  {
+    value: "planoUrbanisticoRecuperacaoAmbiental",
+    label: "Plano Urbanístico de Recuperação Ambiental - PURA (Parque Capibaribe)",
+  },
+  {
+    value: "planoManejo",
+    label: "Plano de Manejo",
+  },
+  {
+    value: "planoDiretorDrenagemUrbana",
+    label: "Plano Diretor de Drenagem Urbana",
+  },
+  {
+    value: "planoMobilidade",
+    label: "Plano de Mobilidade",
+  },
+  {
+    value: "planoMunicipalHabitacaoInteresseSocial",
+    label: "Plano Municipal de Habitação de Interesse Social",
+  },
+  {
+    value: "planoLocalHabitacaoInteresseSocial",
+    label: "Plano Local de Habitação de Interesse Social",
+  },
+  {
+    value: "planoAdaptacaoSetorialRecife",
+    label: "Plano de Adaptação Setorial do Recife",
+  },
+];
+
+const odsOptions = [
+  {
+    value: "erradicacaoPobreza",
+    label: "Erradicação da Pobreza",
+  },
+  {
+    value: "fomeZeroAgriculturaSustentavel",
+    label: "Fome zero e agricultura sustentável",
+  },
+  {
+    value: "saudeBemEstar",
+    label: "Saúde e bem-estar",
+  },
+  {
+    value: "educacaoQualidade",
+    label: "Educação de qualidade",
+  },
+  {
+    value: "igualdadeGenero",
+    label: "Igualdade de gênero",
+  },
+  {
+    value: "aguaPotavelSaneamento",
+    label: "Água potável e saneamento",
+  },
+  {
+    value: "energiaLimpaAcessivel",
+    label: "Energia limpa e acessível",
+  },
+  {
+    value: "trabalhoDecenteCrescimentoEconomico",
+    label: "Trabalho decente e crescimento econômico",
+  },
+  {
+    value: "industriaInovacaoInfraestrutura",
+    label: "Indústria, inovação e infraestrutura",
+  },
+  {
+    value: "reducaoDesigualdades",
+    label: "Redução das desigualdades",
+  },
+  {
+    value: "cidadesComunidadesSustentaveis",
+    label: "Cidades e comunidades sustentáveis",
+  },
+  {
+    value: "consumoProducaoResponsaveis",
+    label: "Consumo e produção responsáveis",
+  },
+  {
+    value: "acaoContraMudancaGlobalClima",
+    label: "Ação contra a mudança global do clima",
+  },
+  {
+    value: "vidaNaAgua",
+    label: "Vida na água",
+  },
+  {
+    value: "vidaTerrestre",
+    label: "Vida terrestre",
+  },
+  {
+    value: "pazJusticaInstituicoesEficazes",
+    label: "Paz, justiça e instituições eficazes",
+  },
+  {
+    value: "parceriasMeiosImplementacao",
+    label: "Parcerias e meios de implementação",
+  },
+];
+
 const options = [
   {
     label: "Option 1",
