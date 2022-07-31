@@ -173,21 +173,6 @@ const odsOptions = [
   },
 ];
 
-const options = [
-  {
-    label: "Option 1",
-    value: "option-1",
-  },
-  {
-    label: "Option 2",
-    value: "option-2",
-  },
-  {
-    label: "Option 3",
-    value: "option-3",
-  },
-];
-
 function readUploadFile(event: any) {
   let files = event.target.files;
   if (!files[0]) return;
@@ -456,7 +441,7 @@ const submitForm = (): void => {
         />
         <SelectField
           label="Situação"
-          :options="options"
+          :options="plansOptions"
           :valueModel="formForSend.currentState"
         />
         <Textfield

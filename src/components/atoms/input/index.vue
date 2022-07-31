@@ -8,6 +8,7 @@ type Props = {
   placeholder?: string;
   maxNumber?: string;
   minNumber?: string;
+  border?: boolean;
 };
 
 const props = withDefaults(defineProps<Props>(), {
@@ -15,6 +16,7 @@ const props = withDefaults(defineProps<Props>(), {
   placeholder: "",
   value: "",
   maxNumber: "100",
+  border: true,
 });
 
 const emit = defineEmits<{
@@ -28,12 +30,17 @@ const model = computed({
     emit("update:value", value);
   },
 });
+
+const border = computed(() => {
+  const borderStyle = "border-1 border-neutrals-lightgrey-dark rounded-lg";
+  return props.border === true ? borderStyle : "";
+});
 </script>
 
 <template>
   <input
     v-model="model"
-    :class="`input-base ${$props.class}`"
+    :class="`input-base ${$props.class} ${border}`"
     :type="props.type"
     :required="required"
     :name="name"
@@ -48,10 +55,6 @@ const model = computed({
 <style lang="scss">
 .input-base {
   @apply max-h-9 px-4 py-4 box-border cursor-pointer;
-  border-width: 1px;
-  border-color: #d4d4d4;
-  border-style: solid;
-  border-radius: 8px;
   font-size: 14px;
 
   width: 100%;

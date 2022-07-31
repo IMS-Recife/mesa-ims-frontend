@@ -35,21 +35,8 @@ const selectOption = (option: any) => {
 <template>
   <div class="dropdown-container">
     <div class="dropdown-content">
-      <div class="selected-option">
-        <TextBodySmall class="label-text">{{ selectedOption.label }}</TextBodySmall>
-      </div>
-
-      <div class="dropdown-options" v-if="showOptions">
-        <button
-          class="dropdown-option"
-          v-for="option in props.options"
-          @click="selectOption(option)"
-        >
-          <TextBodySmall class="label-text">{{ option.label }}</TextBodySmall>
-        </button>
-      </div>
+      <div class="selected-option"></div>
     </div>
-
     <button v-if="!showOptions" @click="showDropdownOptions">
       <span class="iconify arrow" data-icon="mdi:chevron-down" data-width="28" />
     </button>
@@ -57,12 +44,21 @@ const selectOption = (option: any) => {
       <span class="iconify arrow" data-icon="mdi:chevron-up" data-width="28" />
     </button>
   </div>
+  <div class="dropdown-options" v-if="showOptions">
+    <button
+      class="dropdown-option"
+      v-for="option in props.options"
+      @click="selectOption(option)"
+    >
+      <TextBodySmall class="label-text">{{ option.label }}</TextBodySmall>
+    </button>
+  </div>
 </template>
 
 <style scoped>
 .dropdown-container {
-  @apply relative flex items-center justify-start overflow-y-scroll;
-  @apply h-max max-h-36 min-w-[200px] border-1 rounded-md border-neutrals-lightgrey-dark;
+  @apply relative flex items-center justify-start p-0;
+  @apply h-max max-h-9 min-w-[200px] pt-4 border-1 rounded-lg border-neutrals-lightgrey-dark;
 
   > button > .arrow {
     @apply absolute right-1 top-1;
@@ -72,7 +68,7 @@ const selectOption = (option: any) => {
   .dropdown-content {
     > .selected-option {
       @apply flex flex-col items-start justify-center;
-      @apply h-[38px] px-2 w-full;
+      @apply h-[38px] w-full;
       @apply cursor-pointer;
 
       > .label-text {
@@ -83,15 +79,17 @@ const selectOption = (option: any) => {
 }
 
 .dropdown-options {
-  @apply flex flex-col;
+  @apply absolute z-2000 flex flex-col overflow-y-scroll;
+  @apply max-h-50;
+  @apply shadow-md rounded-md bg-neutrals-lightgrey-lightest;
 
   > .dropdown-option {
-    @apply flex flex-col items-start justify-center;
-    @apply h-[38px] px-2 w-[200px];
+    @apply flex flex-col items-start justify-center px-3 py-2;
+    @apply h-full w-[190px];
     @apply cursor-pointer hover:bg-neutrals-lightgrey-light;
     @apply text-neutrals-darkgrey-lightest hover:text-neutrals-darkgrey-light;
     > .label-text {
-      @apply ml-3;
+      @apply text-left;
     }
   }
 }
