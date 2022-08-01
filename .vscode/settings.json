@@ -5,7 +5,8 @@
     "atoms",
     "visions_page",
     "map",
-    "signup"
+    "signup",
+    "design_system"
   ],
   "vue3snippets.enable-compile-vue-file-on-did-save-code": true
 }
