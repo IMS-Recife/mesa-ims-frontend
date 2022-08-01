@@ -438,13 +438,6 @@ const submitForm = (): void => {
           @update:value="formForSend.startDate = $event"
           :valueModel="formForSend.startDate"
         />
-        <Textfield
-          label="Link de referência"
-          placeholder="Link de referência"
-          minWidth="250px"
-          @update:value="formForSend.referenceLink = $event"
-          :valueModel="formForSend.relations[0].plans"
-        />
         <SelectField
           label="Fase"
           :options="phaseOptions"
