@@ -39,6 +39,31 @@ const choseLayer = (value: boolean) => {
         default:
           break;
       }
+    } else if (props.layerCategory === "Mobilidade") {
+      switch (props.layerName) {
+        case "Estação de Metro":
+          showLayer("MetroStation");
+          break;
+        case "Faixa Azul":
+          showLayer("BlueStrip");
+          break;
+        case "Linha de Metro":
+          showLayer("MetroLine");
+          break;
+
+        default:
+          console.log(props.layerName);
+          break;
+      }
+    } else if (props.layerCategory === "Arborização") {
+      switch (props.layerName) {
+        case "Árvores estabelecidas":
+          showLayer("tree");
+          break;
+
+        default:
+          break;
+      }
     } else if (props.layerCategory === "Indicadores") {
       switch (props.layerName) {
         case "População (2010)":
@@ -73,6 +98,7 @@ const choseLayer = (value: boolean) => {
           break;
 
         default:
+          console.log(props.layerName);
           break;
       }
     } else if (props.layerCategory === "Edificações" && value) {

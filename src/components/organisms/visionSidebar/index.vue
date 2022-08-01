@@ -105,6 +105,14 @@ const layersCategories = [
       },
     ],
   },
+  {
+    name: "Mobilidade",
+    layers: [
+      { name: "Estação de Metro" },
+      { name: "Faixa Azul" },
+      { name: "Linha de Metro" },
+    ],
+  },
   // {
   //   name: "Edificações",
   //   layers: [
