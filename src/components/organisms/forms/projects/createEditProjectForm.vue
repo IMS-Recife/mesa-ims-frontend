@@ -229,6 +229,7 @@ const formForSend = reactive({
   completedPercentage: 1,
   relations: [],
   plans: "",
+  ods: "",
 });
 
 watch(formForSend, (value) => {
@@ -432,6 +433,12 @@ const submitForm = (): void => {
           @update:value="formForSend.startDate = $event"
           :valueModel="formForSend.startDate"
         />
+        <SelectField
+          label="Fase"
+          :options="phaseOptions"
+          :valueModel="formForSend.phase"
+          placeholder="Fase"
+        />
         <Textfield
           label="Fase"
           placeholder="Fase"
@@ -441,7 +448,7 @@ const submitForm = (): void => {
         />
         <SelectField
           label="Situação"
-          :options="plansOptions"
+          :options="currentStateOptions"
           :valueModel="formForSend.currentState"
           placeholder="Situação"
         />
@@ -508,13 +515,17 @@ const submitForm = (): void => {
     <div class="project-field-section" v-if="!contentIsLoading">
       <Overline class="section-title">RELAÇÕES</Overline>
       <fieldset>
-        <Textfield label="ODS*" placeholder="Objt. Desen. Sust." minWidth="350px" />
-        <Textfield
+        <SelectField
+          label="ODS*"
+          :options="odsOptions"
+          :valueModel="formForSend.ods"
+          placeholder="Objt. Desen. Sust."
+        />
+        <SelectField
           label="Planos"
-          placeholder="Planos"
-          minWidth="350px"
-          @update:value="formForSend.plans = $event"
+          :options="plansOptions"
           :valueModel="formForSend.plans"
+          placeholder="Planos"
         />
         <Textfield
           label="Grupos temáticos"
