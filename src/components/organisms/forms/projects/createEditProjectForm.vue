@@ -443,6 +443,7 @@ const submitForm = (): void => {
           label="Situação"
           :options="plansOptions"
           :valueModel="formForSend.currentState"
+          placeholder="Situação"
         />
         <Textfield
           label="Unidade de medida"

@@ -70,7 +70,11 @@ const textfieldVariance = computed(() => {
       {{ label }}
     </Label>
     <div class="container-input">
-      <DropdownSelect @update:selected="emitValue" :options="props.options" />
+      <DropdownSelect
+        :placeholder="props.placeholder"
+        @update:selected="emitValue"
+        :options="props.options"
+      />
     </div>
     <slot name="password-strong"></slot>
 

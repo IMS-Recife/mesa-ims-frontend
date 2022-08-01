@@ -1,5 +1,6 @@
 <script setup lang="ts">
 type Props = {
+  placeholder?: string;
   options: Array<{
     value: string;
     label: string;
@@ -88,6 +89,7 @@ const selectOption = (option: any) => {
   <div class="dropdown-container">
     <div class="dropdown-content">
       <input
+        :placeholder="props.placeholder"
         id="dropdown-input"
         class="select-input"
         type="text"
