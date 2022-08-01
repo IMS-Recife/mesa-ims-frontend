@@ -281,6 +281,15 @@ export const useMapStore = defineStore("map", {
           case "Crescimento Populacional 2000 2010":
             this.setLayersCurrentVision(layer, "#7d1a0c");
             break;
+          case "Estação de Metro":
+            this.setLayersCurrentVision(layer, "#7dd70c");
+            break;
+          case "Faixa Azul":
+            this.setLayersCurrentVision(layer, "#000159");
+            break;
+          case "Linha de Metro":
+            this.setLayersCurrentVision(layer, "#ffa232");
+            break;
           default:
             console.log(layer);
             break;
