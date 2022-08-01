@@ -2,12 +2,53 @@
 import { apiPostProject, apiEditProject, apiGetProjectById } from "@/services/projects";
 import { useUIStore } from "@/stores/ui";
 
+const ui = useUIStore();
+
+interface Props {
+  projectId?: string;
+}
+const props = defineProps<Props>();
+
+const contentIsLoading = ref(false);
+
 const fileName = ref("");
+
+const formForSend = reactive({
+  name: "",
+  responsibleOrg: "",
+  currentState: "",
+  areas: [],
+  startDate: "",
+  location: "",
+  thematicGroups: "",
+  referenceLink: "",
+  phase: "",
+  measurementUnit: "",
+  expectedQuantity: 1,
+  executedQuantity: 1,
+  projectValue: 1,
+  infiltrationsSize: 1,
+  constructionWorkValue: 1,
+  partners: "",
+  completedPercentage: 1,
+  plans: "",
+  ods: "",
+  relations: [
+    {
+      plans: "",
+      ods: "",
+    },
+  ],
+});
 
 const currentStateOptions = [
   {
     value: "A iniciar",
     label: "A iniciar",
+  },
+  {
+    value: "Em andamento",
+    label: "Em andamento",
   },
   {
     value: "Concluído",
@@ -188,15 +229,6 @@ function readUploadFile(event: any) {
   leitor.readAsText(files[0]);
 }
 
-const ui = useUIStore();
-
-interface Props {
-  projectId?: string;
-}
-const props = defineProps<Props>();
-
-const contentIsLoading = ref(false);
-
 // fileInput!.addEventListener("change", function (event) {
 //   var file = fileInput.files[0],
 //     fr = new FileReader();
@@ -209,34 +241,6 @@ const contentIsLoading = ref(false);
 //     fr.readAsDataURL(file);
 //   }
 // });
-
-const formForSend = reactive({
-  name: "",
-  responsibleOrg: "",
-  currentState: "",
-  areas: [],
-  startDate: "",
-  location: "",
-  thematicGroups: "",
-  referenceLink: "",
-  phase: "",
-  measurementUnit: "",
-  expectedQuantity: 1,
-  executedQuantity: 1,
-  projectValue: 1,
-  infiltrationsSize: 1,
-  constructionWorkValue: 1,
-  partners: "",
-  completedPercentage: 1,
-  plans: "",
-  ods: "",
-  relations: [
-    {
-      plans: "",
-      ods: "",
-    },
-  ],
-});
 
 watch(formForSend, (value) => {
   console.log(value);
@@ -317,7 +321,7 @@ const registerProject = () => {
 
   apiPostProject(project)
     .then((response) => {
-      if (response.status === 201) {
+      if (response.status === 201 || response.status === 200) {
         ui.setSnackbar(true, "", "Projeto criado com sucesso!", "success");
         window.location.reload();
       }
@@ -395,7 +399,8 @@ const editProject = (projectID: string): void => {
 };
 
 const submitForm = (): void => {
-  if (props.projectId !== undefined) {
+  if (props.projectId !== undefined && props.projectId !== "") {
+    console.log("Project ID:", props.projectId);
     editProject(props.projectId);
 
     return;

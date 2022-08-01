@@ -72,6 +72,7 @@ const selectOption = (option: any) => {
   <div class="dropdown-container">
     <div class="dropdown-content">
       <input
+        autocomplete="off"
         :placeholder="props.placeholder"
         id="dropdown-input"
         class="select-input"
