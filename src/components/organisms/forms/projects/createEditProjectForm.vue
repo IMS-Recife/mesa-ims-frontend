@@ -6,38 +6,38 @@ const fileName = ref("");
 
 const currentStateOptions = [
   {
-    value: "aIniciar",
+    value: "A iniciar",
     label: "A iniciar",
   },
   {
-    value: "concluido",
+    value: "Concluído",
     label: "Concluído",
   },
 ];
 
 const phaseOptions = [
   {
-    value: "estudoPreliminar",
+    value: "Estudo preliminar",
     label: "Estudo preliminar",
   },
   {
-    value: "anteprojeto",
+    value: "Anteprojeto",
     label: "Anteprojeto",
   },
   {
-    value: "projetoBasicoLegal",
+    value: "Projeto básico/legal",
     label: "Projeto básico/legal",
   },
   {
-    value: "projetoExecutivo",
+    value: "Projeto executivo",
     label: "Projeto executivo",
   },
   {
-    value: "obra",
+    value: "Obra",
     label: "Obra",
   },
   {
-    value: "entregue",
+    value: "Entregue",
     label: "Entregue",
   },
 ];
@@ -52,123 +52,124 @@ const plansOptions = [
     label: "EVTEA",
   },
   {
-    value: "planoDiretor",
+    value: "Plano Diretor",
     label: "Plano Diretor",
   },
   {
-    value: "recife500Anos",
+    value: "Recife 500 anos",
     label: "Recife 500 anos",
   },
   {
-    value: "planoLocalAcaoClimatica",
+    value: "Plano Local de Ação Climática",
     label: "Plano Local de Ação Climática",
   },
   {
-    value: "planoSaneamento",
+    value: "Plano de Saneamento",
     label: "Plano de Saneamento",
   },
   {
-    value: "projetoReestruturacaoUrbana",
+    value:
+      "Projeto de Reestruturação Urbana e Dinamização Econômica de Centralidades do Recife (Projeto Centralidades)",
     label:
       "Projeto de Reestruturação Urbana e Dinamização Econômica de Centralidades do Recife (Projeto Centralidades)",
   },
   {
-    value: "planoUrbanisticoRecuperacaoAmbiental",
+    value: "Plano Urbanístico de Recuperação Ambiental - PURA (Parque Capibaribe)",
     label: "Plano Urbanístico de Recuperação Ambiental - PURA (Parque Capibaribe)",
   },
   {
-    value: "planoManejo",
+    value: "Plano de Manejo",
     label: "Plano de Manejo",
   },
   {
-    value: "planoDiretorDrenagemUrbana",
+    value: "Plano Diretor de Drenagem Urbana",
     label: "Plano Diretor de Drenagem Urbana",
   },
   {
-    value: "planoMobilidade",
+    value: "Plano de Mobilidade",
     label: "Plano de Mobilidade",
   },
   {
-    value: "planoMunicipalHabitacaoInteresseSocial",
+    value: "Plano Municipal de Habitação de Interesse Social",
     label: "Plano Municipal de Habitação de Interesse Social",
   },
   {
-    value: "planoLocalHabitacaoInteresseSocial",
+    value: "Plano Local de Habitação de Interesse Social",
     label: "Plano Local de Habitação de Interesse Social",
   },
   {
-    value: "planoAdaptacaoSetorialRecife",
+    value: "Plano de Adaptação Setorial do Recife",
     label: "Plano de Adaptação Setorial do Recife",
   },
 ];
 
 const odsOptions = [
   {
-    value: "erradicacaoPobreza",
+    value: "Erradicação da Pobreza",
     label: "Erradicação da Pobreza",
   },
   {
-    value: "fomeZeroAgriculturaSustentavel",
+    value: "Fome zero e agricultura sustentável",
     label: "Fome zero e agricultura sustentável",
   },
   {
-    value: "saudeBemEstar",
+    value: "Saúde e bem-estar",
     label: "Saúde e bem-estar",
   },
   {
-    value: "educacaoQualidade",
+    value: "Educação de qualidade",
     label: "Educação de qualidade",
   },
   {
-    value: "igualdadeGenero",
+    value: "Igualdade de gênero",
     label: "Igualdade de gênero",
   },
   {
-    value: "aguaPotavelSaneamento",
+    value: "Água potável e saneamento",
     label: "Água potável e saneamento",
   },
   {
-    value: "energiaLimpaAcessivel",
+    value: "Energia limpa e acessível",
     label: "Energia limpa e acessível",
   },
   {
-    value: "trabalhoDecenteCrescimentoEconomico",
+    value: "Trabalho decente e crescimento econômico",
     label: "Trabalho decente e crescimento econômico",
   },
   {
-    value: "industriaInovacaoInfraestrutura",
+    value: "Indústria, inovação e infraestrutura",
     label: "Indústria, inovação e infraestrutura",
   },
   {
-    value: "reducaoDesigualdades",
+    value: "Redução das desigualdades",
     label: "Redução das desigualdades",
   },
   {
-    value: "cidadesComunidadesSustentaveis",
+    value: "Cidades e comunidades sustentáveis",
     label: "Cidades e comunidades sustentáveis",
   },
   {
-    value: "consumoProducaoResponsaveis",
+    value: "Consumo e produção responsáveis",
     label: "Consumo e produção responsáveis",
   },
   {
-    value: "acaoContraMudancaGlobalClima",
+    value: "Ação contra a mudança global do clima",
     label: "Ação contra a mudança global do clima",
   },
   {
-    value: "vidaNaAgua",
+    value: "Vida na água",
     label: "Vida na água",
   },
   {
-    value: "vidaTerrestre",
+    value: "Vida terrestre",
     label: "Vida terrestre",
   },
   {
-    value: "pazJusticaInstituicoesEficazes",
+    value: "Paz, justiça e instituições eficazes",
     label: "Paz, justiça e instituições eficazes",
   },
   {
-    value: "parceriasMeiosImplementacao",
+    value: "Parcerias e meios de implementação",
     label: "Parcerias e meios de implementação",
   },
 ];
@@ -227,9 +228,14 @@ const formForSend = reactive({
   constructionWorkValue: 1,
   partners: "",
   completedPercentage: 1,
-  relations: [],
   plans: "",
   ods: "",
+  relations: [
+    {
+      plans: "",
+      ods: "",
+    },
+  ],
 });
 
 watch(formForSend, (value) => {
@@ -259,7 +265,6 @@ onBeforeMount(() => {
         formForSend.partners = response.data.partners;
         formForSend.completedPercentage = response.data.completedPercentage;
         formForSend.relations = response.data.relations;
-        formForSend.plans = response.data.plans;
       })
       .then(() => {
         contentIsLoading.value = false;
@@ -433,23 +438,23 @@ const submitForm = (): void => {
           @update:value="formForSend.startDate = $event"
           :valueModel="formForSend.startDate"
         />
+        <Textfield
+          label="Link de referência"
+          placeholder="Link de referência"
+          minWidth="250px"
+          @update:value="formForSend.referenceLink = $event"
+          :valueModel="formForSend.relations[0].plans"
+        />
         <SelectField
           label="Fase"
           :options="phaseOptions"
-          :valueModel="formForSend.phase"
-          placeholder="Fase"
-        />
-        <Textfield
-          label="Fase"
-          placeholder="Fase"
-          minWidth="250px"
           @update:value="formForSend.phase = $event"
-          :valueModel="formForSend.phase"
+          placeholder="Fase"
         />
         <SelectField
           label="Situação"
           :options="currentStateOptions"
-          :valueModel="formForSend.currentState"
+          @update:value="formForSend.currentState = $event"
           placeholder="Situação"
         />
         <Textfield
@@ -518,13 +523,13 @@ const submitForm = (): void => {
         <SelectField
           label="ODS*"
           :options="odsOptions"
-          :valueModel="formForSend.ods"
+          @update:value="formForSend.relations[0].ods = $event"
           placeholder="Objt. Desen. Sust."
         />
         <SelectField
           label="Planos"
           :options="plansOptions"
-          :valueModel="formForSend.plans"
+          @update:value="formForSend.relations[0].plans = $event"
           placeholder="Planos"
         />
         <Textfield

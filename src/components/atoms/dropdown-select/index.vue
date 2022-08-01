@@ -33,27 +33,10 @@ const emit = defineEmits<{
   (e: "update:selected", event: string): void;
 }>();
 
-const model = computed({
-  get() {
-    return props.value;
-  },
-  set(value: any) {
-    filterOptions(value);
-  },
-});
-
-const convertStrCamelCase = (str: string) => {
-  return str
-    .replace(/(?:^\w|[A-Z]|\b\w)/g, function (word: any, index: any) {
-      return index === 0 ? word.toLowerCase() : word.toUpperCase();
-    })
-    .replace(/\s+/g, "");
-};
 const createOption = (label: any) => {
-  const value = convertStrCamelCase(label);
   const newOption: any = {
-    value,
-    label,
+    value: label,
+    label: label,
   };
   options.value = [...options.value, newOption];
   showOptions.value = false;
