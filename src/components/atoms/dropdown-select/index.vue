@@ -10,37 +10,76 @@ type Props = {
   };
 };
 
-const props = defineProps<Props>();
+var input = document.getElementById("dropdown-input");
+
+const props = withDefaults(defineProps<Props>(), {
+  options: [],
+  selected: {
+    value: "",
+    label: "",
+  },
+});
 const options = ref(props.options);
+const shownOptions = ref(options.value);
 const inputValue = ref("");
-
-const emit = defineEmits<{
-  (e: "update:selected", event: string): void;
-}>();
-
-const filterOptions = (value: any) => {
-  if (value.data) {
-    inputValue.value = inputValue.value + value.data.toLowerCase();
-  } else {
-    inputValue.value = "";
-  }
-  options.value = props.options.filter((option) => {
-    return option.label.toLowerCase().includes(inputValue.value);
-  });
-};
-
 const showOptions = ref(false);
 const selectedOption = ref({
   label: "Situação",
   value: "",
 });
 
+const emit = defineEmits<{
+  (e: "update:selected", event: string): void;
+}>();
+
+const model = computed({
+  get() {
+    return props.value;
+  },
+  set(value: any) {
+    filterOptions(value);
+  },
+});
+
+const convertStrCamelCase = (str: string) => {
+  return str
+    .replace(/(?:^\w|[A-Z]|\b\w)/g, function (word: any, index: any) {
+      return index === 0 ? word.toLowerCase() : word.toUpperCase();
+    })
+    .replace(/\s+/g, "");
+};
+const createOption = (label: any) => {
+  const value = convertStrCamelCase(label);
+  const newOption: any = {
+    value,
+    label,
+  };
+  options.value = [...options.value, newOption];
+  showOptions.value = false;
+};
+
+const filterOptions = (value: any) => {
+  if (value.data) {
+    inputValue.value = inputValue.value + value.data;
+  } else {
+    inputValue.value = inputValue.value.slice(0, -1);
+  }
+
+  // inputValue.value = "";
+  const optionsToFilter = options.value;
+  shownOptions.value = optionsToFilter.filter((option) => {
+    return option.label.toLowerCase().includes(inputValue.value.toLowerCase());
+  });
+};
+
 const showDropdownOptions = () => {
   showOptions.value = !showOptions.value;
 };
 
 const selectOption = (option: any) => {
+  showDropdownOptions();
   selectedOption.value = option;
+  inputValue.value = option.label;
   emit("update:selected", option.value);
 };
 </script>
@@ -49,8 +88,10 @@ const selectOption = (option: any) => {
   <div class="dropdown-container">
     <div class="dropdown-content">
       <input
+        id="dropdown-input"
         class="select-input"
         type="text"
+        :value="inputValue"
         @click="showOptions = true"
         @input="filterOptions"
       />
@@ -65,10 +106,13 @@ const selectOption = (option: any) => {
   <div class="dropdown-options" v-if="showOptions">
     <button
       class="dropdown-option"
-      v-for="option in options"
+      v-for="option in shownOptions"
       @click="selectOption(option)"
     >
       <TextBodySmall class="label-text">{{ option.label }}</TextBodySmall>
+    </button>
+    <button v-if="inputValue" class="dropdown-option" @click="createOption(inputValue)">
+      <TextBodySmall class="label-text">Criar Opção "{{ inputValue }}"</TextBodySmall>
     </button>
   </div>
 </template>
