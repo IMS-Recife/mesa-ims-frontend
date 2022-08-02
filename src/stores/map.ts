@@ -290,6 +290,15 @@ export const useMapStore = defineStore("map", {
           case "Linha de Metro":
             this.setLayersCurrentVision(layer, "#ffa232");
             break;
+          case "Linha REC Total":
+            this.setLayersCurrentVision(layer, "#ca92ef");
+            break;
+          case "Malha Ciclo 2022":
+            this.setLayersCurrentVision(layer, "#642424");
+            break;
+          case "Mobilidade Pedestre Urbanismo Tatico":
+            this.setLayersCurrentVision(layer, "#181818");
+            break;
           default:
             console.log(layer);
             break;

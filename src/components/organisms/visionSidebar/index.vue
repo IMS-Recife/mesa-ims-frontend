@@ -5,6 +5,7 @@ import { useProjects } from "@/stores/projects";
 import map_select_default from "@/assets/icons/map_select_default.svg";
 import map_select_satelite from "@/assets/icons/map_select_satelite.svg";
 import map_select_black from "@/assets/icons/map_select_black.svg";
+import { layersCategoriesAllRecife } from "../map/layersCatorigiesAllRecife";
 
 const projectStore = useProjects();
 const mapStore = useMapStore();
@@ -70,49 +71,7 @@ const layersCategories = [
       },
     ],
   },
-  {
-    name: "Indicadores",
-    layers: [
-      {
-        name: "População (2010)",
-      },
-      {
-        name: "Percentual Domicilios Arborizacao 2010",
-      },
-      {
-        name: "Percentual Domicilios Com Rampa Cadeirante no Entorno 2010",
-      },
-      {
-        name: "Percentual Populacao Com Agua Encanada 2010",
-      },
-      {
-        name: "Percentual Populacao Com Coleta de Lixo 2010",
-      },
-      {
-        name: "Percentual Populacao Com Esgotamento Sanitario 2010",
-      },
-      {
-        name: "Renda Media 2010",
-      },
-      {
-        name: "Numero de Domicilios 2010",
-      },
-      {
-        name: "Densidade Demografica 2010",
-      },
-      {
-        name: "Crescimento Populacional 2000 2010",
-      },
-    ],
-  },
-  {
-    name: "Mobilidade",
-    layers: [
-      { name: "Estação de Metro" },
-      { name: "Faixa Azul" },
-      { name: "Linha de Metro" },
-    ],
-  },
+  ...layersCategoriesAllRecife,
   // {
   //   name: "Edificações",
   //   layers: [

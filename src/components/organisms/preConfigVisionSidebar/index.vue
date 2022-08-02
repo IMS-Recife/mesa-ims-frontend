@@ -7,6 +7,7 @@ import map_select_satelite from "@/assets/icons/map_select_satelite.svg";
 import map_select_black from "@/assets/icons/map_select_black.svg";
 import pin_control_option from "@/assets/icons/pin_control_option.svg";
 import pin_control_option_off from "@/assets/icons/pin_control_option_off.svg";
+import { layersCategoriesAllRecife } from "../map/layersCatorigiesAllRecife";
 
 const mapStore = useMapStore();
 const ui = useUIStore();
@@ -71,6 +72,8 @@ const sliderValues = [
     label: "3km",
   },
 ];
+
+const layersCategories = [...layersCategoriesAllRecife];
 </script>
 <template>
   <div class="pre-config-sidebar-vision-layout">
@@ -78,7 +81,8 @@ const sliderValues = [
       <div class="box-header">
         <Title title="Configurando o Mapa" />
         <TextBodyMedium>
-          Para uma melhor experiência, nos diga como você gostaria de ver o mapa.
+          Para uma melhor experiência, nos diga como você gostaria de ver o
+          mapa.
         </TextBodyMedium>
       </div>
 
@@ -97,7 +101,9 @@ const sliderValues = [
         <div class="select-area-tools">
           <ButtonIconCheck
             :path="
-              mapStore.isActiveMarkerMap ? pin_control_option : pin_control_option_off
+              mapStore.isActiveMarkerMap
+                ? pin_control_option
+                : pin_control_option_off
             "
             width="40px"
             height="32px"
@@ -135,6 +141,10 @@ const sliderValues = [
           {{ finishConfig.label }}
         </Button>
       </div>
+      <LayersCollapseContainer
+        :layersCategories="layersCategories"
+        title="Camadas"
+      />
     </div>
   </div>
 </template>
@@ -144,7 +154,7 @@ const sliderValues = [
   @apply absolute flex flex-col z-405 top-[0px] right-[0];
 
   > .box {
-    @apply border-transparent w-[524px] h-[100vh] bg-white flex-col p-6 pb-6 justify-center items-center overflow-y-auto overflow-x-hidden;
+    @apply border-transparent w-[400px] h-[100vh] bg-white flex-col p-6 pb-6 justify-center items-center overflow-y-auto overflow-x-hidden;
 
     > button {
       @apply mt-2;
