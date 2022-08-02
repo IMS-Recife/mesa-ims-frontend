@@ -50,6 +50,15 @@ const choseLayer = (value: boolean) => {
         case "Linha de Metro":
           showLayer("MetroLine");
           break;
+        case "Linha REC Total":
+          showLayer("TotalRecifeLine");
+          break;
+        case "Malha Ciclo 2022":
+          showLayer("CycleLaneMesh2022");
+          break;
+        case "Mobilidade Pedestre Urbanismo Tatico":
+          showLayer("PedestrianMobilityTacticalUrbanism");
+          break;
 
         default:
           console.log(props.layerName);
