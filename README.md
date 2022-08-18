@@ -1,3 +1,58 @@
+# Documentação:
+
+## Estrutura de pastas:
+  
+### Src (arquivos de código):
+
+#### assets:
+> Arquivos estáticos de imagens, icones, etc.
+
+#### @types: arquivos de tipos
+>Dentro desta pasta ficam os arquivos de tipos. No momento só temos um arquivo **index.ts** que exporta todos os tipos e interfaces criados. Idealmente deveriam ser divididos em subarquivos para cada contexto. Ex: map.d.ts, types.d.ts, etc.
+#### components: arquivos de componentes
+>Neste projeto foi optado por utilizar o padrão de design atômico para os componentes. Dessa forma, os componentes nas seguintes pastas:
+
+  * `atoms`: Os componentes que representam elementos simples, como botões, inputs, etc.
+    * `texts`: componentes que representam textos, como labels, etc. Esses componentes devem ser usados sempre que um novo texto vá ser adicionado no projeto, já que todo o CSS e as tags HTML já estão definidas neles de acordo com o styleguide definido pela equipe de design.
+  * `molecules`: Os componentes que representam um conjunto de elementos simples como modais, campos de formulário, etc.
+  * `organisms`: Os componentes que representam um conjunto de elementos mais complexos e que envolvem mais lógica e informações, como o componente de mapa, modais específicos, formulários etc.
+
+  
+
+
+
+#### layouts
+> Arquivos de layout, que serão utilizados para criar telas da aplicação.
+
+#### pages: arquivos de páginas
+> Arquivos de páginas, que utilizarão dos layouts criados anteriormente como base.
+
+#### services: arquivos de serviços
+> Arquivos de serviços, que serão utilizados para acessar os dados do backend e realizar as operações necessárias para a aplicação.
+
+#### stores: arquivos de gerenciamento de estados
+> Arquivos de gerenciamento de estados, que serão utilizados para gerenciar os estados da aplicação.
+
+* `auth`: estados utilizados na autenticaçõação do usuário.
+* `map`: estados utilizados no mapa.
+* `projects`: estados utilizados nos projetos.
+* `ui`: estados utilizados na interface do usuário.
+### themes (arquivos de temas):
+>Dentro desta pasta temos os arquivos de tema, que na prática são objetos que definem as variações de cores e fonte que são utilizadas no CSS através do windicss.
+* `default`: arquivos do tema padrão
+  * `index.ts`: arquivo que exporta todas as definições de tema (cores e tipografia)
+  * `colors.ts`: arquivo que define as cores do tema
+  * `typography.ts`: arquivo que define as fontes do tema
+
+
+
+
+
+
+
+
+
+
 ## Deploy
 [![Netlify Status](https://api.netlify.com/api/v1/badges/bc4c5d28-debd-4bc3-84c6-f585dd843259/deploy-status)](https://app.netlify.com/sites/ims-web-qa/deploys)
 

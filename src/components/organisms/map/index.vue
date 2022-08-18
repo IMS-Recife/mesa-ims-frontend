@@ -435,13 +435,12 @@ onBeforeMount(async () => {
             featCollectionPolygonForVector.features.push(el);
 
             contador = responseShowLayer[value].length;
-            console.log("Parâmetros da camada", el.properties);
           }
         });
 
         mapStore.layersCurrentVision.filter((element: any, index: any) => {
           if (element.name === mapStore.currentLayerName) {
-            if (isCategory(mapStore.currentLayerCategory)) {
+            if (mapStore.currentLayerCategory === "Indicadores") {
               let colorChangerParam: string;
               switch (mapStore.currentLayerName) {
                 case "População (2010)":
