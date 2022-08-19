@@ -64,6 +64,15 @@ const choseLayer = (value: boolean) => {
           console.log(props.layerName);
           break;
       }
+    } else if (props.layerCategory === "Zoneamento") {
+      switch (props.layerName) {
+        case "Plano Diretor":
+          showLayer("Zoning");
+          break;
+
+        default:
+          break;
+      }
     } else if (props.layerCategory === "Arborização") {
       switch (props.layerName) {
         case "Árvores estabelecidas":

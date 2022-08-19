@@ -47,7 +47,7 @@ const searchAreasIndicators: GeoJson[] = [searchAreaItem];
 
 const isCategory = (layerCategory: any) => {
   console.log(layerCategory);
-  let LayersCategories = ["Indicadores", "Mobilidade"];
+  let LayersCategories = ["Indicadores", "Mobilidade", "Zoneamento"];
   return LayersCategories.includes(layerCategory);
 };
 

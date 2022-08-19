@@ -45,4 +45,8 @@ export const layersCategoriesAllRecife = [
       { name: "Mobilidade Pedestre Urbanismo Tatico" },
     ],
   },
+  {
+    name: "Zoneamento",
+    layers: [{ name: "Plano Diretor" }],
+  },
 ];
