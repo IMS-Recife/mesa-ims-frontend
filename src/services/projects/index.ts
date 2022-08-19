@@ -19,7 +19,10 @@ type CreateProjectDTO = {
   constructionWorkValue?: number;
   partners?: string;
   completedPercentage?: number;
-  relations?: string[];
+  relations?: Array<{
+    ods: string;
+    plans: string;
+  }>;
   plans?: string;
 }
 type EditProjectDTO = {
@@ -40,7 +43,10 @@ type EditProjectDTO = {
   constructionWorkValue?: number;
   partners?: string;
   completedPercentage?: number;
-  relations?: string[];
+  relations?: Array<{
+    ods: string;
+    plans: string;
+  }>;
   plans?: string;
 }
 

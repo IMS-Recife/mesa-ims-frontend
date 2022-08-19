@@ -400,11 +400,11 @@ onBeforeMount(async () => {
             layer.setStyle({
               className: `polygon-map-${mapStore.currentLayerName}`,
             });
+            layer.setZIndex(1000);
             layer
               .addTo(mapAPI)
               .on("click", (event: any) => {
                 callPropertiesLayerByLocation(value, el._id).then((res) => {
-                  // console.log(value, el._id);
                   L.popup()
                     .setLatLng(event.latlng)
                     .setContent(
@@ -443,39 +443,149 @@ onBeforeMount(async () => {
             contador = responseShowLayer[value].length;
           }
         });
+
         mapStore.layersCurrentVision.filter((element: any, index: any) => {
           if (element.name === mapStore.currentLayerName) {
-            color = element.color;
-            tilesPolygon.value = new VT(featCollectionPolygonForVector, {
-              maxZoom: 18,
-              tolerance: 50,
-              bug: true,
-              indexMaxPoints: 100000,
-              className: `layer-polygon-${mapStore.currentLayerName}`,
-              properties: "",
-              zIndex: 850,
-              pane: "tilePane",
-              style: {
-                color: color,
-                fillColor: color,
-                fillOpacity: 0.7,
-              },
-            });
-            tilesPoint.value = new VT(featCollectionPointVector, {
-              maxZoom: 18,
-              tolerance: 50,
-              bug: true,
-              indexMaxPoints: 100000,
-              className: `layer-point-${mapStore.currentLayerName}`,
-              style: {
-                color: color,
-                fillColor: color,
-                fillOpacity: 0.7,
-              },
-            });
-            tilesPolygon.value.addTo(mapAPI);
-            tilesPoint.value.addTo(mapAPI);
-            mapStore.setCountLayerRender(contador, element.name);
+            if (mapStore.currentLayerCategory === "Indicadores") {
+              let colorChangerParam: string;
+              switch (mapStore.currentLayerName) {
+                case "População (2010)":
+                  colorChangerParam = "pop_2010";
+                  break;
+                case "Percentual Domicilios Arborizacao 2010":
+                  colorChangerParam = "arbori_201";
+                  break;
+                case "Percentual Domicilios Com Rampa Cadeirante no Entorno 2010":
+                  colorChangerParam = "rampa_2010";
+                  break;
+                case "Percentual Populacao Com Agua Encanada 2010":
+                  colorChangerParam = "arbori_201";
+                  break;
+                case "Percentual Populacao Com Coleta de Lixo 2010":
+                  colorChangerParam = "lixo_2010";
+                  break;
+                case "Percentual Populacao Com Esgotamento Sanitario 2010":
+                  colorChangerParam = "sanit_2010";
+                  break;
+                case "Renda Media 2010":
+                  colorChangerParam = "renda_2010";
+                  break;
+                case "Numero de Domicilios 2010":
+                  colorChangerParam = "domicilios";
+                  break;
+                case "Densidade Demografica 2010":
+                  colorChangerParam = "densidade_";
+                  break;
+                case "Crescimento Populacional 2000 2010":
+                  colorChangerParam = "cresc_pop_";
+                  break;
+              }
+              let colorParamArray = featCollectionPolygonForVector.features.map(
+                (el) => el.properties[colorChangerParam]
+              );
+              colorParamArray = colorParamArray.sort((a, b) => a - b);
+              const maxRange = colorParamArray[colorParamArray.length - 1];
+              featCollectionPolygonForVector.features.forEach((el: any) => {
+                const bairro = L.geoJSON(el.geometry as any);
+                bairro.setStyle({
+                  color: darkenColor(
+                    mapStore.layersCurrentVision[
+                      mapStore.layersCurrentVision.length - 1
+                    ].color,
+                    (el.properties[colorChangerParam] / maxRange) * 100
+                  ),
+                  fillOpacity: 0.7,
+                  className: `layer-polygon-${mapStore.currentLayerName}`,
+                });
+                bairro.setZIndex(10);
+                bairro
+                  .on("click", (event: any) => {
+                    callPropertiesLayerByLocation(value, el._id).then((res) => {
+                      L.popup()
+                        .setLatLng(event.latlng)
+                        .setContent(
+                          `<div class="map-popup-container">
+                  <div id="popup" class="-map-popup-title">
+                  <ul>
+                  ${trataDataProperties(res)}
+                  </ul>
+                  </div>
+               </div>`
+                        )
+                        .openOn(mapAPI);
+                    });
+                  })
+                  .on("mouseover", (event) => {
+                    bairro.setStyle({
+                      stroke: true,
+                      color: darkenColor(
+                        mapStore.layersCurrentVision[
+                          mapStore.layersCurrentVision.length - 1
+                        ].color,
+                        1
+                      ),
+                      fillColor: darkenColor(
+                        mapStore.layersCurrentVision[
+                          mapStore.layersCurrentVision.length - 1
+                        ].color,
+                        1
+                      ),
+                      fillOpacity: 0.3,
+                    });
+                  })
+                  .on("mouseout", (event) => {
+                    bairro.setStyle({
+                      color: darkenColor(
+                        mapStore.layersCurrentVision[
+                          mapStore.layersCurrentVision.length - 1
+                        ].color,
+                        (el.properties[colorChangerParam] / maxRange) * 100
+                      ),
+                      fillColor: darkenColor(
+                        mapStore.layersCurrentVision[
+                          mapStore.layersCurrentVision.length - 1
+                        ].color,
+                        (el.properties[colorChangerParam] / maxRange) * 100
+                      ),
+                      fillOpacity: 0.7,
+                      className: `layer-polygon-${mapStore.currentLayerName}`,
+                    });
+                  });
+                bairro.addTo(mapAPI);
+              });
+            } else {
+              color = element.color;
+              tilesPolygon.value = new VT(featCollectionPolygonForVector, {
+                maxZoom: 18,
+                tolerance: 50,
+                bug: true,
+                indexMaxPoints: 100000,
+                className: `layer-polygon-${mapStore.currentLayerName}`,
+                properties: "",
+                zIndex: 850,
+                pane: "tilePane",
+                style: {
+                  color: color,
+                  fillColor: color,
+                  fillOpacity: 0.7,
+                },
+              });
+              tilesPoint.value = new VT(featCollectionPointVector, {
+                maxZoom: 18,
+                tolerance: 50,
+                bug: true,
+                indexMaxPoints: 100000,
+                className: `layer-point-${mapStore.currentLayerName}`,
+                style: {
+                  color: color,
+                  fillColor: color,
+                  fillOpacity: 0.7,
+                },
+              });
+              tilesPolygon.value.addTo(mapAPI);
+              tilesPoint.value.addTo(mapAPI);
+              mapStore.setCountLayerRender(contador, element.name);
+            }
           } else {
             if (value === "nonBuiltArea") {
               tilePolygonVazios.value = new VT(featCollectionPolygonForVector, {
@@ -529,6 +639,10 @@ onBeforeMount(async () => {
     },
     { immediate: false, deep: false, flush: "post" }
   );
+
+  const sigmoid = (x: number) => {
+    return 1 / (1 + Math.exp(-x));
+  };
 
   watch(
     () => mapStore.getRadius,
@@ -669,6 +783,25 @@ onBeforeMount(async () => {
       layerPolygon.addTo(mapAPI.setView(coord, zoom));
     }
   );
+
+  function darkenColor(color: string, percent: number) {
+    var num = parseInt(color.replace("#", ""), 16),
+      amt = Math.round(2.55 * (100 - percent)),
+      R = (num >> 16) + amt,
+      B = ((num >> 8) & 0x00ff) + amt,
+      G = (num & 0x0000ff) + amt;
+    return (
+      "#" +
+      (
+        0x1000000 +
+        (R < 255 ? (R < 1 ? 0 : R) : 255) * 0x10000 +
+        (B < 255 ? (B < 1 ? 0 : B) : 255) * 0x100 +
+        (G < 255 ? (G < 1 ? 0 : G) : 255)
+      )
+        .toString(16)
+        .slice(1)
+    );
+  }
 
   watch(
     () => mapStore.layersCurrentVision,
