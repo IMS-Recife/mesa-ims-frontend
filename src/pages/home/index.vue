@@ -99,6 +99,9 @@ const onBurgerButtonClick = (): void => {
 
         <template #footer>
           <LinkSmall> Ver perfil completo </LinkSmall>
+          <LinkSmall href="https://github.com/IMS-Recife/mesa-ims-frontend">
+            Ver informações técnicas
+          </LinkSmall>
         </template>
       </InfoModal>
 

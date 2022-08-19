@@ -81,8 +81,7 @@ const layersCategories = [...layersCategoriesAllRecife];
       <div class="box-header">
         <Title title="Configurando o Mapa" />
         <TextBodyMedium>
-          Para uma melhor experiência, nos diga como você gostaria de ver o
-          mapa.
+          Para uma melhor experiência, nos diga como você gostaria de ver o mapa.
         </TextBodyMedium>
       </div>
 
@@ -101,9 +100,7 @@ const layersCategories = [...layersCategoriesAllRecife];
         <div class="select-area-tools">
           <ButtonIconCheck
             :path="
-              mapStore.isActiveMarkerMap
-                ? pin_control_option
-                : pin_control_option_off
+              mapStore.isActiveMarkerMap ? pin_control_option : pin_control_option_off
             "
             width="40px"
             height="32px"
@@ -141,10 +138,7 @@ const layersCategories = [...layersCategoriesAllRecife];
           {{ finishConfig.label }}
         </Button>
       </div>
-      <LayersCollapseContainer
-        :layersCategories="layersCategories"
-        title="Camadas"
-      />
+      <LayersCollapseContainer :layersCategories="layersCategories" title="Camadas" />
     </div>
   </div>
 </template>

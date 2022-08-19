@@ -74,6 +74,7 @@ watch(
         }
         ui.toggleLoading(false);
       });
+      console.log("Zones", zones.value);
       projectStore.setProjectZones(zones.value);
     }
   }

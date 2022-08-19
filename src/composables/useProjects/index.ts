@@ -21,7 +21,7 @@ export async function getProjectForName(name: string) {
   const projectStore = useProjects();
   apiGetProjectForName(name)
     .then((response) => {
-      projectStore.setCurrentProject(response.data[0]);
+      projectStore.setCurrentProject(response.data.find((element: any) => element.name === "Parque Capibaribe"));
     })
     .catch((error) => {
       console.log(error);

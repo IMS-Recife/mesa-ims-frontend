@@ -1,18 +1,21 @@
 <script setup lang="ts">
-  interface Props {
-    href: string;
-  }
-  const props = withDefaults(defineProps<Props>(), {
-    href: "/"
-  });
+interface Props {
+  href: string;
+}
+const props = withDefaults(defineProps<Props>(), {
+  href: "/",
+});
+onBeforeMount(() => {
+  console.log("HREF", props.href);
+});
 </script>
 
 <template>
-  <router-link :to="props.href">
+  <a :href="props.href" :target="props.href === '/' ? '' : '_blank'">
     <p class="link-small">
       <slot></slot>
     </p>
-  </router-link>
+  </a>
 </template>
 
 <style lang="scss" scoped>

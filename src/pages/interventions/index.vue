@@ -10,6 +10,7 @@ import { apiGetListProjects, apiDeleteProject } from "@/services/projects";
 import TableLite from "vue3-table-lite/ts";
 import { useUIStore } from "@/stores/ui";
 
+const router = useRouter();
 const ui = useUIStore();
 
 const nameSearch = ref("");
@@ -160,6 +161,10 @@ const closeDeleteProjectModal = (): void => {
   projectId.value = "";
   isDeleteProjectModalOpen.value = false;
 };
+
+const redirectProjectsPage = (): void => {
+  router.push("/projects");
+};
 </script>
 
 <template>
@@ -252,10 +257,7 @@ const closeDeleteProjectModal = (): void => {
         </div>
         <hr />
         <div class="map-toggle-and-filters-wrapper">
-          <div class="map-toggle-wrapper">
-            <Label> Ativar visualização no mapa </Label>
-            <Toggle />
-          </div>
+          <Button class="-primary" @click="redirectProjectsPage()">Ver no mapa</Button>
 
           <div class="selected-filters-wrapper"></div>
         </div>
@@ -369,16 +371,7 @@ const closeDeleteProjectModal = (): void => {
       }
 
       > .map-toggle-and-filters-wrapper {
-        @apply flex justify-between items-center text-neutrals-darkgrey-dark my-[24px] mx-6;
-
-        > .map-toggle-wrapper {
-          @apply flex items-center;
-
-          > label {
-            @apply mr-2;
-            white-space: nowrap;
-          }
-        }
+        @apply flex items-end justify-end text-neutrals-darkgrey-dark my-[24px] mx-6;
       }
 
       > .search-fields {

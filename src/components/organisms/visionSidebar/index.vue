@@ -160,12 +160,10 @@ function removeAllMapLayers() {
         link="http://parquecapibaribe.org/"
       />
       <div v-if="route.path === '/projects'" class="content-zones">
-        <Label class="text-brand-secondary-medium"
-          >Visualizar por Categorias
-        </Label>
+        <Label class="text-brand-secondary-medium">Visualizações</Label>
         <Toggle
           v-for="item in projectStore.projectZones"
-          :text-label="dicionary(item.label)"
+          :textLabel="dicionary(item.label)"
           @update:value="item.function"
         />
       </div>
@@ -178,10 +176,14 @@ function removeAllMapLayers() {
           :value-model="true"
         />
       </div>
-      <Button class="-primary" @click="removeAllMapLayers()"
+      <Button
+        v-if="route.path !== '/projects'"
+        class="-primary"
+        @click="removeAllMapLayers()"
         >Remover todas as camadas</Button
       >
       <LayersCollapseContainer
+        v-if="route.path !== '/projects'"
         :layersCategories="layersCategories"
         title="Camadas"
       />
