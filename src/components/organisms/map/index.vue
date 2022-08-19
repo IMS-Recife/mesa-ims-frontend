@@ -46,7 +46,8 @@ const searchAreaItem: GeoJson = {
 const searchAreasIndicators: GeoJson[] = [searchAreaItem];
 
 const isCategory = (layerCategory: any) => {
-  let LayersCategories = ["Indicadores", "Mobilidade"];
+  console.log(layerCategory);
+  let LayersCategories = ["Indicadores", "Mobilidade", "Zoneamento"];
   return LayersCategories.includes(layerCategory);
 };
 
@@ -310,7 +311,12 @@ onBeforeMount(async () => {
         let color = "#7A577A";
 
         if (responseShowLayer[value].length <= 0) {
-          ui.setSnackbar(true, "", "Não há dados catalogados nessa região.", "error");
+          ui.setSnackbar(
+            true,
+            "",
+            "Não há dados catalogados nessa região.",
+            "error"
+          );
         }
 
         let contador = 0;
@@ -483,8 +489,9 @@ onBeforeMount(async () => {
                 const bairro = L.geoJSON(el.geometry as any);
                 bairro.setStyle({
                   color: darkenColor(
-                    mapStore.layersCurrentVision[mapStore.layersCurrentVision.length - 1]
-                      .color,
+                    mapStore.layersCurrentVision[
+                      mapStore.layersCurrentVision.length - 1
+                    ].color,
                     (el.properties[colorChangerParam] / maxRange) * 100
                   ),
                   fillOpacity: 0.7,

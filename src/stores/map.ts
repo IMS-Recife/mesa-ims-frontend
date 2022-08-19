@@ -208,6 +208,9 @@ export const useMapStore = defineStore("map", {
 
       if (layer) {
         switch (layer) {
+          case "Plano Diretor":
+            this.setLayersCurrentVision(layer, "#535c68");
+            break;
           case "Misto":
             this.setLayersCurrentVision(layer, "#6A5ACD");
             break;
