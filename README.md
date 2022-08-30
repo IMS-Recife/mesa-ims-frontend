@@ -1,8 +1,8 @@
-# Documentação:
+# Documentação
 
-## Estrutura de pastas:
+## Estrutura de pastas
   
-### Src (arquivos de código):
+### Src (arquivos de código)
 
 #### assets:
 > Arquivos estáticos de imagens, icones, etc.
@@ -37,7 +37,7 @@
 * `map`: estados utilizados no mapa.
 * `projects`: estados utilizados nos projetos.
 * `ui`: estados utilizados na interface do usuário.
-### themes (arquivos de temas):
+### themes (arquivos de temas)
 >Dentro desta pasta temos os arquivos de tema, que na prática são objetos que definem as variações de cores e fonte que são utilizadas no CSS através do windicss.
 * `default`: arquivos do tema padrão
   * `index.ts`: arquivo que exporta todas as definições de tema (cores e tipografia)
