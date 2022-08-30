@@ -84,7 +84,11 @@
   - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
   
 ### Como adicionar uma nova camada:
+
+## FRONT-END
+
 Para adicionar nova categoria de camada, deve-se abrir o arquivo index.vue na pasta visionSidebar. Dentro deste arquivo temos uma constante nomeada como layersCategories, que recebe um array de objetos com a seguinte estrutura:
+
 ```
 const layersCategories = [
   {
@@ -117,3 +121,20 @@ Após ser adicionada uma nova camada no array **layersCategories**, aparecerá u
 Além disso, para que quando a checkbox for selecionada, a requisição para receber os dados da camada seja feita e os dados sejam mostrados no mapa, é necessário adicionar um novo caso (case) no switch correspondente à categoria que se deseja criar a camada dentro do arquivo **layer.vue**.
 
 Finalmente, deve-se ir no arquivo **map.ts**, dentro da pasta store, e adicionar o caso (case) dentro da função **setLayerName**, onde será definida a cor que a camada terá dentro do sistema.
+
+## BACK-END
+
+Para adicionar uma nova camada no backend-end, deve-se seguir os seguintes passos:
+
+1. Você deve criar um novo tipo no Enum de camadas. Esse nome servirá para ser usado no front-end para chamar a camada que será usada e servirá também para ser a collection;
+
+2. criar um schema e document ( são o mesmo arquivo), mas você irá exportar nesse mesmo arquivo o próprio schema e um LayerDocument;
+
+3. feito o schema e o document, você irá no location.module, que é o arquivo que as entidades/schemas devem ser referenciadas ao ORM que está sendo usado, e a partir disso ele irá refletir no banco de dados usado. Nesse arquivo você terá que importar e adicionar na parte de schemas os novos schemas e documents criados para a nova camada
+
+4. feito os passos anteriores, vai ser necessário criar um método no service de locations, e o padrão de nomenclatura usado é **getNovaCamada**. Esse método deve ser apontado nos tipos acima, e esse tipo é o juramento o criado no Enum no passo 1. Esse método só irá receber um parâmetro, o  "queryObj", e vai chamar o repository. Geralmente o nome do método do service é o mesmo nome do repository ( muito provavelmente o repository não existe ainda);
+
+5. deve-se criar o método no location.repository. esse método também segue o mesmo padrão dos demais acima dele. Ele vai receber apenas o queryObj e chamar a camada no banco
+Nessa parte é importante se atentar ao tipo de retorno deste método que geralmente é um vetor do schema da camada, que deve ser importado e instanciado no início do arquivo, e nessa instancia você cria uma variável que geralmente recebe o nome modelNovaCamada, mas é apenas a instância do schema da camada
+
+6. finalmente, basta salvar, e inicializar o projeto. Após inicializado, ao entrar no banco haverá uma nova collection criada, essa collection estará vazia e a mesma é onde deverá importar os dados GeoJson.
