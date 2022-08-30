@@ -47,16 +47,16 @@
 
 ## Bibliotecas e frameworks utilizados
 
-- ⚡️ [Vue 3](https://github.com/vuejs/vue-next), [Vite 2](https://github.com/vitejs/vite), [pnpm](https://pnpm.js.org/), [ESBuild](https://github.com/evanw/esbuild) - born with fastness
+- [Vue 3](https://github.com/vuejs/vue-next), [Vite 2](https://github.com/vitejs/vite), [pnpm](https://pnpm.js.org/), [ESBuild](https://github.com/evanw/esbuild) - born with fastness
 
-- 🍍 [State Management via Pinia](https://pinia.esm.dev/)
+- [State Management via Pinia](https://pinia.esm.dev/)
 
-- 🎨 [Windi CSS](https://github.com/windicss/windicss) - next generation utility-first CSS framework
-- 🔥 Use the [new `<script setup>` syntax](https://github.com/vuejs/rfcs/pull/227)
+-  [Windi CSS](https://github.com/windicss/windicss) - next generation utility-first CSS framework
+-  Use the [new `<script setup>` syntax](https://github.com/vuejs/rfcs/pull/227)
 
-- 📥 [APIs auto importing](https://github.com/antfu/unplugin-auto-import) - use Composition API and others directly
+-  [APIs auto importing](https://github.com/antfu/unplugin-auto-import) - use Composition API and others directly
 
-- 🖨 Server-side generation (SSG) via [vite-ssg](https://github.com/antfu/vite-ssg)
+-  Server-side generation (SSG) via [vite-ssg](https://github.com/antfu/vite-ssg)
 
 - [Iconify](https://iconify.design) - use icons from any icon sets 
 - [`unplugin-icons`](https://github.com/antfu/unplugin-icons) - icons as Vue components
